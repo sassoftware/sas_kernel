@@ -5,7 +5,7 @@ import json
 import os
 import sys
 
-kernel_json = {"argv":[sys.executable,"-m","sas_kernel", "-f", "{connection_file}"],
+kernel_json = {"argv":["python3.4","-m","sas_kernel", "-f", "{connection_file}"],
  "display_name":"SAS",
  #"codemirror_mode":"shell",
  #"env":{"PS1": "$"},
