@@ -21,7 +21,7 @@ import os
 import sys
 
 kernel_json = {"argv":["python3.4","-m","sas_kernel", "-f", "{connection_file}"],
- "display_name":"SAS",
+ "display_name":"SAS pip",
  #"codemirror_mode":"shell",
  #"env":{"PS1": "$"},
  "language":"SAS"
