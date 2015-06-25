@@ -93,10 +93,17 @@ class SASKernel(Kernel):
         submit_post=str('")')
         sas_log=str('pysas.getlog()')
         sas_lst=str('pysas.getlst()')
+
+        #remove whitespace characters
+        remap = {
+            ord('\t') : ' ',
+            ord('\f') : ' ',
+            ord('\r') : None
+        }
         #code='proc print data=sashelp.class; run;'
         try:
-            rc = self.saswrapper.run_command(submit_pre + code.rstrip() + submit_post, timeout=None)
-            time.sleep(3)
+            rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeout=None)
+            time.sleep(1)
             output=self.saswrapper.run_command(sas_lst, timeout=None)
             print ('rc' + rc)
             print ('output' + output)
