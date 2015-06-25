@@ -92,8 +92,11 @@ class SASKernel(Kernel):
             # block until log send EOF
             time.sleep(1) # this is a kludge
 
-            log=self.saswrapper.run_command(sas_log, timeout=None)
-            output=self.saswrapper.run_command(sas_lst, timeout=None).decode('utf8')
+            lg=self.saswrapper.run_command(sas_log, timeout=None)
+            log=lg.decode('utf8')
+            o=self.saswrapper.run_command(sas_lst, timeout=None)
+            output=o.decode('utf8')
+
 
 
             print ('code: ' + submit_pre + code.translate(remap) + submit_post)
