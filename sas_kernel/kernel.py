@@ -29,11 +29,11 @@ __version__ = '0.1'
 
 version_pat = re.compile(r'version (\d+(\.\d+)+)')
 
-'''
+
 from .images import (
     extract_image_filenames, display_data_for_image, image_setup_cmd
 )
-'''
+
 
 class SASKernel(Kernel):
     implementation = 'sas_kernel'
