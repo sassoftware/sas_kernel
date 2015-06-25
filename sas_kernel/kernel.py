@@ -83,6 +83,8 @@ class SASKernel(Kernel):
             rc = self.saswrapper.run_command(submit_pre + code.rstrip() + submit_post, timeout=None)
             time.sleep(3)
             output=self.saswrapper.run_command(sas_lst, timeout=None)
+            print ('rc' + rc)
+            print ('output' + output)
         except KeyboardInterrupt:
             self.saswrapper.child.sendintr()
             interrupted = True
