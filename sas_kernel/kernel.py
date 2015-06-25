@@ -84,8 +84,7 @@ class SASKernel(Kernel):
             ord('\t') : ' ',
             ord('\f') : ' ',
             ord('\r') : None,
-            ord('\n') : None,
-            ord('\r\n'):None
+            ord('\n') : None
         }
         #code='proc print data=sashelp.class; run;'
         try:
