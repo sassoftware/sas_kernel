@@ -93,9 +93,11 @@ class SASKernel(Kernel):
             time.sleep(1) # this is a kludge
 
             lg=self.saswrapper.run_command(sas_log, timeout=None)
-            log=lg.decode('utf8')
+            lg2=lg.encode('utf8')
+            log=lg2.decode('utf8')
             o=self.saswrapper.run_command(sas_lst, timeout=None)
-            output=o.decode('utf8')
+            o2=o.encode('utf8')
+            output=o2.decode('utf8')
 
 
 
