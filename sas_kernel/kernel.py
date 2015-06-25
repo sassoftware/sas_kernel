@@ -98,15 +98,20 @@ class SASKernel(Kernel):
         remap = {
             ord('\t') : ' ',
             ord('\f') : ' ',
-            ord('\r') : None
+            ord('\r') : None,
+            ord('\n') : None,
+            ord('\r\n'):None
         }
         #code='proc print data=sashelp.class; run;'
         try:
             rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeout=None)
             time.sleep(1)
+            log=self.saswrapper.run_command(sas_log, timeout=None)
             output=self.saswrapper.run_command(sas_lst, timeout=None)
-            print ('rc' + rc)
-            print ('output' + output)
+            print ('code: ' + submit_pre + code.translate(remap) + submit_post)
+            print ('rc: ' + rc)
+            print ('log: ' + log)
+            print ('output: ' + output)
         except KeyboardInterrupt:
             self.saswrapper.child.sendintr()
             interrupted = True
