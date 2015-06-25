@@ -24,6 +24,7 @@ import imghdr
 import re
 import signal
 import urllib
+import time
 
 __version__ = '0.1'
 
