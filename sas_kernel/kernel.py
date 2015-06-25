@@ -104,9 +104,13 @@ class SASKernel(Kernel):
         #code='proc print data=sashelp.class; run;'
         try:
             rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeout=None)
-            time.sleep(1)
+            # block until log send EOF
+            time.sleep(1) # this is a kludge
+
             log=self.saswrapper.run_command(sas_log, timeout=None)
-            output=self.saswrapper.run_command(sas_lst, timeout=None)
+            output=self.saswrapper.run_command(sas_lst, timeout=None).decode('utf8')
+
+
             print ('code: ' + submit_pre + code.translate(remap) + submit_post)
             print ('rc: ' + rc)
             print ('log: ' + log)
