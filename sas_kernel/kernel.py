@@ -57,7 +57,8 @@ class SASKernel(Kernel):
             #create a shell session
             self.saswrapper = replwrap.python(command="python3.4")
             # start a SAS session within python bound to the shell session
-            startsas=self.saswrapper.run_command("from IPython.display import HTML")
+            #startsas=self.saswrapper.run_command("from IPython.display import HTML")
+            startsas=self.saswrapper.run_command("from IPython.display import display")
             #add path to Tom's playpen. Remove before production
             startsas=self.saswrapper.run_command("import sys")
             startsas=self.saswrapper.run_command("sys.path.append('/root/tom')")
