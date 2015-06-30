@@ -119,6 +119,7 @@ class SASKernel(Kernel):
             output = self.saswrapper.child.before + 'Restarting SAS'
             self._start_sas()
 
+        '''
         if not silent:
             image_filenames, output = extract_image_filenames(output)
 
@@ -135,7 +136,7 @@ class SASKernel(Kernel):
                     self.send_response(self.iopub_socket, 'stream', message)
                 else:
                     self.send_response(self.iopub_socket, 'display_data', data)
-
+        '''
         if interrupted:
             return {'status': 'abort', 'execution_count': self.execution_count}
 
