@@ -72,8 +72,11 @@ class SASKernel(Kernel):
             #create a shell session
             self.saswrapper = replwrap.python(command="python3.4")
             # start a SAS session within python bound to the shell session
-            #startsas=self.saswrapper.run_command("python3.4")
-            startsas=self.saswrapper.run_command("import pysas")
+            startsas=self.saswrapper.run_command("from IPython.display import HTML")
+            #add path to Tom's playpen. Remove before production
+            startsas=self.saswrapper.run_command("import sys")
+            startsas=self.saswrapper.run_command("sys.path.append('/root/tom')")
+            startsas=self.saswrapper.run_command("from SAS import mva")
             startsas=self.saswrapper.run_command('pysas.startsas("hi")')
         finally:
             signal.signal(signal.SIGINT, sig)
@@ -89,10 +92,10 @@ class SASKernel(Kernel):
                     'payload': [], 'user_expressions': {}}
  
         interrupted = False
-        submit_pre=str('pysas.submit("')
+        submit_pre=str('mva.submit("')
         submit_post=str('")')
-        sas_log=str('pysas.getlog()')
-        sas_lst=str('pysas.getlst()')
+        sas_log=str('mva.getlog()')
+        sas_lst=str('mva.getlst()')
 
         #remove whitespace characters
         remap = {
@@ -105,15 +108,11 @@ class SASKernel(Kernel):
         try:
             rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeout=None)
             # block until log send EOF
-            time.sleep(1) # this is a kludge
+            #time.sleep(1) # this is a kludge
 
-            lg=self.saswrapper.run_command(sas_log, timeout=None)
-            lg2=lg.encode('utf8')
-            log=lg2.decode('utf8')
-            o=self.saswrapper.run_command(sas_lst, timeout=None)
-            o2=o.encode('utf8')
-            output=o2.decode('utf8')
-
+            log=self.saswrapper.run_command(sas_log, timeout=None)
+            output=self.saswrapper.run_command(sas_lst, timeout=None)
+            
 
 
             print ('code: ' + submit_pre + code.translate(remap) + submit_post)
