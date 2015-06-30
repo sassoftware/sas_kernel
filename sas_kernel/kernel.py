@@ -14,7 +14,11 @@
 #  limitations under the License.
 #
 from IPython.kernel.zmq.kernelbase import Kernel
+from IPython.display import HTML
+from IPython.display import Image
 from pexpect import replwrap, EOF
+from metakernel import MetaKernel
+
 
 from subprocess import check_output
 from os import unlink
@@ -73,7 +77,6 @@ class SASKernel(Kernel):
             self.saswrapper = replwrap.python(command="python3.4")
             # start a SAS session within python bound to the shell session
             #startsas=self.saswrapper.run_command("from IPython.display import HTML")
-            startsas=self.saswrapper.run_command("from IPython.display import display")
             #add path to Tom's playpen. Remove before production
             startsas=self.saswrapper.run_command("import sys")
             startsas=self.saswrapper.run_command("sys.path.append('/root/tom')")
@@ -112,14 +115,15 @@ class SASKernel(Kernel):
             #time.sleep(1) # this is a kludge
 
             log=self.saswrapper.run_command(sas_log, timeout=None)
-            output=self.saswrapper.run_command(sas_lst, timeout=None)
-            
+            output=HTML(self.saswrapper.run_command(sas_lst, timeout=None))
+            self.log.debug('execute: %s' % code)
 
 
             print ('code: ' + submit_pre + code.translate(remap) + submit_post)
             print ('rc: ' + rc)
             print ('log: ' + log)
             print ('output: ' + output)
+            print ("output type:" + type(output))
         except KeyboardInterrupt:
             self.saswrapper.child.sendintr()
             interrupted = True
@@ -198,5 +202,11 @@ class SASKernel(Kernel):
         return {'matches': sorted(matches), 'cursor_start': start,
                 'cursor_end': cursor_pos, 'metadata': dict(),
                 'status': 'ok'}
+
+    def do_shutdown(restart):
+        if restart:
+            self.saswrapper.run_command('mva.submit(";endsas;")')
+
+
 
 
