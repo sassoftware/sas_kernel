@@ -106,10 +106,13 @@ class SASKernel(Kernel):
 
             print ('code: ' + submit_pre + code.translate(remap) + submit_post)
             print ('rc: ' + rc)
-            print ('log: ' + log)
+            type(log)
+            #print ('log: ' + log)
             #print ('output: ' + output)
             print ("output type:")  
             type(output)
+
+            print('Silent: ' + silent)
         except KeyboardInterrupt:
             self.saswrapper.child.sendintr()
             interrupted = True
