@@ -1,9 +1,9 @@
 from IPython.kernel.zmq.kernelbase import Kernel
-from IPython.display import HTML
+from IPython.display import HTML, display
 from IPython.display import Image
 from pexpect import replwrap, EOF
 from metakernel import MetaKernel
-
+from IPython.utils.jsonutil import json_clean, encode_images
 
 from subprocess import check_output
 from os import unlink
@@ -82,7 +82,7 @@ class SASKernel(Kernel):
  
         interrupted = False
         submit_pre=str('mva.submit("')
-        submit_post=str('")')
+        submit_post=str('","html")')
         sas_log=str('mva.getlog()')
         sas_lst=str('mva.getlst()')
 
@@ -96,23 +96,27 @@ class SASKernel(Kernel):
         #code='proc print data=sashelp.class; run;'
         try:
             rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeout=None)
+            time.sleep(.5)
             # block until log send EOF
-            #time.sleep(1) # this is a kludge
+            # blocking is done automatically for HTML output b/c it can look for closing html tag
 
-            log=self.saswrapper.run_command(sas_log, timeout=None)
-            output=HTML(self.saswrapper.run_command(sas_lst, timeout=None))
+
+            log=self.saswrapper.run_command(sas_log,timeout=None)
+            output=self.saswrapper.run_command(sas_lst,timeout=None)
+            if output.startswith('\''):
+               re.sub(r'^\'',r'^', output)
+               print ("startswith")
+            if output.endswith('\''):
+               re.sub(r'\'$',r'$', output)
+               print("endswith")
             self.log.debug('execute: %s' % code)
 
 
             print ('code: ' + submit_pre + code.translate(remap) + submit_post)
             print ('rc: ' + rc)
             type(log)
-            #print ('log: ' + log)
-            #print ('output: ' + output)
-            print ("output type:")  
-            type(output)
-
-            print('Silent: ' + silent)
+            print ("Output type: " + str(type(output)))
+            print('Silent: ' + str(silent))
         except KeyboardInterrupt:
             self.saswrapper.child.sendintr()
             interrupted = True
@@ -121,25 +125,24 @@ class SASKernel(Kernel):
         except EOF:
             output = self.saswrapper.child.before + 'Restarting SAS'
             self._start_sas()
+        
+        if len(output)>0: #not silent:
+            output = output.replace('\\n', chr(ord('\n'))).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
+            #print(output)
+            newcontent={'source':'Kernel','data':{'text/plain':'<IPython.core.display.HTML object>','text/html': output},'metadata':{}}
+            #newcontent={'source':"Kernel",'data':{'text/html': 'output'},'metadata':{}}
+            self.send_response(self.iopub_socket, 'display_data', newcontent)
+            print ("Output type (not silent): " + str(type(output)))
 
-        '''
-        if not silent:
-            image_filenames, output = extract_image_filenames(output)
+        else:
+            log = log.replace('\\n', chr(ord('\n'))).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
+            #print(output)
+            newcontent={'source':'Kernel','data':{'text/plain':'<IPython.core.display.HTML object>','text/html': log},'metadata':{}}
+            #newcontent={'source':"Kernel",'data':{'text/html': 'output'},'metadata':{}}
+            self.send_response(self.iopub_socket, 'display_data', newcontent)
 
-            # Send standard output
-            stream_content = {'name': 'stdout', 'text': output}
-            self.send_response(self.iopub_socket, 'stream', stream_content)
+            
 
-            # Send images, if any
-            for filename in image_filenames:
-                try:
-                    data = display_data_for_image(filename)
-                except ValueError as e:
-                    message = {'name': 'stdout', 'text': str(e)}
-                    self.send_response(self.iopub_socket, 'stream', message)
-                else:
-                    self.send_response(self.iopub_socket, 'display_data', data)
-        '''
         if interrupted:
             return {'status': 'abort', 'execution_count': self.execution_count}
 

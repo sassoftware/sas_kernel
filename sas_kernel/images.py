@@ -15,6 +15,7 @@ display () {
 """ % _TEXT_SAVED_IMAGE
 
 def display_data_for_image(filename):
+    print ("")
     with open(filename, 'rb') as f:
         image = f.read()
     os.unlink(filename)
