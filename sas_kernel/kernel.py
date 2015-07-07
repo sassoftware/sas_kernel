@@ -80,7 +80,7 @@ class SASKernel(Kernel):
             #add path to Tom's playpen. Remove before production
             startsas=self.saswrapper.run_command("import sys")
             startsas=self.saswrapper.run_command("sys.path.append('/root/tom')")
-            startsas=self.saswrapper.run_command("from SAS import mva")
+            startsas=self.saswrapper.run_command("from pysas import mva")
             startsas=self.saswrapper.run_command('mva.startsas("")')
         finally:
             signal.signal(signal.SIGINT, sig)
