@@ -53,7 +53,7 @@ setup(name='SAS_kernel',
       #url='https://github.com/takluyver/bash_kernel',
       packages=['sas_kernel'],
       cmdclass={'install': install_with_kernelspec},
-      install_requires=['pexpect>=3.3','pysas'],
+      install_requires=['pexpect>=3.3','saspy'],
       classifiers = [
       #    'License :: OSI Approved :: BSD License',
       #    'Programming Language :: Python :: 3',
