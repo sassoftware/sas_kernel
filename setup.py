@@ -6,19 +6,11 @@ import os
 import sys
 
 kernel_json = {"argv":["sys.executable","-m","sas_kernel", "-f", "{connection_file}"],
- "display_name":"SAS pip",
+ "display_name":"SAS",
  "codemirror_mode":"shell",
  #"env":{"PS1": "$"},
  "language":"sas"
 }
-'''
-kernel_json = {"argv":["python3.4","-m","sas_kernel", "-f", "{connection_file}"],
- "display_name":"SAS pip",
- #"codemirror_mode":"shell",
- #"env":{"PS1": "$"},
- "language":"SAS"
-}
-'''
 class install_with_kernelspec(install):
     def run(self):
         # Regular installation
