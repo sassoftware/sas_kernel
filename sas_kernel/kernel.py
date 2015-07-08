@@ -20,9 +20,9 @@ __version__ = '0.1'
 version_pat = re.compile(r'version (\d+(\.\d+)+)')
 
 
-from .images import (
-    extract_image_filenames, display_data_for_image, image_setup_cmd
-)
+#from .images import (
+#    extract_image_filenames, display_data_for_image, image_setup_cmd
+#)
 
 
 class SASKernel(Kernel):
@@ -44,7 +44,7 @@ class SASKernel(Kernel):
 
     language_info = {'name': 'sas',
                      #'codemirror_mode': 'shell',
-                     #'mimetype': 'text/x-sh',
+                     'mimetype': 'text/plain',
                      'file_extension': '.sas'}
 
     def __init__(self, **kwargs):
@@ -62,16 +62,15 @@ class SASKernel(Kernel):
             self.saswrapper = replwrap.python(command="python3.4")
             # start a SAS session within python bound to the shell session
             #startsas=self.saswrapper.run_command("from IPython.display import HTML")
-            #add path to Tom's playpen. Remove before production
-            startsas=self.saswrapper.run_command("import sys")
-            startsas=self.saswrapper.run_command("sys.path.append('/root/tom')")
-            startsas=self.saswrapper.run_command("from pysas import mva")
+            startsas=self.saswrapper.run_command("from saspy import mva")
+            print(startsas)
             startsas=self.saswrapper.run_command('mva.startsas("")')
+            print(startsas)
         finally:
             signal.signal(signal.SIGINT, sig)
 
         # Register sas function to write image data to temporary file
-        self.saswrapper.run_command(image_setup_cmd)
+        #self.saswrapper.run_command(image_setup_cmd)
 
     def do_execute(self, code, silent, store_history=True,
                    user_expressions=None, allow_stdin=False):
@@ -103,9 +102,9 @@ class SASKernel(Kernel):
 
             log=self.saswrapper.run_command(sas_log,timeout=None)
             output=self.saswrapper.run_command(sas_lst,timeout=None)
-            if output.startswith('\''):
-               re.sub(r'^\'',r'^', output)
-               print ("startswith")
+            #if output.startswith('\''):
+            #   re.sub(r'^\'',r'^', output)
+            #   print ("startswith")
             if output.endswith('\''):
                re.sub(r'\'$',r'$', output)
                print("endswith")
