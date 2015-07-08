@@ -54,7 +54,7 @@ class SASKernel(Kernel):
     @property
     def banner(self):
         if self._banner is None:
-            self._banner = check_output(['python3.4', '--version']).decode('utf-8')
+            self._banner = check_output(['/root/anaconda3/bin/python3.4', '--version']).decode('utf-8')
         return self._banner
 
     language_info = {'name': 'sas',
@@ -74,7 +74,7 @@ class SASKernel(Kernel):
         sig = signal.signal(signal.SIGINT, signal.SIG_DFL)
         try:
             #create a shell session
-            self.saswrapper = replwrap.python(command="python3.4")
+            self.saswrapper = replwrap.python(command="/root/anaconda3/bin/python3.4")
             # start a SAS session within python bound to the shell session
             #startsas=self.saswrapper.run_command("from IPython.display import HTML")
             startsas=self.saswrapper.run_command("from saspy import mva")
