@@ -78,19 +78,14 @@ class SASKernel(MetaKernel):
             ord('\n') : None
         }
         try:
-            rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeo
-            time.sleep(.5)
-            # block until log send EOF
+            rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeout=None)
+            time.sleep(.5) # block until log send EOF
             # blocking is done automatically for HTML output b/c it can look for closing html tag
 
 
             log=self.saswrapper.run_command(sas_log,timeout=None)
             output=self.saswrapper.run_command(sas_lst,timeout=None)
-            #if output.startswith('\''):
-            #   re.sub(r'^\'',r'^', output)
-            #if output.endswith('\''):
-            #   re.sub(r'\'$',r'$', output)
-            #self.log.debug('execute: %s' % code)
+        
             type(log)
 
         except EOF:
@@ -99,8 +94,9 @@ class SASKernel(MetaKernel):
 
         output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         newcontent={'source':"Kernel",'data':{'text/plain':'<IPython.core.display.HTML object>','text/html': output},'metadata':{}}
-        
+           
         return HTML(output)
+
 
     #Get code complete file from EG for this
     def get_completions(self,info):
