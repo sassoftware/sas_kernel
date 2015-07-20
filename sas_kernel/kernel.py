@@ -66,7 +66,7 @@ class SASKernel(MetaKernel):
             #startsas=self.saswrapper.run_command("from IPython.display import HTML")
             startsas=self.saswrapper.run_command("from saspy import pysas34 as mva")
             print(startsas)
-            startsas=self.saswrapper.run_command('mva.startsas("")')
+            startsas=self.saswrapper.run_command('mva.startsas()')
             print(startsas)
         finally:
             signal.signal(signal.SIGINT, sig)
