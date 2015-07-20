@@ -49,7 +49,7 @@ class SASKernel(MetaKernel):
             self.saswrapper = replwrap.python(command="/root/anaconda3/bin/python3.4")
             # start a SAS session within python bound to the shell session
             #startsas=self.saswrapper.run_command("from IPython.display import HTML")
-            startsas=self.saswrapper.run_command("from saspy import mva")
+            startsas=self.saswrapper.run_command("from saspy import pysas34 as mva")
             print(startsas)
             startsas=self.saswrapper.run_command('mva.startsas("")')
             print(startsas)
