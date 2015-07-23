@@ -124,23 +124,22 @@ class SASKernel(MetaKernel):
         logger.debug("LOG Length: " + str(len(log)))
         logger.debug("LST Length: " + str(len(output)))
         #Are there errors in the log? if show the 6 lines on each side of the error
-	lines=re.split(r'[\n]\s*',log)
-	i=0
-	Elog=[]
-	for line in lines:
-    	    i+=1
-    	    if line.startswith('cpu'):
+        lines=re.split(r'[\n]\s*',log)
+        i=0
+        Elog=[]
+        for line in lines:
+            i+=1
+            if line.startswith('cpu'):
                 Elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
-	tlog='\n'.join(Elog)	
-	if len(Elog)==0 and len(output)>5: #no error and LST output
+        tlog='\n'.join(Elog)
+        if len(Elog)==0 and len(output)>5: #no error and LST output
             return HTML(output)
-	elif len(Elog)==0 and len(output)<=5: #no error and no LST
-	    return log
-	elif len(elog)>0 and len(output)<=5: #error and no LST
-	    return tlog
-	else: #errors and LST
-	    return tlog,HTML(output)
-
+        elif len(Elog)==0 and len(output)<=5: #no error and no LST
+            return log
+        elif len(elog)>0 and len(output)<=5: #error and no LST
+    	    return tlog
+    	else: #errors and LST
+    	    return tlog,HTML(output)
 
     #Get code complete file from EG for this
     def get_completions(self,info):
