@@ -30,6 +30,12 @@ import signal
 import urllib
 import time
 
+#Create Logger
+import logging
+logger= logging.getLogger('')
+logger.setLevel(logging.DEBUG)
+
+
 __version__ = '0.1'
 
 version_pat = re.compile(r'version (\d+(\.\d+)+)')
@@ -63,16 +69,12 @@ class SASKernel(MetaKernel):
             #create a shell session
             self.saswrapper = replwrap.python(command="/root/anaconda3/bin/python3.4")
             # start a SAS session within python bound to the shell session
-            #startsas=self.saswrapper.run_command("from IPython.display import HTML")
             startsas=self.saswrapper.run_command("from saspy import pysas34 as mva")
-            print(startsas)
-            startsas=self.saswrapper.run_command('mva.startsas()')
-            print(startsas)
+            logger.debug("startsas: " + str(startsas))
+            startsas=self.saswrapper.run_command('mva._startsas()')
+            logger.debug("startsas2: "+ str(startsas))
         finally:
             signal.signal(signal.SIGINT, sig)
-
-        # Register sas function to write image data to temporary file
-        #self.saswrapper.run_command(image_setup_cmd)
 
     def do_execute_direct(self, code):
 
@@ -80,10 +82,11 @@ class SASKernel(MetaKernel):
             return {'status': 'ok', 'execution_count': self.execution_count,
                     'payload': [], 'user_expressions': {}}
         interrupted = False
-        submit_pre=str('mva.submit("')
-        submit_post=str('","html")')
-        sas_log='mva.getlog()'
-        sas_lst='mva.getlst()'
+        submit_pre=str('mva._submit("')
+        #submit_post=str('","html")')
+        submit_post=str('","text")')
+        sas_log='mva._getlog()'
+        sas_lst='mva._getlst()'
 
         #remove whitespace characters
         remap = {
@@ -96,21 +99,47 @@ class SASKernel(MetaKernel):
             rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeout=None)
             time.sleep(.5) # block until log send EOF
             # blocking is done automatically for HTML output b/c it can look for closing html tag
+            logger.debug("Code: " + submit_pre + code.translate(remap) + submit_post)
 
 
             log=self.saswrapper.run_command(sas_log,timeout=None)
             output=self.saswrapper.run_command(sas_lst,timeout=None)
         
-            type(log)
+            logger.debug("Log Type: " + str(type(log)))
+            logger.debug("LST Type: " + str(type(output)))
+            logger.debug("LOG: " + str(log))
+            logger.debug("LST: " + str(output))
+            logger.debug("LOG Length: " + str(len(log)))
+            logger.debug("LST Length: " + str(len(output)))
 
         except EOF:
             output = self.saswrapper.child.before + 'Restarting SAS'
             self._start_sas()
 
         output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
-        newcontent={'source':"Kernel",'data':{'text/plain':'<IPython.core.display.HTML object>','text/html': output},'metadata':{}}
-           
-        return HTML(output)
+        log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f'))) 
+        #newcontent={'source':"Kernel",'data':{'text/plain':'<IPython.core.display.HTML object>','text/html': output},'metadata':{}}
+        logger.debug("LOG: " + str(log))
+        logger.debug("LST: " + str(output))
+        logger.debug("LOG Length: " + str(len(log)))
+        logger.debug("LST Length: " + str(len(output)))
+        #Are there errors in the log? if show the 6 lines on each side of the error
+	lines=re.split(r'[\n]\s*',log)
+	i=0
+	Elog=[]
+	for line in lines:
+    	    i+=1
+    	    if line.startswith('cpu'):
+                Elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
+	tlog='\n'.join(Elog)	
+	if len(Elog)==0 and len(output)>5: #no error and LST output
+            return HTML(output)
+	elif len(Elog)==0 and len(output)<=5: #no error and no LST
+	    return log
+	elif len(elog)>0 and len(output)<=5: #error and no LST
+	    return tlog
+	else: #errors and LST
+	    return tlog,HTML(output)
 
 
     #Get code complete file from EG for this
@@ -160,7 +189,7 @@ class SASKernel(MetaKernel):
     
     def do_shutdown(self,restart):
         if restart:
-            self.saswrapper.run_command('mva.submit(";endsas;")')
+            self.saswrapper.run_command('mva._submit(";endsas;")')
 
 
 
