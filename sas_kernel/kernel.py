@@ -82,14 +82,14 @@ class SASKernel(MetaKernel):
         }
         try:
             rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeout=None)
-            time.sleep(.5) # block until log send EOF
+            time.sleep(5) # block until log send EOF
             # blocking is done automatically for HTML output b/c it can look for closing html tag
             logger.debug("Code: " + submit_pre + code.translate(remap) + submit_post)
 
 
             log=self.saswrapper.run_command(sas_log,timeout=None)
             output=self.saswrapper.run_command(sas_lst,timeout=None)
-        
+
             logger.debug("Log Type: " + str(type(log)))
             logger.debug("LST Type: " + str(type(output)))
             logger.debug("LOG: " + str(log))
@@ -102,7 +102,7 @@ class SASKernel(MetaKernel):
             self._start_sas()
 
         output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
-        log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f'))) 
+        log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         #newcontent={'source':"Kernel",'data':{'text/plain':'<IPython.core.display.HTML object>','text/html': output},'metadata':{}}
         logger.debug("LOG: " + str(log))
         logger.debug("LST: " + str(output))
@@ -111,20 +111,33 @@ class SASKernel(MetaKernel):
         #Are there errors in the log? if show the 6 lines on each side of the error
         lines=re.split(r'[\n]\s*',log)
         i=0
-        Elog=[]
+        elog=[]
+        debug1=0
         for line in lines:
+            #logger.debug("In lines loop")
             i+=1
-            if line.startswith('cpu'):
-                Elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
-        tlog='\n'.join(Elog)
-        if len(Elog)==0 and len(output)>5: #no error and LST output
+            if line.startswith('ERROR'):
+                logger.debug("In ERROR Condition")
+                elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
+        tlog='\n'.join(elog)
+        logger.debug("elog count: "+str(len(elog))) 
+        logger.debug("tlog: " +str(tlog))
+        if len(elog)==0 and len(output)>5: #no error and LST output
+            debug1=1
+            logger.debug("DEBUG1: " +str(debug1))
             return HTML(output)
-        elif len(Elog)==0 and len(output)<=5: #no error and no LST
-            return log
+        elif len(elog)==0 and len(output)<=5: #no error and no LST
+            debug1=2
+            logger.debug("DEBUG1: " +str(debug1))
+            return print(log)
         elif len(elog)>0 and len(output)<=5: #error and no LST
-    	    return tlog
-    	else: #errors and LST
-    	    return tlog,HTML(output)
+            debug1=3
+            logger.debug("DEBUG1: " +str(debug1))
+            return print(tlog)
+        else: #errors and LST
+            debug1=4
+            logger.debug("DEBUG1: " +str(debug1))
+            return print(tlog),HTML(output)
 
     #Get code complete file from EG for this
     def get_completions(self,info):
@@ -132,7 +145,7 @@ class SASKernel(MetaKernel):
         potentials=get_close_matches(info['obj'],list)
         return potentials
 
-    
+
     # def do_complete(self, code, cursor_pos):
     #     code = code[:cursor_pos]
     #     default = {'matches': [], 'cursor_start': 0,
@@ -162,7 +175,7 @@ class SASKernel(MetaKernel):
     #         cmd = 'compgen -cdfa %s' % token
     #         output = self.saswrapper.run_command(cmd).rstrip()
     #         matches.extend(output.split())
-            
+
     #     if not matches:
     #         return default
     #     matches = [m for m in matches if m.startswith(token)]
@@ -170,11 +183,7 @@ class SASKernel(MetaKernel):
     #     return {'matches': sorted(matches), 'cursor_start': start,
     #             'cursor_end': cursor_pos, 'metadata': dict(),
     #             'status': 'ok'}
-    
+
     def do_shutdown(self,restart):
         if restart:
             self.saswrapper.run_command('mva._submit(";endsas;")')
-
-
-
-
