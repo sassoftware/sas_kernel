@@ -15,6 +15,8 @@ import signal
 import urllib
 import time
 import shutil
+#import html
+from bs4 import BeautifulSoup
 
 #Create Logger
 import logging
@@ -71,9 +73,12 @@ class SASKernel(MetaKernel):
         interrupted = False
         submit_pre=str('mva._submit("')
         submit_post=str('","html")')
-        #submit_post=str('","text")')
-        sas_log='mva._getlog()'
-        sas_lst='mva._getlst()'
+        sas_magic_str=r';*\';*\";*/;'
+        #submit_post=str('","html")')
+        submit_post=sas_magic_str + str('","html")')
+        #submit_post=str(","text")')
+        sas_log='mva._getlog(1)'
+        sas_lst='mva._getlst(1)'
         lst_len=30762 # the lenght of the html5 with no real listing output
 
         #remove whitespace characters
@@ -93,13 +98,14 @@ class SASKernel(MetaKernel):
             output=self.saswrapper.run_command(sas_lst,timeout=None)
             log=self.saswrapper.run_command(sas_log,timeout=None)
 
+            soup=BeautifulSoup(output, 'html.parser')
 
             logger.debug("Log Type: " + str(type(log)))
             logger.debug("LST Type: " + str(type(output)))
-            logger.debug("LOG: " + str(log))
-            logger.debug("LST: " + str(output))
-            logger.debug("LOG Length: " + str(len(log)))
-            logger.debug("LST Length: " + str(len(output)))
+            #logger.debug("LOG: " + str(log))
+            #logger.debug("LST: " + str(soup.get_text()))
+            #logger.debug("LOG Length: " + str(len(log)))
+            #logger.debug("LST Length: " + str(len(output)))
 
         except EOF:
             output = self.saswrapper.child.before + 'Restarting SAS'
@@ -107,11 +113,12 @@ class SASKernel(MetaKernel):
 
         output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
-        #newcontent={'source':"Kernel",'data':{'text/plain':'<IPython.core.display.HTML object>','text/html': output},'metadata':{}}
-        logger.debug("LOG: " + str(log))
-        logger.debug("LST: " + str(output))
+        #logger.debug("LOG: " + str(log))
+        #logger.debug("LST: " + str(soup.get_text()))
         logger.debug("LOG Length: " + str(len(log)))
-        logger.debug("LST Length: " + str(len(output)-lst_len))
+        logger.debug("LST Length: (html,stripped)" + str(len(output)) +","+ str(len(output)-lst_len))
+        logger.debug("soup length: " + str(len(soup.get_text())))
+        
         #Are there errors in the log? if show the 6 lines on each side of the error
         lines=re.split(r'[\n]\s*',log)
         i=0
