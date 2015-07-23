@@ -29,6 +29,7 @@ import re
 import signal
 import urllib
 import time
+import shutil
 
 #Create Logger
 import logging
@@ -65,10 +66,10 @@ class SASKernel(MetaKernel):
         # message handlers, we need to temporarily reset the SIGINT handler here
         # so that SAS and its children are interruptible.
         sig = signal.signal(signal.SIGINT, signal.SIG_DFL)
+        python_path=shutil.which("python3.4")
         try:
             #create a shell session
-            self.saswrapper = replwrap.python(command="/root/anaconda3/bin/python3.4")
-            self.saswrapper = replwrap.python(command="/usr/local/bin/python3.4")
+            self.saswrapper = replwrap.python(command=python_path)
             # start a SAS session within python bound to the shell session
             startsas=self.saswrapper.run_command("from saspy import pysas34 as mva")
             logger.debug("startsas: " + str(startsas))
@@ -84,10 +85,11 @@ class SASKernel(MetaKernel):
                     'payload': [], 'user_expressions': {}}
         interrupted = False
         submit_pre=str('mva._submit("')
-        #submit_post=str('","html")')
-        submit_post=str('","text")')
+        submit_post=str('","html")')
+        #submit_post=str('","text")')
         sas_log='mva._getlog()'
         sas_lst='mva._getlst()'
+        lst_len=30762 # the lenght of the html5 with no real listing output
 
         #remove whitespace characters
         remap = {
@@ -98,13 +100,14 @@ class SASKernel(MetaKernel):
         }
         try:
             rc = self.saswrapper.run_command(submit_pre + code.translate(remap) + submit_post, timeout=None)
-            time.sleep(5) # block until log send EOF
+            time.sleep(.2) # block until log send EOF
             # blocking is done automatically for HTML output b/c it can look for closing html tag
             logger.debug("Code: " + submit_pre + code.translate(remap) + submit_post)
-
-
-            log=self.saswrapper.run_command(sas_log,timeout=None)
+            
+            #get the lst first so that the log it complete
             output=self.saswrapper.run_command(sas_lst,timeout=None)
+            log=self.saswrapper.run_command(sas_log,timeout=None)
+
 
             logger.debug("Log Type: " + str(type(log)))
             logger.debug("LST Type: " + str(type(output)))
@@ -123,7 +126,7 @@ class SASKernel(MetaKernel):
         logger.debug("LOG: " + str(log))
         logger.debug("LST: " + str(output))
         logger.debug("LOG Length: " + str(len(log)))
-        logger.debug("LST Length: " + str(len(output)))
+        logger.debug("LST Length: " + str(len(output)-lst_len))
         #Are there errors in the log? if show the 6 lines on each side of the error
         lines=re.split(r'[\n]\s*',log)
         i=0
@@ -138,15 +141,15 @@ class SASKernel(MetaKernel):
         tlog='\n'.join(elog)
         logger.debug("elog count: "+str(len(elog))) 
         logger.debug("tlog: " +str(tlog))
-        if len(elog)==0 and len(output)>5: #no error and LST output
+        if len(elog)==0 and len(output)>lst_len: #no error and LST output
             debug1=1
             logger.debug("DEBUG1: " +str(debug1))
             return HTML(output)
-        elif len(elog)==0 and len(output)<=5: #no error and no LST
+        elif len(elog)==0 and len(output)<=lst_len: #no error and no LST
             debug1=2
             logger.debug("DEBUG1: " +str(debug1))
             return print(log)
-        elif len(elog)>0 and len(output)<=5: #error and no LST
+        elif len(elog)>0 and len(output)<=lst_len: #error and no LST
             debug1=3
             logger.debug("DEBUG1: " +str(debug1))
             return print(tlog)
