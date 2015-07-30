@@ -116,8 +116,15 @@ class SASKernel(MetaKernel):
             logger.debug("Code_orig: " + submit_pre + code.translate(remap) + submit_post)
             
             #get the lst first so that the log is complete
-            output=self.saswrapper.run_command(sas_lst,timeout=None)
-            log=self.saswrapper.run_command(sas_log,timeout=None)
+            try:
+                #print('running the command\n')
+                output=self.saswrapper.run_command(sas_lst,timeout=None)
+                log=self.saswrapper.run_command(sas_log,timeout=None)
+            except (KeyboardInterrupt, SystemExit):
+                raise
+                print('Keyboard Interrupt by User')
+                output=' '
+                log=' '
 
             soup=BeautifulSoup(output, 'html.parser')
 
