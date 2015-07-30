@@ -85,12 +85,7 @@ class SASKernel(MetaKernel):
             logger.debug("code type: " +str(type(code)))
             logger.debug("code length: " + str(len(code)))
             logger.debug("code string: "+ code)
-            code2="\'\'\'"+code+"\'\'\'"
-            #code_final="mva._submitll("+code2+')'
-            logger.debug("code2: " + code2)
-            #print('do execute try: ' + code)
             res=self.mva._submitll(code)
-            #print("res type: " + str(type(res)))
             logger.debug("res type: " + str(type(res)))
             output=res['LST']
             log=res['LOG']
