@@ -35,10 +35,6 @@ import time
 import shutil
 import os
 
-
-#import html
-from bs4 import BeautifulSoup
-
 #Create Logger
 import logging
 logger= logging.getLogger('')
@@ -68,9 +64,9 @@ class SASKernel(MetaKernel):
         with open(os.path.dirname(os.path.realpath(__file__))+'/'+'sasgrammerdictionary.json') as compglo:
             self.compglo=json.load(compglo)
         self.strproclist='\n'.join(str(x) for x in self.proclist)
-        #self.strproclist=' '.join(str(x) for x in self.proclist)
         MetaKernel.__init__(self, **kwargs)
-        #pprint (self.proclist)
+        self.mva = None
+        #print("_start_sas")
         self._start_sas()
 
     def get_usage(self):
@@ -84,13 +80,11 @@ class SASKernel(MetaKernel):
         sig = signal.signal(signal.SIGINT, signal.SIG_DFL)
         python_path=shutil.which("python3.4")
         try:
-            #create a shell session
-            self.saswrapper = replwrap.python(command=python_path)
             # start a SAS session within python bound to the shell session
-            startsas=self.saswrapper.run_command("from saspy import *")
-            startsas=self.saswrapper.run_command("mva=SAS_session()")
-            startsas=self.saswrapper.run_command("mva._startsas()")
-            logger.debug("startsas: " + str(startsas))
+            import saspy as saspy
+            self.mva=saspy.SAS_session()
+            self.mva._startsas()
+            #print("leaving start_sas")
         finally:
             signal.signal(signal.SIGINT, sig)
 
@@ -100,68 +94,47 @@ class SASKernel(MetaKernel):
             return {'status': 'ok', 'execution_count': self.execution_count,
                     'payload': [], 'user_expressions': {}}
         interrupted = False
-        submit_pre=str('mva._submit("')
-        sas_magic_str=r';*\';*\";*/;run;quit; '
-        #submit_pre=str('mva._submit("')+sas_magic_str
-        submit_post=str('","html")')
-        #submit_post=sas_magic_str + str('","html")')
-        #submit_post=str(","text")')
-        sas_log='mva._getlog()'
-        sas_lst='mva._getlst()'
         lst_len=30762 # the length of the html5 with no real listing output
 
-        #remove whitespace characters
-        remap = {
-            ord('\t') : ' ',
-            ord('\f') : ' ',
-            #ord('\r') : None,
-            ord('\n') : '\n'
-        }
         try:
             logger.debug("code type: " +str(type(code)))
             logger.debug("code length: " + str(len(code)))
             logger.debug("code string: "+ code)
             code2="\'\'\'"+code+"\'\'\'"
-            code_final="mva._submit("+code2+')'
+            #code_final="mva._submitll("+code2+')'
+            logger.debug("code2: " + code2)
+            #print('do execute try: ' + code)
+            res=self.mva._submitll(code)
+            #print("res type: " + str(type(res)))
+            logger.debug("res type: " + str(type(res)))
+            output=res['LST']
+            log=res['LOG']
+        except (KeyboardInterrupt, SystemExit):
+            print ("keyboard interput by user")
+            raise
 
-            rc = self.saswrapper.run_command(code_final, timeout=None)
-            time.sleep(.2) # block until log send EOF
-            # blocking is done automatically for HTML output b/c it can look for closing html tag
-            logger.debug("Code: " + code_final)
-            logger.debug("Code_orig: " + submit_pre + code.translate(remap) + submit_post)
+        except :
+            pass
             
-            #get the lst first so that the log is complete
-            try:
-                #print('running the command\n')
-                output=self.saswrapper.run_command(sas_lst,timeout=None)
-                log=self.saswrapper.run_command(sas_log,timeout=None)
-            except (KeyboardInterrupt, SystemExit):
-                raise
-                print('Keyboard Interrupt by User')
-                output=' '
-                log=' '
 
-            soup=BeautifulSoup(output, 'html.parser')
-
-            logger.debug("Log Type: " + str(type(log)))
-            logger.debug("LST Type: " + str(type(output)))
-            logger.debug("FULL LST: " +output)
-            logger.debug("LST Length: " + str(len(output)))
+        logger.debug("Log Type: " + str(type(log)))
+        logger.debug("LST Type: " + str(type(output)))
+        logger.debug("FULL LST: " +output)
+        logger.debug("LST Length: " + str(len(output)))
+        '''
 
         except EOF:
             output = self.saswrapper.child.before + 'Restarting SAS'
             self._start_sas()
-
+        '''
         output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         output=output[0:3].replace('\'',chr(00))+output[3:-4]+output[-4:].replace('\'',chr(00))
         log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
         logger.debug("LOG: " + str(log))
-        logger.debug("LST: " + str(soup.get_text()))
         logger.debug("FULL LST: " +str(output))
         logger.debug("LOG Length: " + str(len(log)))
         logger.debug("LST Length: (html,stripped)" + str(len(output)) +","+ str(len(output)-lst_len))
-        logger.debug("soup length: " + str(len(soup.get_text())))
         
         #Are there errors in the log? if show the 6 lines on each side of the error
         lines=re.split(r'[\n]\s*',log)
