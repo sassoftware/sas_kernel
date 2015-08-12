@@ -50,15 +50,22 @@ from metakernel import MetaKernel
 class SASKernel(MetaKernel):
     implementation = 'sas_kernel'
     implementation_version = '1.0'
-    language = 'text'
+    language = 'sas'
     language_version = '0.1'
     banner = "SAS Kernel"
-    language_info = {'name': 'sas',
-                     'file_extension': '.sas'}
-
+    #language_info = {'name': 'sas',
+    #                'file_extension': '.sas'}
+                     #'pygments_lexer':'python'}
+    language_info = {
+        'mimetype': 'text/x-matlab',
+        'name': 'sas',
+        'file_extension': '.sas',
+        'help_links': MetaKernel.help_links,
+        'pygments_lexer':'Saslexer'
+    }
     def __init__(self,**kwargs):
         #the filepath below assumes that the json files are in the same directory as the kernel.py
-        #which should be find since they will be delivered as part of the pip module
+        #which should be fine since they will be delivered as part of the pip module
         with open(os.path.dirname(os.path.realpath(__file__))+'/'+'sasproclist.json') as proclist:
             self.proclist=json.load(proclist)
         with open(os.path.dirname(os.path.realpath(__file__))+'/'+'sasgrammerdictionary.json') as compglo:
@@ -100,7 +107,7 @@ class SASKernel(MetaKernel):
             logger.debug("code type: " +str(type(code)))
             logger.debug("code length: " + str(len(code)))
             logger.debug("code string: "+ code)
-            res=self.mva._submitll(code)
+            res=self.mva.submit(code)
             logger.debug("res type: " + str(type(res)))
             output=res['LST']
             log=res['LOG']
@@ -109,12 +116,10 @@ class SASKernel(MetaKernel):
             raise
 
         except :
-            pass
+            print("Exception Block:", sys.exc_info()[0])
             
 
-        logger.debug("Log Type: " + str(type(log)))
-        logger.debug("LST Type: " + str(type(output)))
-        logger.debug("FULL LST: " +output)
+        logger.debug("FULL LST: " + output)
         logger.debug("LST Length: " + str(len(output)))
         '''
 
