@@ -13,36 +13,20 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-#from IPython.kernel.zmq.kernelbase import Kernel
-from IPython.display import HTML, display
-from IPython.display import Image
-from pexpect import replwrap, EOF
 from metakernel import MetaKernel
-from IPython.utils.jsonutil import json_clean, encode_images
-
-
-from subprocess import check_output
-from os import unlink
-from difflib import get_close_matches
-
-from pprint import pprint
-import json
 import base64
-import imghdr
-import urllib
-#import time
 
-#verfied use
 from IPython.display import HTML, display
 import os
 import re
 import shutil
 import signal
+import json
 
 #Create Logger
 import logging
 logger= logging.getLogger('')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARN)
 
 
 __version__ = '0.1'
@@ -52,7 +36,6 @@ version_pat = re.compile(r'version (\d+(\.\d+)+)')
 from metakernel import MetaKernel
 
 class SASKernel(MetaKernel):
-    #look at if '_usage.page_guiref' in code: in metakernel
     implementation = 'sas_kernel'
     implementation_version = '1.0'
     language = 'go'
@@ -125,12 +108,6 @@ class SASKernel(MetaKernel):
 
         logger.debug("FULL LST: " + output)
         logger.debug("LST Length: " + str(len(output)))
-        '''
-
-        except EOF:
-            output = self.saswrapper.child.before + 'Restarting SAS'
-            self._start_sas()
-        '''
         output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         output=output[0:3].replace('\'',chr(00))+output[3:-4]+output[-4:].replace('\'',chr(00))
@@ -173,8 +150,6 @@ class SASKernel(MetaKernel):
 
     #Get code complete file from EG for this
     def get_completions(self,info):
-        #print('debug test')
-        #pprint(info)
         if info['line_num']>1:
             relstart=info['column']-(info['help_pos']-info['start'])
         else:
@@ -226,12 +201,9 @@ class SASKernel(MetaKernel):
                 mylist=self.compglo['DATA'+mykey][0]
                 #potentials=re.findall('(?i)'+info['obj']+'\w+',' '.join(str(x) for x in mylist))
                 potentials=re.findall('(?i)^'+info['obj']+'.*','\n'.join(str(x) for x in mylist),re.MULTILINE)
-                #pprint(potentials)
                 return potentials
         #keep in mind lin_num
             
-        #list=['proc','print','optmodel','data']
-        #potentials=get_close_matches(info['obj'],list)
             else:
                 potentials=['']    
                 return potentials
