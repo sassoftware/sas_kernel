@@ -20,6 +20,7 @@ from pexpect import replwrap, EOF
 from metakernel import MetaKernel
 from IPython.utils.jsonutil import json_clean, encode_images
 
+
 from subprocess import check_output
 from os import unlink
 from difflib import get_close_matches
@@ -48,21 +49,20 @@ version_pat = re.compile(r'version (\d+(\.\d+)+)')
 from metakernel import MetaKernel
 
 class SASKernel(MetaKernel):
+    #look at if '_usage.page_guiref' in code: in metakernel
     implementation = 'sas_kernel'
     implementation_version = '1.0'
-    language = 'sas'
+    language = 'go'
     language_version = '0.1'
     banner = "SAS Kernel"
-    #language_info = {'name': 'sas',
-    #                'file_extension': '.sas'}
-                     #'pygments_lexer':'python'}
-    language_info = {
-        'mimetype': 'text/x-matlab',
-        'name': 'sas',
-        'file_extension': '.sas',
-        'help_links': MetaKernel.help_links,
-        'pygments_lexer':'Saslexer'
-    }
+    print("at language info")
+    language_info = {'name': 'go',
+                     'file_extension': '.go',
+                     'pygments_lexer': 'go'
+                     #'codemirror_mode':{
+                     #    'name':'sas'
+                     #    }
+                     }
     def __init__(self,**kwargs):
         #the filepath below assumes that the json files are in the same directory as the kernel.py
         #which should be fine since they will be delivered as part of the pip module
@@ -102,6 +102,10 @@ class SASKernel(MetaKernel):
                     'payload': [], 'user_expressions': {}}
         interrupted = False
         lst_len=30762 # the length of the html5 with no real listing output
+
+        if re.match(r'endsas;',code):
+            self.do_shutdown(False)
+
 
         try:
             logger.debug("code type: " +str(type(code)))
@@ -231,7 +235,8 @@ class SASKernel(MetaKernel):
             else:
                 potentials=['']    
                 return potentials
-    '''def _get_right_list(s):
+    '''
+    def _get_right_list(s):
         proc_opt  = re.search(r"proc\s(\w+).*?[^;]\Z", s, re.IGNORECASE|re.MULTILINE)
         proc_stmt = re.search(r"\s*proc\s*(\w+).*;.*\Z", s, re.IGNORECASE|re.MULTILINE)
         data_opt  = re.search(r"\s*data\s*[^=].*[^;]?.*$", s, re.IGNORECASE|re.MULTILINE)
@@ -251,7 +256,8 @@ class SASKernel(MetaKernel):
         #logger.debug("data step")
             return ('DATA'+'s')
         else:
-            return(None)'''
+            return(None)
+    '''
 
 
     # def do_complete(self, code, cursor_pos):
@@ -293,5 +299,19 @@ class SASKernel(MetaKernel):
     #             'status': 'ok'}
 
     def do_shutdown(self,restart):
+        """
+        Shut down the app gracefully, saving history.
+        """
+        print ("in shutdown function")
+        if self.hist_file:
+            with open(self.hist_file, 'wb') as fid:
+                data = '\n'.join(self.hist_cache[-self.max_hist_cache:])
+                fid.write(data.encode('utf-8'))
         if restart:
-            self.saswrapper.run_command('mva._submit(";endsas;")')
+            self.Print("Restarting kernel...")
+            self.reload_magics()
+            self.restart_kernel()
+            self.Print("Done!")
+        return {'status': 'ok', 'restart': restart}
+        #if restart:
+        #    self.saswrapper.run_command('mva._submit(";endsas;")')
