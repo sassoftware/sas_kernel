@@ -1,7 +1,0 @@
-{
- "argv": ["/root/anaconda3/bin/python3.4", "-m", "sas_kernel",
-           "-f", "{connection_file}"],
-    "display_name": "SAS",
-    "language": "python3"
-}
-

@@ -29,12 +29,15 @@ from pprint import pprint
 import json
 import base64
 import imghdr
-import re
-import signal
 import urllib
-import time
-import shutil
+#import time
+
+#verfied use
+from IPython.display import HTML, display
 import os
+import re
+import shutil
+import signal
 
 #Create Logger
 import logging
@@ -55,7 +58,6 @@ class SASKernel(MetaKernel):
     language = 'go'
     language_version = '0.1'
     banner = "SAS Kernel"
-    print("at language info")
     language_info = {'name': 'go',
                      'file_extension': '.go',
                      'pygments_lexer': 'go'
@@ -73,7 +75,6 @@ class SASKernel(MetaKernel):
         self.strproclist='\n'.join(str(x) for x in self.proclist)
         MetaKernel.__init__(self, **kwargs)
         self.mva = None
-        #print("_start_sas")
         self._start_sas()
 
     def get_usage(self):
@@ -91,7 +92,6 @@ class SASKernel(MetaKernel):
             import saspy as saspy
             self.mva=saspy.SAS_session()
             self.mva._startsas()
-            #print("leaving start_sas")
         finally:
             signal.signal(signal.SIGINT, sig)
 

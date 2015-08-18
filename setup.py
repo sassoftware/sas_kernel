@@ -20,9 +20,11 @@ import json
 import os
 import sys
 
-kernel_json = {"argv":["sys.executable","-m","sas_kernel", "-f", "{connection_file}"],
- "display_name":"SAS",
- "codemirror_mode":"sql",
+kernel_json = {
+        "argv":[sys.executable,
+            "-m","sas_kernel", "-f", "{connection_file}"],
+ "display_name":"SAS Install",
+ "codemirror_mode":"go",
  #"env":{"PS1": "$"},
  "language":"sas"
 }
@@ -57,14 +59,10 @@ setup(name='SAS_kernel',
       long_description=readme,
       author='Jared Dean',
       author_email='jared.dean@sas.com',
-      #url='https://github.com/takluyver/bash_kernel',
       packages=['sas_kernel'],
       cmdclass={'install': install_with_kernelspec},
-      install_requires=['pexpect>=3.3','saspy','pygments','metakernel'],
+      install_requires=['pexpect>=3.3','saspy','metakernel'],
       classifiers = [
-      #    'License :: OSI Approved :: BSD License',
-      #    'Programming Language :: Python :: 3',
-      #    'Topic :: System :: Shells',
         'Framework :: IPython'
       ]
 )
