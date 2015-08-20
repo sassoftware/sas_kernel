@@ -23,15 +23,14 @@ from metakernel import MetaKernel
 class SASKernel(MetaKernel):
     implementation = 'sas_kernel'
     implementation_version = '1.0'
-    language = 'go'
-    language_version = '0.1'
+    language = 'sas'
+    language_version = '9.4'
     banner = "SAS Kernel"
-    language_info = {'name': 'go',
-                     'file_extension': '.go',
-                     'pygments_lexer': 'go'
-                     #'codemirror_mode':{
-                     #    'name':'sas'
-                     #    }
+    language_info = {'name': 'sas',
+                     'mimetype': 'text/x-sas',
+                     'help_links':  MetaKernel.help_links,
+                     #'pygments_lexer': 'sas',
+                     'file_extension': '.sas'
                      }
     def __init__(self,**kwargs):
         #the filepath below assumes that the json files are in the same directory as the kernel.py
@@ -85,7 +84,8 @@ class SASKernel(MetaKernel):
             log=res['LOG']
         except (KeyboardInterrupt, SystemExit):
             print ("keyboard interput by user")
-            raise
+            self.mva_break()
+            #raise
 
         except :
             print("Exception Block:", sys.exc_info()[0])
@@ -272,3 +272,8 @@ class SASKernel(MetaKernel):
         return {'status': 'ok', 'restart': restart}
         #if restart:
         #    self.saswrapper.run_command('mva._submit(";endsas;")')
+
+if __name__ == '__main__':
+    from IPython.kernel.zmq.kernelapp import IPKernelApp
+    IPKernelApp.launch_instance(kernel_class=SASKernel)
+

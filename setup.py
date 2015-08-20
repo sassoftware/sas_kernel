@@ -9,8 +9,7 @@ kernel_json = {
         "argv":[sys.executable,
             "-m","sas_kernel", "-f", "{connection_file}"],
  "display_name":"SAS Install",
- "codemirror_mode":"go",
- #"env":{"PS1": "$"},
+ #"codemirror_mode":"sas",
  "language":"sas"
 }
 class install_with_kernelspec(install):
