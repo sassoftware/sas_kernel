@@ -72,24 +72,13 @@ class SASKernel(MetaKernel):
 
         if re.match(r'endsas;',code):
             self.do_shutdown(False)
-
-
-        try:
-            logger.debug("code type: " +str(type(code)))
-            logger.debug("code length: " + str(len(code)))
-            logger.debug("code string: "+ code)
-            res=self.mva.submit(code)
-            logger.debug("res type: " + str(type(res)))
-            output=res['LST']
-            log=res['LOG']
-        except (KeyboardInterrupt, SystemExit):
-            print ("keyboard interput by user")
-            self.mva_break()
-            #raise
-
-        except :
-            print("Exception Block:", sys.exc_info()[0])
-            
+        logger.debug("code type: " +str(type(code)))
+        logger.debug("code length: " + str(len(code)))
+        logger.debug("code string: "+ code)
+        res=self.mva.submit(code)
+        logger.debug("res type: " + str(type(res)))
+        output=res['LST']
+        log=res['LOG']
 
         logger.debug("FULL LST: " + output)
         logger.debug("LST Length: " + str(len(output)))
