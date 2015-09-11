@@ -23,6 +23,11 @@ import shutil
 import signal
 import json
 
+#color syntax for the SASLog
+#from pygments import highlight
+#from pygments.formatters import HtmlFormatter
+from saspy.SASLogLexer import *
+
 #Create Logger
 import logging
 logger= logging.getLogger('')
@@ -127,15 +132,18 @@ class SASKernel(MetaKernel):
         elif len(elog)==0 and len(output)<=lst_len: #no error and no LST
             debug1=2
             logger.debug("DEBUG1: " +str(debug1)+ " no error and no LST")
-            return print(log)
+            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return HTML(color_log)
         elif len(elog)>0 and len(output)<=lst_len: #error and no LST
             debug1=3
             logger.debug("DEBUG1: " +str(debug1)+ " error and no LST")
-            return print(tlog)
+            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return HTML(color_log)
         else: #errors and LST
             debug1=4
             logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
-            return print(tlog),HTML(output)
+            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return HTML(color_log),HTML(output)
 
     #Get code complete file from EG for this
     def get_completions(self,info):
