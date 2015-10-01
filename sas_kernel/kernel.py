@@ -119,6 +119,11 @@ class SASKernel(MetaKernel):
         for line in lines:
             #logger.debug("In lines loop")
             i+=1
+            if line.startswith('ERROR: AssertionError'):
+                color_log=highlight(line,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+                HTML(color_log)
+                raise AssertionError
+
             if line.startswith('ERROR'):
                 logger.debug("In ERROR Condition")
                 elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
