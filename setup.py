@@ -23,7 +23,7 @@ import sys
 kernel_json = {
         "argv":[sys.executable,
             "-m","sas_kernel", "-f", "{connection_file}"],
- "display_name":"SAS Install",
+ "display_name":"SAS",
  #"codemirror_mode":"sas",
  "language":"sas"
 }
