@@ -83,7 +83,6 @@ class SASKernel(MetaKernel):
             signal.signal(signal.SIGINT, sig)
 
     def do_execute_direct(self, code):
-
         if not code.strip():
             return {'status': 'ok', 'execution_count': self.execution_count,
                     'payload': [], 'user_expressions': {}}
@@ -92,6 +91,12 @@ class SASKernel(MetaKernel):
 
         if re.match(r'endsas;',code):
             self.do_shutdown(False)
+        if code.startswith('Obfuscated SAS Code'):
+            logger.debug("decoding string")
+            tmp1=code.split()
+            decode=base64.b64decode(tmp1[-1])
+            code=decode.decode('utf-8')
+
         logger.debug("code type: " +str(type(code)))
         logger.debug("code length: " + str(len(code)))
         logger.debug("code string: "+ code)
@@ -119,11 +124,6 @@ class SASKernel(MetaKernel):
         for line in lines:
             #logger.debug("In lines loop")
             i+=1
-            if line.startswith('ERROR: AssertionError'):
-                color_log=highlight(line,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-                HTML(color_log)
-                raise AssertionError
-
             if line.startswith('ERROR'):
                 logger.debug("In ERROR Condition")
                 elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
@@ -148,7 +148,7 @@ class SASKernel(MetaKernel):
             debug1=4
             logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
             color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-            return HTML(color_log),HTML(output)
+            return HTML(color_log+output)
 
     #Get code complete file from EG for this
     def get_completions(self,info):
