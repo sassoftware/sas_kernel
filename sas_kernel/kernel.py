@@ -96,59 +96,64 @@ class SASKernel(MetaKernel):
             tmp1=code.split()
             decode=base64.b64decode(tmp1[-1])
             code=decode.decode('utf-8')
+        if code.startswith('showSASLog_11092015')==False: # and len(log)>0:
+            logger.debug("code type: " +str(type(code)))
+            logger.debug("code length: " + str(len(code)))
+            logger.debug("code string: "+ code)
+            res=self.mva.submit(code)
+            logger.debug("res type: " + str(type(res)))
+            output=res['LST']
+            log=res['LOG']
+            logger.debug("FULL LST: " + output)
+            logger.debug("LST Length: " + str(len(output)))
+            output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
+            log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
+            output=output[0:3].replace('\'',chr(00))+output[3:-4]+output[-4:].replace('\'',chr(00))
+            log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
 
-        logger.debug("code type: " +str(type(code)))
-        logger.debug("code length: " + str(len(code)))
-        logger.debug("code string: "+ code)
-        res=self.mva.submit(code)
-        logger.debug("res type: " + str(type(res)))
-        output=res['LST']
-        log=res['LOG']
-
-        logger.debug("FULL LST: " + output)
-        logger.debug("LST Length: " + str(len(output)))
-        output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
-        log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
-        output=output[0:3].replace('\'',chr(00))+output[3:-4]+output[-4:].replace('\'',chr(00))
-        log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
-        logger.debug("LOG: " + str(log))
-        logger.debug("FULL LST: " +str(output))
-        logger.debug("LOG Length: " + str(len(log)))
-        logger.debug("LST Length: (html,stripped)" + str(len(output)) +","+ str(len(output)-lst_len))
-        
-        #Are there errors in the log? if show the 6 lines on each side of the error
-        lines=re.split(r'[\n]\s*',log)
-        i=0
-        elog=[]
-        debug1=0
-        for line in lines:
-            #logger.debug("In lines loop")
-            i+=1
-            if line.startswith('ERROR'):
-                logger.debug("In ERROR Condition")
-                elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
-        tlog='\n'.join(elog)
-        logger.debug("elog count: "+str(len(elog))) 
-        logger.debug("tlog: " +str(tlog))
-        if len(elog)==0 and len(output)>lst_len: #no error and LST output
-            debug1=1
-            logger.debug("DEBUG1: " +str(debug1)+ " no error and LST output ")
-            return HTML(output)
-        elif len(elog)==0 and len(output)<=lst_len: #no error and no LST
-            debug1=2
-            logger.debug("DEBUG1: " +str(debug1)+ " no error and no LST")
+            # hack to test show log button
             color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-            return HTML(color_log)
-        elif len(elog)>0 and len(output)<=lst_len: #error and no LST
-            debug1=3
-            logger.debug("DEBUG1: " +str(debug1)+ " error and no LST")
-            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-            return HTML(color_log)
-        else: #errors and LST
-            debug1=4
-            logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
-            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-            return HTML(color_log+output)
+            showLog=HTML(color_log)
+            open('showSASLog.html','wt').write(showLog.data)
+            #close('showSASLog.html')
+
+            logger.debug("LOG: " + str(log))
+            logger.debug("FULL LST: " +str(output))
+            logger.debug("LOG Length: " + str(len(log)))
+            logger.debug("LST Length: (html,stripped)" + str(len(output)) +","+ str(len(output)-lst_len))
+            #Are there errors in the log? if show the 6 lines on each side of the error
+            lines=re.split(r'[\n]\s*',log)
+            i=0
+            elog=[]
+            debug1=0
+            for line in lines:
+                #logger.debug("In lines loop")
+                i+=1
+                if line.startswith('ERROR'):
+                    logger.debug("In ERROR Condition")
+                    elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
+            tlog='\n'.join(elog)
+            logger.debug("elog count: "+str(len(elog))) 
+            logger.debug("tlog: " +str(tlog))
+            if len(elog)==0 and len(output)>lst_len: #no error and LST output
+                debug1=1
+                logger.debug("DEBUG1: " +str(debug1)+ " no error and LST output ")
+                return HTML(output)
+            elif len(elog)==0 and len(output)<=lst_len: #no error and no LST
+                debug1=2
+                logger.debug("DEBUG1: " +str(debug1)+ " no error and no LST")
+                color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+                return HTML(color_log)
+            elif len(elog)>0 and len(output)<=lst_len: #error and no LST
+                debug1=3
+                logger.debug("DEBUG1: " +str(debug1)+ " error and no LST")
+                color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+                return HTML(color_log)
+            else: #errors and LST
+                debug1=4
+                logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
+                color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+                return HTML(color_log+output)
 
     #Get code complete file from EG for this
     def get_completions(self,info):
