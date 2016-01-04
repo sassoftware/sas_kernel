@@ -129,9 +129,11 @@ class SASKernel(MetaKernel):
             for line in lines:
                 #logger.debug("In lines loop")
                 i+=1
+                e=[]
                 if line.startswith('ERROR'):
                     logger.debug("In ERROR Condition")
-                    elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
+                    e=lines[(max(i-15,0)):(min(i+16,len(lines)))]
+                elog=elog+e
             tlog='\n'.join(elog)
             logger.debug("elog count: "+str(len(elog))) 
             logger.debug("tlog: " +str(tlog))
