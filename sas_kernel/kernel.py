@@ -201,7 +201,7 @@ class SASKernel(MetaKernel):
             else:
                 potentials=['']    
                 return potentials
-    '''
+     
     def _get_right_list(s):
         proc_opt  = re.search(r"proc\s(\w+).*?[^;]\Z", s, re.IGNORECASE|re.MULTILINE)
         proc_stmt = re.search(r"\s*proc\s*(\w+).*;.*\Z", s, re.IGNORECASE|re.MULTILINE)
@@ -223,7 +223,7 @@ class SASKernel(MetaKernel):
             return ('DATA'+'s')
         else:
             return(None)
-    '''
+   
 
 
     # def do_complete(self, code, cursor_pos):
@@ -283,6 +283,6 @@ class SASKernel(MetaKernel):
         #    self.saswrapper.run_command('mva._submit(";endsas;")')
 
 if __name__ == '__main__':
-    from IPython.kernel.zmq.kernelapp import IPKernelApp
+    from ipykernel.kernelapp import IPKernelApp
     IPKernelApp.launch_instance(kernel_class=SASKernel)
 
