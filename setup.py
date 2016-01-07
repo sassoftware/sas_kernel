@@ -33,7 +33,7 @@ class install_with_kernelspec(install):
         install.run(self)
 
         # Now write the kernelspec
-        from IPython.kernel.kernelspec import install_kernel_spec
+        from jupyter_client.kernelspec import install_kernel_spec
         from IPython.utils.tempdir import TemporaryDirectory
         with TemporaryDirectory() as td:
             os.chmod(td, 0o755) # Starts off as 700, not user readable
