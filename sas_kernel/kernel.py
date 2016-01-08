@@ -31,7 +31,7 @@ from saspy.SASLogLexer import *
 #Create Logger
 import logging
 logger= logging.getLogger('')
-logger.setLevel(logging.WARN)
+logger.setLevel(logging.DEBUG)
 
 
 __version__ = '0.1'
@@ -62,6 +62,12 @@ class SASKernel(MetaKernel):
         self.strproclist='\n'.join(str(x) for x in self.proclist)
         MetaKernel.__init__(self, **kwargs)
         self.mva = None
+        executable = os.environ.get('SAS_EXECUTABLE', 'sas')
+        if executable=='sas':
+            executable='/opt/sasinside/SASHome/SASFoundation/9.4/sas'
+        e2=executable.split('/')
+        self._path='/'.join(e2[0:e2.index('SASHome')+1])
+        self._version=e2[e2.index('SASFoundation')+1] 
         self._start_sas()
 
     def get_usage(self):
@@ -77,8 +83,9 @@ class SASKernel(MetaKernel):
         try:
             # start a SAS session within python bound to the shell session
             import saspy as saspy
+            print("In _start_sas" + self._path + self._version)
             self.mva=saspy.SAS_session()
-            self.mva._startsas()
+            self.mva._startsas(path=self._path, version=self._version)
         finally:
             signal.signal(signal.SIGINT, sig)
 
