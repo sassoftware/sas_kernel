@@ -44,24 +44,23 @@ class install_with_kernelspec(install):
             log.info('Installing IPython kernel spec')
             install_kernel_spec(td, 'SAS', user=self.user, replace=True)
 
-with open('README.rst') as f:
-    readme = f.read()
-
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
     # Die, setuptools, die.
     sys.argv.remove(svem_flag)
 
 setup(name='SAS_kernel',
-      version='0.1',
+      version='0.2',
       description='A SAS kernel for IPython',
-      long_description=readme,
+      long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
       author_email='jared.dean@sas.com',
-      packages=['sas_kernel'],
+      packages=['sas_kernel','sas_kernel.magics'],
       cmdclass={'install': install_with_kernelspec},
       install_requires=['pexpect>=3.3','saspy','metakernel'],
       classifiers = [
-        'Framework :: IPython'
+        'Framework :: IPython',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: SAS    :: 9',
       ]
 )
