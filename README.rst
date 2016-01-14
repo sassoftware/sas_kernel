@@ -7,7 +7,7 @@ To use it, install with ``pip install sas_kernel``, and then run one of:
 .. code:: shell
 
     ipython notebook
-    # In the notebook interface, select Bash from the 'New' menu
+    # In the notebook interface, select SAS from the 'New' menu
     ipython qtconsole --kernel sas
     ipython console --kernel sas
 

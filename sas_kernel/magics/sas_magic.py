@@ -20,56 +20,61 @@ from metakernel import Magic
 import re
 
 class SASMagic(Magic):
-	def __init__(self, kernel):
-		from saspy import *
+    def __init__(self, kernel):
+        '''
+        Initialize method
+        '''
+        from saspy import *
         #super(SASMagic, self).__init__(kernel)
         #self.repl = None
         #self.cmd = None
         #self.start_process()
+
     def cell_SAS(self):
-    	'''
-    	%%SAS - send the code in the cell to a SAS Server
 
-    	This cell magic will execute the contents of the cell in a SAS
-    	session and return any generated output
+        '''
+        %%SAS - send the code in the cell to a SAS Server
 
-    	Example:
-    	   %%SAS
-    	   proc print data=sashelp.class;
-    	   run;
-    	'''
-    	res=sas.submit(self.code,'html')
+        This cell magic will execute the contents of the cell in a SAS
+        session and return any generated output
+
+        Example:
+           %%SAS
+           proc print data=sashelp.class;
+           run;
+        '''
+        res=sas.submit(self.code,'html')
         output=_clean_output(res['LST'])
         log=_clean_log(res['LOG'])
         dis=_which_display(log,output)
         return dis
 
     def cell_IML(self):
-    	'''
-    	%%IML - send the code in the cell to a SAS Server
-    			for processing by PROC IML
+        '''
+        %%IML - send the code in the cell to a SAS Server
+                for processing by PROC IML
 
-    	This cell magic will execute the contents of the cell in a
-    	PROC IML session and return any generated output. The leading 
-    	PROC IML and trailing QUIT; are submitted automatically.
+        This cell magic will execute the contents of the cell in a
+        PROC IML session and return any generated output. The leading 
+        PROC IML and trailing QUIT; are submitted automatically.
 
-    	Example:
-    	   %%IML
-    	   a = I(6); * 6x6 identity matrix;
-		   b = j(5,5,0); *5x5 matrix of 0's;
-		   c = j(6,1); *6x1 column vector of 1's;
-		   d=diag({1 2 4});
-		   e=diag({1 2, 3 4});
+        Example:
+           %%IML
+           a = I(6); * 6x6 identity matrix;
+           b = j(5,5,0); *5x5 matrix of 0's;
+           c = j(6,1); *6x1 column vector of 1's;
+           d=diag({1 2 4});
+           e=diag({1 2, 3 4});
 
-    	'''
-    	res=sas.submit("proc iml; "+ self.cold + " quit;")
+        '''
+        res=sas.submit("proc iml; "+ self.cold + " quit;")
         output=_clean_output(res['LST'])
         log=_clean_log(res['LOG'])
         dis=_which_display(log,output)
         return dis
 
 
-	def _which_display(log,lst):
+    def _which_display(log,lst):
         lst_len=30762
         lines=re.split(r'[\n]\s*',log)
         i=0
