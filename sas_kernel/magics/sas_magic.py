@@ -1,20 +1,32 @@
 
 from __future__ import print_function
 from metakernel import Magic
+import Ipython.core.magic as ipym
 #from saspy import *
 import re
+import os
 
-class SASMagic(Magic):
+@ipym.magics_class
+class SASMagic(ipym.Magics):
     def __init__(self, kernel):
         '''
-        Initialize method
+        Start a SAS Session for code submission 
         '''
-        from saspy import *
+        import saspy as saspy
+        executable = os.environ.get('SAS_EXECUTABLE', 'sas')
+        if executable=='sas':
+            executable='/opt/sasinside/SASHome/SASFoundation/9.4/sas'
+        e2=executable.split('/')
+        self._path='/'.join(e2[0:e2.index('SASHome')+1])
+        self._version=e2[e2.index('SASFoundation')+1]
+        sas=saspy.SAS_session()
+        sas._startsas(path=self._path, version=self._version)
         #super(SASMagic, self).__init__(kernel)
         #self.repl = None
         #self.cmd = None
         #self.start_process()
-
+    
+    @ipym.cell_magic
     def cell_SAS(self):
 
         '''
@@ -34,6 +46,7 @@ class SASMagic(Magic):
         dis=_which_display(log,output)
         return dis
 
+    @ipym.cell_magic
     def cell_IML(self):
         '''
         %%IML - send the code in the cell to a SAS Server
@@ -98,3 +111,8 @@ class SASMagic(Magic):
 
 def register_magics(kernel):
     kernel.register_magics(SASMagic)
+
+if __name__ == '__main__':
+        from IPython import get_ipython
+        get_ipython().register_magics(SASMagic)
+
