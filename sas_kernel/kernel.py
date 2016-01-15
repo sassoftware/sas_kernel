@@ -7,6 +7,7 @@ import re
 import shutil
 import signal
 import json
+import time
 
 #color syntax for the SASLog
 #from pygments import highlight
@@ -16,7 +17,7 @@ from saspy.SASLogLexer import *
 #Create Logger
 import logging
 logger= logging.getLogger('')
-logger.setLevel(logging.WARN)
+logger.setLevel(logging.DEBUG)
 
 
 __version__ = '0.1'
@@ -54,6 +55,8 @@ class SASKernel(MetaKernel):
         self._path='/'.join(e2[0:e2.index('SASHome')+1])
         self._version=e2[e2.index('SASFoundation')+1] 
         self._start_sas()
+        #print(self.get_connection_info())
+        print(dir(self))
 
     def get_usage(self):
         return "This is the SAS kernel."
@@ -104,10 +107,21 @@ class SASKernel(MetaKernel):
             log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
 
             # hack to test show log button
+
+            # Check that jupyter data dir exists in home
+            connection_key=SASKernel._instance.ident
+            showSASLog = os.path.expanduser("~/.local/share/jupyter/%s.html" % connection_key)
+            directory  = os.path.dirname(showSASLog)
+            print (connection_key)
+            logger.debug("Key,path,dir" + connection_key+', '+showSASLog+', '+directory)
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            
             color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
             showLog=HTML(color_log)
-            open('showSASLog.html','wt').write(showLog.data)
-            #close('showSASLog.html')
+            open(showSASLog,'wt').write(showLog.data)
+            time.sleep(2)
+            #close(showSASLog)
 
             logger.debug("LOG: " + str(log))
             logger.debug("FULL LST: " +str(output))
