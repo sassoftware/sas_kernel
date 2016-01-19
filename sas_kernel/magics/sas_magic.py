@@ -1,22 +1,12 @@
-
 from __future__ import print_function
-from metakernel import Magic
-#from saspy import *
+import IPython.core.magic as ipym
 import re
 
-class SASMagic(Magic):
-    def __init__(self, kernel):
-        '''
-        Initialize method
-        '''
-        from saspy import *
-        #super(SASMagic, self).__init__(kernel)
-        #self.repl = None
-        #self.cmd = None
-        #self.start_process()
-
-    def cell_SAS(self):
-
+@ipym.magics_class
+class SASMagic(ipym.Magics):
+            
+    @ipym.cell_magic
+    def SAS(self,line,cell):
         '''
         %%SAS - send the code in the cell to a SAS Server
 
@@ -24,17 +14,25 @@ class SASMagic(Magic):
         session and return any generated output
 
         Example:
-           %%SAS
-           proc print data=sashelp.class;
-           run;
+            %%SAS
+            proc print data=sashelp.class;
+            run;
+            data a;
+                set sashelp.cars;
+            run;
         '''
-        res=sas.submit(self.code,'html')
-        output=_clean_output(res['LST'])
-        log=_clean_log(res['LOG'])
-        dis=_which_display(log,output)
+        import saspy as saspy
+        self.mva=saspy.SAS_session()
+        self.mva._startsas()#path=self._path, version=self._version)
+        
+        res=self.mva.submit(cell,'html')
+        output=self._clean_output(res['LST'])
+        log=self._clean_log(res['LOG'])
+        dis=self._which_display(log,output)
         return dis
 
-    def cell_IML(self):
+    @ipym.cell_magic
+    def IML(self):
         '''
         %%IML - send the code in the cell to a SAS Server
                 for processing by PROC IML
@@ -52,49 +50,84 @@ class SASMagic(Magic):
            e=diag({1 2, 3 4});
 
         '''
-        res=sas.submit("proc iml; "+ self.cold + " quit;")
+        res=sas.submit("proc iml; "+ self.code + " quit;")
+        output=_clean_output(res['LST'])
+        log=_clean_log(res['LOG'])
+        dis=_which_display(log,output)
+        return line,dis
+
+    @ipym.cell_magic
+    def OPTMODEL(self):
+        '''
+        %%OPTMODEL - send the code in the cell to a SAS Server
+                for processing by PROC OPTMODEL
+
+        This cell magic will execute the contents of the cell in a
+        PROC OPTMODEL session and return any generated output. The leading 
+        PROC OPTMODEL and trailing QUIT; are submitted automatically.
+
+        Example:
+        proc optmodel;
+           /* declare variables */
+           var choco >= 0, toffee >= 0;
+
+           /* maximize objective function (profit) */
+           maximize profit = 0.25*choco + 0.75*toffee;
+
+           /* subject to constraints */
+           con process1:    15*choco +40*toffee <= 27000;
+           con process2:           56.25*toffee <= 27000;
+           con process3: 18.75*choco            <= 27000;
+           con process4:    12*choco +50*toffee <= 27000;
+           /* solve LP using primal simplex solver */
+           solve with lp / solver = primal_spx;
+           /* display solution */
+           print choco toffee;
+        quit;
+
+        '''
+        res=sas.submit("proc optmodel; "+ self.code + " quit;")
         output=_clean_output(res['LST'])
         log=_clean_log(res['LOG'])
         dis=_which_display(log,output)
         return dis
 
-
-    def _which_display(log,lst):
+    def _which_display(self,log,output):
         lst_len=30762
         lines=re.split(r'[\n]\s*',log)
         i=0
         elog=[]
         debug1=0
         for line in lines:
+            #logger.debug("In lines loop")
             i+=1
+            e=[]
             if line.startswith('ERROR'):
-                elog=lines[(max(i-5,0)):(min(i+6,len(lines)))]
+                e=lines[(max(i-15,0)):(min(i+16,len(lines)))]
+            elog=elog+e
         tlog='\n'.join(elog)
-        if len(elog)==0 and len(lst)>lst_len: #no error and LST output
-            debug1=1
-            return HTML(lst)
-        elif len(elog)==0 and len(lst)<=lst_len: #no error and no LST
-            debug1=2
-            return log
-        elif len(elog)>0 and len(lst)<=lst_len: #error and no LST
-            debug1=3
-            return tlog
+        if len(elog)==0 and len(output)>lst_len: #no error and LST output
+            return HTML(output)
+        elif len(elog)==0 and len(output)<=lst_len: #no error and no LST
+            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return HTML(color_log)
+        elif len(elog)>0 and len(output)<=lst_len: #error and no LST
+            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return HTML(color_log)
         else: #errors and LST
-            debug1=4
-            return tlog,HTML(lst)
+            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return HTML(color_log+output)
 
-    def _clean_output(output):
+    def _clean_output(self,output):
         output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         output=output[0:3].replace('\'',chr(00))+output[3:-4]+output[-4:].replace('\'',chr(00))
         return output
 
-    def _clean_log(log):
+    def _clean_log(self,log):
         log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
         return log
 
-
-
-
-def register_magics(kernel):
-    kernel.register_magics(SASMagic)
+if __name__ == '__main__':
+        from IPython import get_ipython
+        get_ipython().register_magics(SASMagic)
