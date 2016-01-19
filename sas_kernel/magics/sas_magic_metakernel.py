@@ -16,20 +16,10 @@
 
 from __future__ import print_function
 from metakernel import Magic
-#from saspy import *
 import re
 
 class SASMagic(Magic):
-    def __init__(self, kernel):
-        '''
-        Initialize method
-        '''
-        from saspy import *
-        #super(SASMagic, self).__init__(kernel)
-        #self.repl = None
-        #self.cmd = None
-        #self.start_process()
-
+    
     def cell_SAS(self):
 
         '''
@@ -43,6 +33,9 @@ class SASMagic(Magic):
            proc print data=sashelp.class;
            run;
         '''
+        import saspy as saspy
+        self.mva=saspy.SAS_session()
+        self.mva._startsas()#path=self._path, version=self._version)
         res=sas.submit(self.code,'html')
         output=_clean_output(res['LST'])
         log=_clean_log(res['LOG'])
@@ -67,12 +60,53 @@ class SASMagic(Magic):
            e=diag({1 2, 3 4});
 
         '''
+        import saspy as saspy
+        self.mva=saspy.SAS_session()
+        self.mva._startsas()#path=self._path, version=self._version)
         res=sas.submit("proc iml; "+ self.cold + " quit;")
         output=_clean_output(res['LST'])
         log=_clean_log(res['LOG'])
         dis=_which_display(log,output)
         return dis
 
+    @ipym.cell_magic
+    def OPTMODEL(self):
+        '''
+        %%OPTMODEL - send the code in the cell to a SAS Server
+                for processing by PROC OPTMODEL
+
+        This cell magic will execute the contents of the cell in a
+        PROC OPTMODEL session and return any generated output. The leading 
+        PROC OPTMODEL and trailing QUIT; are submitted automatically.
+
+        Example:
+        proc optmodel;
+           /* declare variables */
+           var choco >= 0, toffee >= 0;
+
+           /* maximize objective function (profit) */
+           maximize profit = 0.25*choco + 0.75*toffee;
+
+           /* subject to constraints */
+           con process1:    15*choco +40*toffee <= 27000;
+           con process2:           56.25*toffee <= 27000;
+           con process3: 18.75*choco            <= 27000;
+           con process4:    12*choco +50*toffee <= 27000;
+           /* solve LP using primal simplex solver */
+           solve with lp / solver = primal_spx;
+           /* display solution */
+           print choco toffee;
+        quit;
+
+        '''
+        import saspy as saspy
+        self.mva=saspy.SAS_session()
+        self.mva._startsas()#path=self._path, version=self._version)
+        res=sas.submit("proc optmodel; "+ self.code + " quit;")
+        output=_clean_output(res['LST'])
+        log=_clean_log(res['LOG'])
+        dis=_which_display(log,output)
+        return dis
 
     def _which_display(log,lst):
         lst_len=30762
@@ -107,9 +141,6 @@ class SASMagic(Magic):
         log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
         return log
-
-
-
 
 def register_magics(kernel):
     kernel.register_magics(SASMagic)

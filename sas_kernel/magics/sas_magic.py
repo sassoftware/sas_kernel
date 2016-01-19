@@ -65,6 +65,9 @@ class SASMagic(ipym.Magics):
            e=diag({1 2, 3 4});
 
         '''
+        import saspy as saspy
+        self.mva=saspy.SAS_session()
+        self.mva._startsas()#path=self._path, version=self._version)
         res=sas.submit("proc iml; "+ self.code + " quit;")
         output=_clean_output(res['LST'])
         log=_clean_log(res['LOG'])
@@ -101,6 +104,9 @@ class SASMagic(ipym.Magics):
         quit;
 
         '''
+        import saspy as saspy
+        self.mva=saspy.SAS_session()
+        self.mva._startsas()#path=self._path, version=self._version)
         res=sas.submit("proc optmodel; "+ self.code + " quit;")
         output=_clean_output(res['LST'])
         log=_clean_log(res['LOG'])
