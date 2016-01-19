@@ -8,6 +8,8 @@ import shutil
 import signal
 import json
 import time
+import random
+import string
 
 #color syntax for the SASLog
 #from pygments import highlight
@@ -61,6 +63,10 @@ class SASKernel(MetaKernel):
     def get_usage(self):
         return "This is the SAS kernel."
 
+    def get_id(n):
+
+        return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
+
     def _start_sas(self):
         # Signal handlers are inherited by forked processes, and we can't easily
         # reset it from the subprocess. Since kernelapp ignores SIGINT except in
@@ -109,7 +115,7 @@ class SASKernel(MetaKernel):
             # hack to test show log button
 
             # Check that jupyter data dir exists in home
-            connection_key=SASKernel._instance.ident
+            connection_key=get_id(20)
             showSASLog = os.path.expanduser("~/.local/share/jupyter/%s.html" % connection_key)
             directory  = os.path.dirname(showSASLog)
             print (connection_key)
