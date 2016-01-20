@@ -54,7 +54,6 @@ class SASMagic(Magic):
         dis=_which_display(log,output)
         return dis
 
-    @ipym.cell_magic
     def OPTMODEL(self):
         '''
         %%OPTMODEL - send the code in the cell to a SAS Server
