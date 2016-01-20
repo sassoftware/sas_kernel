@@ -63,9 +63,25 @@ class SASKernel(MetaKernel):
     def get_usage(self):
         return "This is the SAS kernel."
 
-    def get_id(n):
-
-        return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
+    def SASLog(meth):
+        from IPython.lib import kernel
+        connection_file_path = kernel.get_connection_file()
+        connection_file = os.path.basename(connection_file_path)
+        kernel_id = connection_file.split('-', 1)[1].split('.')[0]
+        connection_key=kernel_id
+        showSASLog = os.path.expanduser("~/.local/share/jupyter/%s.html" % connection_key)
+        directory  = os.path.dirname(showSASLog)
+        logger.debug("Key,path,dir" + connection_key+', '+showSASLog+', '+directory)
+        if (meth=1):
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            showLog=HTML(color_log)
+            open(showSASLog,'wt').write(showLog.data)
+        
+        if (meth=0):
+            os.remove(showSASLog)
+        return True
 
     def _start_sas(self):
         # Signal handlers are inherited by forked processes, and we can't easily
@@ -112,22 +128,7 @@ class SASKernel(MetaKernel):
             output=output[0:3].replace('\'',chr(00))+output[3:-4]+output[-4:].replace('\'',chr(00))
             log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
 
-            # hack to test show log button
-
-            # Check that jupyter data dir exists in home
-            connection_key=get_id(20)
-            showSASLog = os.path.expanduser("~/.local/share/jupyter/%s.html" % connection_key)
-            directory  = os.path.dirname(showSASLog)
-            print (connection_key)
-            logger.debug("Key,path,dir" + connection_key+', '+showSASLog+', '+directory)
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-            
-            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-            showLog=HTML(color_log)
-            open(showSASLog,'wt').write(showLog.data)
-            time.sleep(2)
-            #close(showSASLog)
+            self.SASLog(1) # create the log file
 
             logger.debug("LOG: " + str(log))
             logger.debug("FULL LST: " +str(output))
@@ -306,6 +307,7 @@ class SASKernel(MetaKernel):
             self.restart_kernel()
             self.Print("Done!")
         return {'status': 'ok', 'restart': restart}
+        self.SASLog(0) # Delete the log file
         #if restart:
         #    self.saswrapper.run_command('mva._submit(";endsas;")')
 
