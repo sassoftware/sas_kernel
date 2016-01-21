@@ -184,6 +184,9 @@ class SASKernel(MetaKernel):
                 logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
                 color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
                 return HTML(color_log+output)
+        else:
+            print("ShowSASLog Button")
+            print(len(log))
 
     #Get code complete file from EG for this
     def get_completions(self,info):
