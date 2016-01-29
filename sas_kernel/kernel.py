@@ -74,7 +74,7 @@ class SASKernel(MetaKernel):
         finally:
             signal.signal(signal.SIGINT, sig)
 
-    def _which_display(self,log,output):
+    def _which_display(self,log,output,lst_len):
         lines=re.split(r'[\n]\s*',log)
         i=0
         elog=[]
@@ -147,8 +147,9 @@ class SASKernel(MetaKernel):
             res=self.mva.submit(code)
             output=self._clean_output(res['LST'])
             log=self._clean_log(res['LOG'])
-            dis=self._which_display(log,output)
+            dis=self._which_display(log,output,lst_len)
             color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return dis
             # hack to test show log button
             open('showSASLog.html','wt').write(HTML(color_log).data)
             #close('showSASLog.html')            
