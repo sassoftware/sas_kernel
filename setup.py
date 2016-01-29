@@ -13,12 +13,17 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-from distutils.core import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
+
 from distutils.command.install import install
 from distutils import log
 import json
 import os
 import sys
+import saspy.sas_magic
 
 kernel_json = {
         "argv":[sys.executable,
@@ -44,6 +49,9 @@ class install_with_kernelspec(install):
             log.info('Installing IPython kernel spec')
             install_kernel_spec(td, 'SAS', user=self.user, replace=True)
 
+#    def register_magic(self):
+#        import sas_kernel.sas_magic
+
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
     # Die, setuptools, die.
@@ -55,7 +63,7 @@ setup(name='SAS_kernel',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
       author_email='jared.dean@sas.com',
-      packages=['sas_kernel','sas_kernel.magics'],
+      packages=['sas_kernel'],
       cmdclass={'install': install_with_kernelspec},
       install_requires=['pexpect>=3.3','saspy','metakernel'],
       classifiers = [
