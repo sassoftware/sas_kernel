@@ -13,18 +13,23 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-from distutils.core import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
+
 from distutils.command.install import install
 from distutils import log
 import json
 import os
 import sys
+import saspy.sas_magic
 
 kernel_json = {
         "argv":[sys.executable,
             "-m","sas_kernel", "-f", "{connection_file}"],
  "display_name":"SAS",
- #"codemirror_mode":"sas",
+ "codemirror_mode":"sas",
  "language":"sas"
 }
 class install_with_kernelspec(install):
@@ -44,8 +49,8 @@ class install_with_kernelspec(install):
             log.info('Installing IPython kernel spec')
             install_kernel_spec(td, 'SAS', user=self.user, replace=True)
 
-with open('README.rst') as f:
-    readme = f.read()
+#    def register_magic(self):
+#        import sas_kernel.sas_magic
 
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
@@ -53,15 +58,17 @@ if svem_flag in sys.argv:
     sys.argv.remove(svem_flag)
 
 setup(name='SAS_kernel',
-      version='0.1',
+      version='0.2',
       description='A SAS kernel for IPython',
-      long_description=readme,
+      long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
       author_email='jared.dean@sas.com',
       packages=['sas_kernel'],
       cmdclass={'install': install_with_kernelspec},
       install_requires=['pexpect>=3.3','saspy','metakernel'],
       classifiers = [
-        'Framework :: IPython'
+        'Framework :: IPython',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: SAS    :: 9',
       ]
 )

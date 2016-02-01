@@ -13,6 +13,5 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-"""SAS Kernel Juypter Implementation"""
-
-from sas_kernel._version import version_info, __version__
+version_info = (0,1,0,'dev')
+__version__ = '.'.join(map(str,version_info))
