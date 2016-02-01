@@ -12,8 +12,6 @@ import random
 import string
 
 #color syntax for the SASLog
-#from pygments import highlight
-#from pygments.formatters import HtmlFormatter
 from saspy.SASLogLexer import *
 
 #Create Logger
@@ -99,6 +97,58 @@ class SASKernel(MetaKernel):
         finally:
             signal.signal(signal.SIGINT, sig)
 
+    def _which_display(self,log,output,lst_len):
+        lines=re.split(r'[\n]\s*',log)
+        i=0
+        elog=[]
+        debug1=0
+        for line in lines:
+            #logger.debug("In lines loop")
+            i+=1
+            e=[]
+            if line.startswith('ERROR'):
+                logger.debug("In ERROR Condition")
+                e=lines[(max(i-15,0)):(min(i+16,len(lines)))]
+            elog=elog+e
+        tlog='\n'.join(elog)
+        logger.debug("elog count: "+str(len(elog))) 
+        logger.debug("tlog: " +str(tlog))
+        #Are there errors in the log? if show the 6 lines on each side of the error
+        if len(elog)==0 and len(output)>lst_len: #no error and LST output
+            debug1=1
+            logger.debug("DEBUG1: " +str(debug1)+ " no error and LST output ")
+            return HTML(output)
+        elif len(elog)==0 and len(output)<=lst_len: #no error and no LST
+            debug1=2
+            logger.debug("DEBUG1: " +str(debug1)+ " no error and no LST")
+            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return HTML(color_log)
+        elif len(elog)>0 and len(output)<=lst_len: #error and no LST
+            debug1=3
+            logger.debug("DEBUG1: " +str(debug1)+ " error and no LST")
+            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return HTML(color_log)
+        else: #errors and LST
+            debug1=4
+            logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
+            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return HTML(color_log+output)
+
+
+    def _clean_output(self,output):
+        logger.debug("FULL LST: " + output)
+        logger.debug("LST Length: " + str(len(output)))
+        output=output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
+        output=output[0:3].replace('\'',chr(00))+output[3:-4]+output[-4:].replace('\'',chr(00))
+        return output
+
+    def _clean_log(self,log):
+        logger.debug("LOG: " + str(log))
+        logger.debug("LOG Length: " + str(len(log)))
+        log= log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
+        log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
+        return log
+
     def do_execute_direct(self, code):
         if not code.strip():
             return {'status': 'ok', 'execution_count': self.execution_count,
@@ -118,61 +168,15 @@ class SASKernel(MetaKernel):
             logger.debug("code length: " + str(len(code)))
             logger.debug("code string: "+ code)
             res=self.mva.submit(code)
-            logger.debug("res type: " + str(type(res)))
-            output=res['LST']
-            log=res['LOG']
-            logger.debug("FULL LST: " + output)
-            logger.debug("LST Length: " + str(len(output)))
-            output = output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
-            log    = log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
-            output=output[0:3].replace('\'',chr(00))+output[3:-4]+output[-4:].replace('\'',chr(00))
-            log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
-
-            self.SASLog(1) # create the log file
-
-            logger.debug("LOG: " + str(log))
-            logger.debug("FULL LST: " +str(output))
-            logger.debug("LOG Length: " + str(len(log)))
-            logger.debug("LST Length: (html,stripped)" + str(len(output)) +","+ str(len(output)-lst_len))
-            #Are there errors in the log? if show the 6 lines on each side of the error
-            lines=re.split(r'[\n]\s*',log)
-            i=0
-            elog=[]
-            debug1=0
-            for line in lines:
-                #logger.debug("In lines loop")
-                i+=1
-                e=[]
-                if line.startswith('ERROR'):
-                    logger.debug("In ERROR Condition")
-                    e=lines[(max(i-15,0)):(min(i+16,len(lines)))]
-                elog=elog+e
-            tlog='\n'.join(elog)
-            logger.debug("elog count: "+str(len(elog))) 
-            logger.debug("tlog: " +str(tlog))
-            if len(elog)==0 and len(output)>lst_len: #no error and LST output
-                debug1=1
-                logger.debug("DEBUG1: " +str(debug1)+ " no error and LST output ")
-                return HTML(output)
-            elif len(elog)==0 and len(output)<=lst_len: #no error and no LST
-                debug1=2
-                logger.debug("DEBUG1: " +str(debug1)+ " no error and no LST")
-                color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-                return HTML(color_log)
-            elif len(elog)>0 and len(output)<=lst_len: #error and no LST
-                debug1=3
-                logger.debug("DEBUG1: " +str(debug1)+ " error and no LST")
-                color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-                return HTML(color_log)
-            else: #errors and LST
-                debug1=4
-                logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
-                color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-                return HTML(color_log+output)
-        else:
-            print("ShowSASLog Button")
-            print(len(log))
-
+            output=self._clean_output(res['LST'])
+            log=self._clean_log(res['LOG'])
+            dis=self._which_display(log,output,lst_len)
+            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            return dis
+            # hack to test show log button
+            open('showSASLog.html','wt').write(HTML(color_log).data)
+            #close('showSASLog.html')            
+            
     #Get code complete file from EG for this
     def get_completions(self,info):
         if info['line_num']>1:
