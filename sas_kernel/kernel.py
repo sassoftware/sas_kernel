@@ -48,6 +48,7 @@ class SASKernel(MetaKernel):
         self.strproclist='\n'.join(str(x) for x in self.proclist)
         MetaKernel.__init__(self, **kwargs)
         self.mva = None
+        self.cachedlog= None
         executable = os.environ.get('SAS_EXECUTABLE', 'sas')
         if executable=='sas':
             executable='/opt/sasinside/SASHome/SASFoundation/9.4/sas'
@@ -169,14 +170,25 @@ class SASKernel(MetaKernel):
             logger.debug("code string: "+ code)
             res=self.mva.submit(code)
             output=self._clean_output(res['LST'])
-            log=self._clean_log(res['LOG'])
+            log=self._clean_log(res['LOG'])            
             dis=self._which_display(log,output,lst_len)
             color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+
+            #store the log for display in showSASLog
+            self.cachedlog=color_log
+            print ("log cached ", self.cachedlog)
             return dis
+            '''
             # hack to test show log button
             open('showSASLog.html','wt').write(HTML(color_log).data)
-            #close('showSASLog.html')            
-            
+            #close('showSASLog.html')
+            '''
+        else:
+            return self.cachedlog
+
+
+
+
     #Get code complete file from EG for this
     def get_completions(self,info):
         if info['line_num']>1:
