@@ -24,8 +24,6 @@ import signal
 import json
 
 #color syntax for the SASLog
-#from pygments import highlight
-#from pygments.formatters import HtmlFormatter
 from saspy.SASLogLexer import *
 
 #Create Logger
