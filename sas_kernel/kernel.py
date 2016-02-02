@@ -86,14 +86,14 @@ class SASKernel(MetaKernel):
         showSASLog = os.path.expanduser("~/.local/share/jupyter/%s.html" % connection_key)
         directory  = os.path.dirname(showSASLog)
         logger.debug("Key,path,dir" + connection_key+', '+showSASLog+', '+directory)
-        if (meth=1):
+        if (meth==1):
             if not os.path.exists(directory):
                 os.makedirs(directory)
             color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
             showLog=HTML(color_log)
             open(showSASLog,'wt').write(showLog.data)
         
-        if (meth=0):
+        if (meth==0):
             os.remove(showSASLog)
         return True
 
@@ -187,11 +187,11 @@ class SASKernel(MetaKernel):
             output=self._clean_output(res['LST'])
             log=self._clean_log(res['LOG'])            
             dis=self._which_display(log,output,lst_len)
-            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle,lineseparator="<br>" ))
 
             #store the log for display in showSASLog
             self.cachedlog=color_log
-            print ("log cached ", self.cachedlog)
+            #print ("log cached ", self.cachedlog)
             return dis
             '''
             # hack to test show log button
@@ -199,7 +199,7 @@ class SASKernel(MetaKernel):
             #close('showSASLog.html')
             '''
         else:
-            return self.cachedlog
+            return self.cachedlog.replace('\n',' ')
 
 
 
