@@ -52,7 +52,6 @@ class SASKernel(MetaKernel):
         self._path='/'.join(e2[0:e2.index('SASHome')+1])
         self._version=e2[e2.index('SASFoundation')+1] 
         self._start_sas()
-        #print(self.get_connection_info())
         print(dir(self))
 
     def get_usage(self):
@@ -79,7 +78,6 @@ class SASKernel(MetaKernel):
         elog=[]
         debug1=0
         for line in lines:
-            #logger.debug("In lines loop")
             i+=1
             e=[]
             if line.startswith('ERROR'):
@@ -89,10 +87,11 @@ class SASKernel(MetaKernel):
         tlog='\n'.join(elog)
         logger.debug("elog count: "+str(len(elog))) 
         logger.debug("tlog: " +str(tlog))
-        #Are there errors in the log? if show the lines on each side of the error
-        color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
+        
+        color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>",title="SAS Log"))
         #store the log for display in showSASLog
         self.cachedlog=color_log
+        #Are there errors in the log? if show the lines on each side of the error
         if len(elog)==0 and len(output)>lst_len: #no error and LST output
             debug1=1
             logger.debug("DEBUG1: " +str(debug1)+ " no error and LST output ")
@@ -100,17 +99,14 @@ class SASKernel(MetaKernel):
         elif len(elog)==0 and len(output)<=lst_len: #no error and no LST
             debug1=2
             logger.debug("DEBUG1: " +str(debug1)+ " no error and no LST")
-            #color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
             return HTML(color_log)
         elif len(elog)>0 and len(output)<=lst_len: #error and no LST
             debug1=3
             logger.debug("DEBUG1: " +str(debug1)+ " error and no LST")
-            #color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
             return HTML(color_log)
         else: #errors and LST
             debug1=4
             logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
-            #color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
             return HTML(color_log+output)
 
 
