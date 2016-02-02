@@ -19,12 +19,11 @@ import base64
 from IPython.display import HTML, display
 import os
 import re
-import shutil
+#import shutil
 import signal
 import json
-import time
-import random
-import string
+#import time
+#import string
 
 #color syntax for the SASLog
 from saspy.SASLogLexer import *
@@ -45,12 +44,9 @@ class SASKernel(MetaKernel):
     implementation = 'sas_kernel'
     implementation_version = '1.0'
     language = 'sas'
-    language_version = '9.4'
     banner = "SAS Kernel"
     language_info = {'name': 'sas',
                      'mimetype': 'text/x-sas',
-                     'help_links':  MetaKernel.help_links,
-                     #'pygments_lexer': 'sas',
                      'file_extension': '.sas'
                      }
     def __init__(self,**kwargs):
@@ -77,33 +73,12 @@ class SASKernel(MetaKernel):
     def get_usage(self):
         return "This is the SAS kernel."
 
-    def SASLog(meth):
-        from IPython.lib import kernel
-        connection_file_path = kernel.get_connection_file()
-        connection_file = os.path.basename(connection_file_path)
-        kernel_id = connection_file.split('-', 1)[1].split('.')[0]
-        connection_key=kernel_id
-        showSASLog = os.path.expanduser("~/.local/share/jupyter/%s.html" % connection_key)
-        directory  = os.path.dirname(showSASLog)
-        logger.debug("Key,path,dir" + connection_key+', '+showSASLog+', '+directory)
-        if (meth==1):
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
-            showLog=HTML(color_log)
-            open(showSASLog,'wt').write(showLog.data)
-        
-        if (meth==0):
-            os.remove(showSASLog)
-        return True
-
     def _start_sas(self):
         # Signal handlers are inherited by forked processes, and we can't easily
         # reset it from the subprocess. Since kernelapp ignores SIGINT except in
         # message handlers, we need to temporarily reset the SIGINT handler here
         # so that SAS and its children are interruptible.
         sig = signal.signal(signal.SIGINT, signal.SIG_DFL)
-        python_path=shutil.which("python3.4")
         try:
             # start a SAS session within python bound to the shell session
             import saspy as saspy
@@ -129,7 +104,10 @@ class SASKernel(MetaKernel):
         tlog='\n'.join(elog)
         logger.debug("elog count: "+str(len(elog))) 
         logger.debug("tlog: " +str(tlog))
-        #Are there errors in the log? if show the 6 lines on each side of the error
+        #Are there errors in the log? if show the lines on each side of the error
+        color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
+        #store the log for display in showSASLog
+        self.cachedlog=color_log
         if len(elog)==0 and len(output)>lst_len: #no error and LST output
             debug1=1
             logger.debug("DEBUG1: " +str(debug1)+ " no error and LST output ")
@@ -137,17 +115,17 @@ class SASKernel(MetaKernel):
         elif len(elog)==0 and len(output)<=lst_len: #no error and no LST
             debug1=2
             logger.debug("DEBUG1: " +str(debug1)+ " no error and no LST")
-            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            #color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
             return HTML(color_log)
         elif len(elog)>0 and len(output)<=lst_len: #error and no LST
             debug1=3
             logger.debug("DEBUG1: " +str(debug1)+ " error and no LST")
-            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            #color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
             return HTML(color_log)
         else: #errors and LST
             debug1=4
             logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
-            color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle))
+            #color_log=highlight(tlog,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
             return HTML(color_log+output)
 
 
@@ -161,7 +139,7 @@ class SASKernel(MetaKernel):
     def _clean_log(self,log):
         logger.debug("LOG: " + str(log))
         logger.debug("LOG Length: " + str(len(log)))
-        log= log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',        chr(ord('\t'))).replace('\\f',chr(ord('\f')))
+        log= log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t', chr(ord('\t'))).replace('\\f',chr(ord('\f')))
         log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
         return log
 
@@ -187,24 +165,10 @@ class SASKernel(MetaKernel):
             output=self._clean_output(res['LST'])
             log=self._clean_log(res['LOG'])            
             dis=self._which_display(log,output,lst_len)
-            color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle,lineseparator="<br>" ))
-
-            #store the log for display in showSASLog
-            self.cachedlog=color_log
-            #print ("log cached ", self.cachedlog)
             return dis
-            '''
-            # hack to test show log button
-            open('showSASLog.html','wt').write(HTML(color_log).data)
-            #close('showSASLog.html')
-            '''
         else:
             return self.cachedlog.replace('\n',' ')
 
-
-
-
-    #Get code complete file from EG for this
     def get_completions(self,info):
         if info['line_num']>1:
             relstart=info['column']-(info['help_pos']-info['start'])
@@ -271,17 +235,17 @@ class SASKernel(MetaKernel):
         data_stmt = re.search(r"\s*data\s*[^=].*[^;]?.*$", s, re.IGNORECASE|re.MULTILINE)
         print (s)
         if proc_opt:
-        #logger.debug(proc_opt.group(1).upper()+'p')
+        logger.debug(proc_opt.group(1).upper()+'p')
             return (proc_opt.group(1).upper()+'p')
-        #print(proc_opt.group('last'))
+        print(proc_opt.group('last'))
         elif proc_stmt:
-        #logger.debug(proc_stmt.group(1).upper()+'s')
+        logger.debug(proc_stmt.group(1).upper()+'s')
             return (proc_stmt.group(1).upper()+'s')
         elif data_opt:
-        #logger.debug("data step")
+        logger.debug("data step")
             return ('DATA'+'p')
         elif data_stmt:
-        #logger.debug("data step")
+        logger.debug("data step")
             return ('DATA'+'s')
         else:
             return(None)
