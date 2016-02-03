@@ -216,17 +216,17 @@ class SASKernel(MetaKernel):
         data_stmt = re.search(r"\s*data\s*[^=].*[^;]?.*$", s, re.IGNORECASE|re.MULTILINE)
         print (s)
         if proc_opt:
-        logger.debug(proc_opt.group(1).upper()+'p')
+            logger.debug(proc_opt.group(1).upper()+'p')
             return (proc_opt.group(1).upper()+'p')
         print(proc_opt.group('last'))
         elif proc_stmt:
-        logger.debug(proc_stmt.group(1).upper()+'s')
+            logger.debug(proc_stmt.group(1).upper()+'s')
             return (proc_stmt.group(1).upper()+'s')
         elif data_opt:
-        logger.debug("data step")
+            logger.debug("data step")
             return ('DATA'+'p')
         elif data_stmt:
-        logger.debug("data step")
+            logger.debug("data step")
             return ('DATA'+'s')
         else:
             return(None)
