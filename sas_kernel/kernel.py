@@ -153,7 +153,8 @@ class SASKernel(MetaKernel):
             tmp1=code.split()
             decode=base64.b64decode(tmp1[-1])
             code=decode.decode('utf-8')
-        if code.startswith('showSASLog_11092015')==False & code.startswith("showSASLog_11092015Complete")==False: # and len(log)>0:
+        
+        if (code.startswith('showSASLog_11092015')==False and code.startswith("CompleteshowSASLog_11092015")==False): 
             logger.debug("code type: " +str(type(code)))
             logger.debug("code length: " + str(len(code)))
             logger.debug("code string: "+ code)
@@ -162,9 +163,10 @@ class SASKernel(MetaKernel):
             log=self._clean_log(res['LOG'])            
             dis=self._which_display(log,output,lst_len)
             return dis
-        elif code.startswith("showSASLog_11092015Complete")==True & code.startswith('showSASLog_11092015')==False: 
-        	full_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>",title="Full SAS Log"))
-        	return full_log.replace('\n',' ')
+        elif code.startswith("CompleteshowSASLog_11092015")==True and code.startswith('showSASLog_11092015')==False:
+        	fl=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>", title="Full SAS Log"))
+            full_log="Complete Log "+type(fl)
+            return full_log.replace('\n',' ')
         else:
             return self.cachedlog.replace('\n',' ')
 
