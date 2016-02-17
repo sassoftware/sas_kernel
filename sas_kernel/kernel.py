@@ -236,6 +236,12 @@ class SASKernel(MetaKernel):
             return ('DATA'+'s')
         else:
             return(None)
+
+
+    def initialize_debug(code):
+        print ("In debug")
+        print (code)
+        
    
 
 
