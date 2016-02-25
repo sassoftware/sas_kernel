@@ -19,11 +19,8 @@ import base64
 from IPython.display import HTML, display
 import os
 import re
-#import shutil
 import signal
 import json
-#import time
-#import string
 
 #color syntax for the SASLog
 from saspy.SASLogLexer import *
@@ -239,7 +236,6 @@ class SASKernel(MetaKernel):
         if proc_opt:
             logger.debug(proc_opt.group(1).upper()+'p')
             return (proc_opt.group(1).upper()+'p')
-        #print(proc_opt.group('last'))
         elif proc_stmt:
             logger.debug(proc_stmt.group(1).upper()+'s')
             return (proc_stmt.group(1).upper()+'s')
@@ -257,47 +253,6 @@ class SASKernel(MetaKernel):
         print ("Debuggin a SAS program is done in two parts.\nFor the DATA STEP a ")
         print (code)
         return (None)
-        
-   
-
-
-    # def do_complete(self, code, cursor_pos):
-    #     code = code[:cursor_pos]
-    #     default = {'matches': [], 'cursor_start': 0,
-    #                'cursor_end': cursor_pos, 'metadata': dict(),
-    #                'status': 'ok'}
-
-    #     if not code or code[-1] == ' ':
-    #         return default
-
-    #     tokens = code.replace(';', ' ').split()
-    #     if not tokens:
-    #         return default
-
-    #     matches = []
-    #     token = tokens[-1]
-    #     start = cursor_pos - len(token)
-
-    #     if token[0] == '$':
-    #         # complete variables
-    #         cmd = 'compgen -A arrayvar -A export -A variable %s' % token[1:] # strip leading $
-    #         output = self.saswrapper.run_command(cmd).rstrip()
-    #         completions = set(output.split())
-    #         # append matches including leading $
-    #         matches.extend(['$'+c for c in completions])
-    #     else:
-    #         # complete functions and builtins
-    #         cmd = 'compgen -cdfa %s' % token
-    #         output = self.saswrapper.run_command(cmd).rstrip()
-    #         matches.extend(output.split())
-
-    #     if not matches:
-    #         return default
-    #     matches = [m for m in matches if m.startswith(token)]
-
-    #     return {'matches': sorted(matches), 'cursor_start': start,
-    #             'cursor_end': cursor_pos, 'metadata': dict(),
-    #             'status': 'ok'}
 
     def do_shutdown(self,restart):
         """
@@ -315,8 +270,6 @@ class SASKernel(MetaKernel):
             self.Print("Done!")
         return {'status': 'ok', 'restart': restart}
         self.SASLog(0) # Delete the log file
-        #if restart:
-        #    self.saswrapper.run_command('mva._submit(";endsas;")')
 
 if __name__ == '__main__':
     from ipykernel.kernelapp import IPKernelApp
