@@ -238,9 +238,10 @@ class SASKernel(MetaKernel):
             return(None)
 
 
-    def initialize_debug(code):
-        print ("In debug")
+    def initialize_debug(self,code):
+        print ("Debuggin a SAS program is done in two parts.\nFor the DATA STEP a ")
         print (code)
+        return (None)
         
    
 
