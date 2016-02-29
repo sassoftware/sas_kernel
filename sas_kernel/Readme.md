@@ -19,7 +19,7 @@ and integrates or extends the following items:
 * NBgrader for academic use of Juypter
 
 ## Architecture
-![](./sasKernel.png)
+![](sasKernel.png)
 * Jupyter notebook is a framework that allows users to submit code to a computational engine (Kernel) and display results inline
 * The SAS Kernel is a few hundred lines of python code that facilitates communication between the Jupyter notebook and SAS
 * SAS communicates with the SAS Kernel through stdin, stdout, and stderr using the ODS HTML5 engine
