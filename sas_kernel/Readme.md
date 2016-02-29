@@ -18,6 +18,13 @@ and integrates or extends the following items:
 * SAS Extension to show the SAS Log
 * NBgrader for academic use of Juypter
 
+## Architecture
+![](./sasKernel.png)
+* Jupyter notebook is a framework that allows users to submit code to a computational engine (Kernel) and display results inline
+* The SAS Kernel is a few hundred lines of python code that facilitates communication between the Jupyter notebook and SAS
+* SAS communicates with the SAS Kernel through stdin, stdout, and stderr using the ODS HTML5 engine
+* The SAS Kernel has no use without access to SAS
+
 ## Install
 To successfully use the SAS Kernel you must have each of the following:
 * [SAS version 9.4 or above](http://www.sas.com)
