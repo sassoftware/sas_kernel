@@ -10,7 +10,7 @@ It relies on Python3.X
 
 and integrates or extends the following items:
 
-* Jupyter notebook componenets
+* Jupyter notebook components
 * JupyterHub for multiuser servers
 * Jupyter kernel for SAS
 * Codemirror mode for SAS
@@ -19,17 +19,17 @@ and integrates or extends the following items:
 * NBgrader for academic use of Juypter
 
 ## Install
-To sucessfully use the SAS Kernel you must have each of the following:
+To successfully use the SAS Kernel you must have each of the following:
 * [SAS version 9.4 or above](http://www.sas.com)
 * [Jupyter](http://jupyter.org)
 
-    * Jupyter has a number of dependencies. The quickest path to get up an running, in my opinion, is to use [Anaconda Python](http://docs.continuum.io/anaconda/index)
+    * Jupyter has a number of dependencies. The quickest path to get up and running, in my opinion, is to use [Anaconda Python](http://docs.continuum.io/anaconda/index)
 * [Python 3](http://www.python.org)
 
 ## Improving Usability
-There are a few NBExtensions that have been created to make working with Jupypter notebooks more productive. These are largely the result of pain points from my use of SAS Kernel for programming tasks. The extensions can be found [here](). The list includes:
+There are a few NBExtensions that have been created to make working with Juypter notebooks more productive. These are largely the result of pain points from my use of SAS Kernel for programming tasks. The extensions can be found [here](). The list includes:
 * SAS Log -- which show the SAS log for the last executed cell or the entire log since the last (re)start of the notebook
-* SAS Explore -- which gives a list of the assigned librarys (LIBNAMES) and the DATA Sets (MEMNAME) within them.
+* SAS Explore -- which gives a list of the assigned libraries (LIBNAMES) and the DATA Sets (MEMNAME) within them.
 * SAS Tasks -- 
 
 ## Jupyterhub
@@ -40,8 +40,8 @@ There are a few NBExtensions that have been created to make working with Jupypte
 ## FAQ
 * Is there a SAS Magic that I can access from a python kernel?
 
-    Yes! There are actually several cell magics avaialbe from SAS. 
-    They are `%%SAS`, `%%IML`, `%%SQL` (which uses SAS SQL), and `%%OPTMODEL`. To load these magics in your notebook, execute the following command `%load_ext sas_magic`. You can check that the magics have are successfully activeated by looking at the results of `%lsmagic` and looking in the cell magic section.
+    Yes! There are actually several cell magics available from SAS. 
+    They are `%%SAS`, `%%IML`, `%%SQL` (which uses SAS SQL), and `%%OPTMODEL`. To load these magics in your notebook, execute the following command `%load_ext sas_magic`. You can check that the magics have are successfully activated by looking at the results of `%lsmagic` and looking in the cell magic section.
     If you use multiple SAS Cell magics in the *same* notebook they will share a SAS session (have the same WORK libname and MACROS). There is currently no sharing of SAS Sessions between different notebooks.
 
 * Do I need to buy SAS to use this kernel?
@@ -50,7 +50,7 @@ There are a few NBExtensions that have been created to make working with Jupypte
 
 * How does Jupyter communicate with SAS?
 
-    Behind a Jupyter notebook is a python session, that python session submits code to SAS and recieves responses through socket i/o (leveraging stdin , stdout, and stderr) which has been supported in SAS for a long time
+    Behind a Jupyter notebook is a python session, that python session submits code to SAS and receives responses through socket i/o (leveraging stdin , stdout, and stderr) which has been supported in SAS for a long time
 
 * If stdin, stdout, and stderr have been supported for so long why do I need to have SAS 9.4 or newer?
 
@@ -58,7 +58,7 @@ There are a few NBExtensions that have been created to make working with Jupypte
 
 * How can I see my SAS log, I only see the listing output?
 
-    SAS is differnent from many other programming languages in that it has two useful information streams, the log (which details the technical details of what happened and how long it took) and the lst (which includes the tables and graphics from the analysis).  The SAS Kernel attempts to show you I *think* you want.  Here are the rules:
+    SAS is different from many other programming languages in that it has two useful information streams, the log (which details the technical details of what happened and how long it took) and the lst (which includes the tables and graphics from the analysis).  The SAS Kernel attempts to show you I *think* you want.  Here are the rules:
 
 LOG Has Errors|LST|DISPLAYED| NOTES
 --- | --- |--- | ---
@@ -71,8 +71,8 @@ Yes| No  | LOG|
 
 * Will this leave a bunch of SAS sessions hanging around?
 
-    A SAS session is started for each notebook you have open ie 5 notebooks open = 5 SAS sessions. Those sessions will remain active for the life of the notebook. If you shutdown your notebook, the SAS session will also terminate. In Jupyterhub, there are configuration options to shutdown inactive sessions and the SAS kernel complies with those directives.
+    A SAS session is started for each notebook you have open i.e. 5 notebooks open = 5 SAS sessions. Those sessions will remain active for the life of the notebook. If you shutdown your notebook, the SAS session will also terminate. In Jupyterhub, there are configuration options to shutdown inactive sessions and the SAS kernel complies with those directives.
 
-* I restarted my SAS Kernel and now my WORK library is now empty. WHat happened?
+* I restarted my SAS Kernel and now my WORK library is now empty. What happened?
 
     When you restart the kernel in a notebook you are terminating the current SAS session and starting a new one. All of the temporary artifacts, datasets in the WORK library, assigned libnames, filename, WORK macros, and so on are destroyed.
