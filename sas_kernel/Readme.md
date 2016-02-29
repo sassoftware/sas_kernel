@@ -54,12 +54,13 @@ There are a few NBExtensions that have been created to make working with Jupypte
 
 * How can I see my SAS log, I only see the listing output?
     SAS is differnent from many other programming languages in that it has two useful information streams, the log (which details the technical details of what happened and how long it took) and the lst (which includes the tables and graphics from the analysis).  The SAS Kernel attempts to show you I *think* you want.  Here are the rules:
-    LOG|LST|DISPLAYED| NOTES
-    ---|---|---|---
-    Yes|No|LOG|This happens when you run DATA Step or a PROC with the `noprint` option
-    Yes|Yes|LST|
-    Yes (with ERROR message(s))|Yes|ERROR messages with context from the log, then the listing output
-    Yes (with ERROR message(s))|No|LOG|
+
+LOG Has Errors|LST|DISPLAYED| NOTES
+--- | --- |--- | ---
+No | No  | LOG | This happens when you run DATA Step or a PROC with the `noprint` option
+No | Yes |LST |
+Yes| Yes | LST & LOG| ERROR messages with context from the log, then the listing output
+Yes| No  | LOG|
 
     If you want to see the log but it was not displayed you can use [SASLog NBExtension]() which will show the log for the last executed cell or the entire log since the last (re)start of the notebook
 
