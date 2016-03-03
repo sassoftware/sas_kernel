@@ -20,8 +20,6 @@ __version__ = '0.1'
 
 version_pat = re.compile(r'version (\d+(\.\d+)+)')
 
-from metakernel import MetaKernel
-
 class SASKernel(MetaKernel):
     implementation = 'sas_kernel'
     implementation_version = '1.0'
@@ -48,7 +46,7 @@ class SASKernel(MetaKernel):
         e2=executable.split('/')
         self._path='/'.join(e2[0:e2.index('SASHome')+1])
         self._version=e2[e2.index('SASFoundation')+1] 
-        self._start_sas()
+        #self._start_sas()
         print(dir(self))
 
     def get_usage(self):
@@ -64,8 +62,7 @@ class SASKernel(MetaKernel):
             # start a SAS session within python bound to the shell session
             import saspy as saspy
             print("In _start_sas" + self._path + self._version)
-            self.mva=saspy.SAS_session()
-            self.mva._startsas(path=self._path, version=self._version)
+            self.mva=saspy.SAS_session(Kernel=self)
         finally:
             signal.signal(signal.SIGINT, sig)
 
@@ -121,6 +118,9 @@ class SASKernel(MetaKernel):
         log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
         return log
 
+    def do_execute(self, code, silent=False, store_history=True, user_expressions=None, allow_stdin=False):
+        super().do_execute(code, silent=False, store_history=True, user_expressions=None, allow_stdin=True)
+
     def do_execute_direct(self, code):
         if not code.strip():
             return {'status': 'ok', 'execution_count': self.execution_count,
@@ -128,6 +128,10 @@ class SASKernel(MetaKernel):
         interrupted = False
         lst_len=30762 # the length of the html5 with no real listing output
 
+        if self.mva == None:
+           self._allow_stdin = True
+           self._start_sas()
+                           
         if re.match(r'endsas;',code):
             self.do_shutdown(False)
         if code.startswith('Obfuscated SAS Code'):
