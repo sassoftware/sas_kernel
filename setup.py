@@ -23,7 +23,13 @@ from distutils import log
 import json
 import os
 import sys
-import saspy.sas_magic
+#import saspy.sas_magic
+
+try:
+  from jupyter_client.kernelspec import install_kernel_spec
+except ImportError:
+  from IPython.kernel.kernelspec import install_kernel_spec
+from IPython.utils.tempdir import TemporaryDirectory
 
 kernel_json = {
         "argv":[sys.executable,
@@ -38,23 +44,18 @@ class install_with_kernelspec(install):
         install.run(self)
 
         # Now write the kernelspec
-        from jupyter_client.kernelspec import install_kernel_spec
-        from IPython.utils.tempdir import TemporaryDirectory
         with TemporaryDirectory() as td:
             os.chmod(td, 0o755) # Starts off as 700, not user readable
             with open(os.path.join(td, 'kernel.json'), 'w') as f:
                 json.dump(kernel_json, f, sort_keys=True)
-            # TODO: Copy resources once they're specified
-
             log.info('Installing IPython kernel spec')
-            install_kernel_spec(td, 'SAS', user=self.user, replace=True)
-
-#    def register_magic(self):
-#        import sas_kernel.sas_magic
+            try:
+              install_kernel_spec(td, 'SAS', user=self.user, replace=True)
+            except:
+              print("Could not install SAS Kernel as %s user" % self.user)
 
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
-    # Die, setuptools, die.
     sys.argv.remove(svem_flag)
 
 setup(name='SAS_kernel',
@@ -65,6 +66,7 @@ setup(name='SAS_kernel',
       author_email='jared.dean@sas.com',
       packages=['sas_kernel'],
       cmdclass={'install': install_with_kernelspec},
+      package_data={'sasgrammer': ['sasgrammerdictionary.json','sasproclist.json' ]},
       install_requires=['pexpect>=3.3','saspy','metakernel'],
       classifiers = [
         'Framework :: IPython',
