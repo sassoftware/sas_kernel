@@ -28,7 +28,7 @@ from saspy.SASLogLexer import *
 #Create Logger
 import logging
 logger= logging.getLogger('')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARN)
 
 
 __version__ = '0.1'
@@ -54,9 +54,9 @@ class SASKernel(MetaKernel):
     def __init__(self,**kwargs):
         #the filepath below assumes that the json files are in the same directory as the kernel.py
         #which should be fine since they will be delivered as part of the pip module
-        with open(os.path.dirname(os.path.realpath(__file__))+'/'+'sasproclist.json') as proclist:
+        with open(os.path.dirname(os.path.realpath(__file__))+'/data/'+'sasproclist.json') as proclist:
             self.proclist=json.load(proclist)
-        with open(os.path.dirname(os.path.realpath(__file__))+'/'+'sasgrammerdictionary.json') as compglo:
+        with open(os.path.dirname(os.path.realpath(__file__))+'/data/'+'sasgrammerdictionary.json') as compglo:
             self.compglo=json.load(compglo)
         self.strproclist='\n'.join(str(x) for x in self.proclist)
         MetaKernel.__init__(self, **kwargs)
