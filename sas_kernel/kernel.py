@@ -28,7 +28,7 @@ from saspy.SASLogLexer import *
 #Create Logger
 import logging
 logger= logging.getLogger('')
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARN)
 
 
 __version__ = '0.1'
