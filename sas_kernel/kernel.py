@@ -21,14 +21,19 @@ __version__ = '0.1'
 version_pat = re.compile(r'version (\d+(\.\d+)+)')
 
 from metakernel import MetaKernel
+from . import __version__
+
 
 class SASKernel(MetaKernel):
     implementation = 'sas_kernel'
     implementation_version = '1.0'
     language = 'sas'
+    language_version = __version__,
     banner = "SAS Kernel"
     language_info = {'name': 'sas',
                      'mimetype': 'text/x-sas',
+                     "codemirror_mode": "SAS",
+                     "version": __version__,
                      'file_extension': '.sas'
                      }
     def __init__(self,**kwargs):
