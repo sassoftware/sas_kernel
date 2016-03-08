@@ -169,7 +169,12 @@ class SASKernel(MetaKernel):
             #fl_1=self._clean_output(self.mva._log)
             full_log=highlight(self._clean_output(self.mva._log),SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>", title="Full SAS Log"))
             return full_log.replace('\n',' ')
-            
+        elif code.startswith("/*SASKernelTest*/"):
+            res=self.mva.submit(code, "text")
+            output=self._clean_output(res['LST'])
+            log=self._clean_log(res['LOG'])            
+            dis=self._which_display(log,output,lst_len)
+            return dis 
         else:
             return self.cachedlog.replace('\n',' ')
 
