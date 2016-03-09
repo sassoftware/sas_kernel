@@ -119,7 +119,7 @@ class SASKernel(MetaKernel):
         return log
 
     def do_execute(self, code, silent=False, store_history=True, user_expressions=None, allow_stdin=False):
-        super().do_execute(code, silent=False, store_history=True, user_expressions=None, allow_stdin=True)
+        return super().do_execute(code, silent=False, store_history=True, user_expressions=None, allow_stdin=True)
 
     def do_execute_direct(self, code):
         if not code.strip():
