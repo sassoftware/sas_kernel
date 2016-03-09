@@ -54,7 +54,7 @@ class SASKernel(MetaKernel):
         try:
             # start a SAS session within python bound to the shell session
             import saspy as saspy
-            print("In _start_sas" + self._path + self._version)
+            print("In _start_sas")
             self.mva=saspy.SAS_session(Kernel=self)
         finally:
             signal.signal(signal.SIGINT, sig)
