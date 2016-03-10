@@ -90,7 +90,7 @@ class SASKernel(MetaKernel):
         logger.debug("elog count: "+str(len(elog))) 
         logger.debug("tlog: " +str(tlog))
         
-        color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>",title="SAS Log"))
+        color_log=highlight(log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
         #store the log for display in showSASLog
         self.cachedlog=color_log
         #Are there errors in the log? if show the lines on each side of the error
@@ -111,21 +111,6 @@ class SASKernel(MetaKernel):
             logger.debug("DEBUG1: " +str(debug1)+ " errors and LST")
             return HTML(color_log+output)
 
-
-    def _clean_output(self,output):
-        logger.debug("FULL LST: " + output)
-        logger.debug("LST Length: " + str(len(output)))
-        output=output.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t',chr(ord('\t'))).replace('\\f',chr(ord('\f')))
-        output=output[0:3].replace('\'',chr(00))+output[3:-4]+output[-4:].replace('\'',chr(00))
-        return output
-
-    def _clean_log(self,log):
-        logger.debug("LOG: " + str(log))
-        logger.debug("LOG Length: " + str(len(log)))
-        log= log.replace('\\n', chr(10)).replace('\\r',chr(ord('\r'))).replace('\\t', chr(ord('\t'))).replace('\\f',chr(ord('\f')))
-        log=log[0:3].replace('\'',chr(00))+log[3:-4]+log[-4:].replace('\'',chr(00))
-        return log
-
     def do_execute_direct(self, code):
         if not code.strip():
             return {'status': 'ok', 'execution_count': self.execution_count,
@@ -145,21 +130,17 @@ class SASKernel(MetaKernel):
             logger.debug("code type: " +str(type(code)))
             logger.debug("code length: " + str(len(code)))
             logger.debug("code string: "+ code)
-            res=self.mva.submit(code)
-            output=self._clean_output(res['LST'])
-            log=self._clean_log(res['LOG'])            
+            if code.startswith("/*SASKernelTest*/"):
+                 res=self.mva.submit(code, "text")
+            else: 
+                 res=self.mva.submit(code)
+            output=res['LST']
+            log=res['LOG']            
             dis=self._which_display(log,output,lst_len)
             return dis
         elif code.startswith("CompleteshowSASLog_11092015")==True and code.startswith('showSASLog_11092015')==False:
-            #fl_1=self._clean_output(self.mva._log)
-            full_log=highlight(self._clean_output(self.mva._log),SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>", title="Full SAS Log"))
+            full_log=highlight(self.mva._log,SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>", title="Full SAS Log"))
             return full_log.replace('\n',' ')
-        elif code.startswith("/*SASKernelTest*/"):
-            res=self.mva.submit(code, "text")
-            output=self._clean_output(res['LST'])
-            log=self._clean_log(res['LOG'])            
-            dis=self._which_display(log,output,lst_len)
-            return dis 
         else:
             return self.cachedlog.replace('\n',' ')
 
@@ -197,12 +178,8 @@ class SASKernel(MetaKernel):
                     mykey='p'
                 procer=re.search('(?i)proc\s\w+',info['code'][lastproc:])
                 method=procer.group(0).split(' ')[-1].upper()+mykey
-                #procpos=info.['code'][lastsemi+1:info['start']].rfind(wehaveproc[0])
                 mylist=self.compglo[method][0]
-                #print(mylist,len(mylist))
-                #potentials=re.findall('(?i)'+info['obj']+'\w+',' '.join(str(x) for x in mylist))
                 potentials=re.findall('(?i)'+info['obj']+'.+','\n'.join(str(x) for x in mylist),re.MULTILINE)
-                #print (info['obj'], potentials)
                 return potentials
             elif data:
                 #we are in statements (probably if there is no data)
@@ -213,7 +190,6 @@ class SASKernel(MetaKernel):
                 if lastproc>lastsemi:
                     mykey='p'
                 mylist=self.compglo['DATA'+mykey][0]
-                #potentials=re.findall('(?i)'+info['obj']+'\w+',' '.join(str(x) for x in mylist))
                 potentials=re.findall('(?i)^'+info['obj']+'.*','\n'.join(str(x) for x in mylist),re.MULTILINE)
                 return potentials
         #keep in mind lin_num
@@ -245,9 +221,9 @@ class SASKernel(MetaKernel):
 
 
     def initialize_debug(self,code):
-        print ("Debuggin a SAS program is done in two parts.\nFor the DATA STEP a ")
+        '''SAS does not have formal debug tools from this interface'''
         print (code)
-        return (None)
+        return None
 
     def do_shutdown(self,restart):
         """
