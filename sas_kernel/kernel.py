@@ -56,7 +56,7 @@ class SASKernel(MetaKernel):
         #which should be fine since they will be delivered as part of the pip module
         with open(os.path.dirname(os.path.realpath(__file__))+'/data/'+'sasproclist.json') as proclist:
             self.proclist=json.load(proclist)
-        with open(os.path.dirname(os.path.realpath(__file__))+'/data/'+'sasgrammerdictionary.json') as compglo:
+        with open(os.path.dirname(os.path.realpath(__file__))+'/data/'+'sasgrammardictionary.json') as compglo:
             self.compglo=json.load(compglo)
         self.strproclist='\n'.join(str(x) for x in self.proclist)
         MetaKernel.__init__(self, **kwargs)
