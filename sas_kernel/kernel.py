@@ -35,9 +35,7 @@ __version__ = '0.1'
 
 version_pat = re.compile(r'version (\d+(\.\d+)+)')
 
-from metakernel import MetaKernel
 from . import __version__
-
 
 class SASKernel(MetaKernel):
     implementation = 'sas_kernel'
@@ -62,32 +60,17 @@ class SASKernel(MetaKernel):
         MetaKernel.__init__(self, **kwargs)
         self.mva = None
         self.cachedlog= None
-        executable = os.environ.get('SAS_EXECUTABLE', 'sas')
-        if executable=='sas':
-            executable='/opt/sasinside/SASHome/SASFoundation/9.4/sas'
-        e2=executable.split('/')
-        self._path='/'.join(e2[0:e2.index('SASHome')+1])
-        self._version=e2[e2.index('SASFoundation')+1] 
-        self._start_sas()
         print(dir(self))
 
     def get_usage(self):
         return "This is the SAS kernel."
 
     def _start_sas(self):
-        # Signal handlers are inherited by forked processes, and we can't easily
-        # reset it from the subprocess. Since kernelapp ignores SIGINT except in
-        # message handlers, we need to temporarily reset the SIGINT handler here
-        # so that SAS and its children are interruptible.
-        sig = signal.signal(signal.SIGINT, signal.SIG_DFL)
         try:
-            # start a SAS session within python bound to the shell session
             import saspy as saspy
-            print("In _start_sas" + self._path + self._version)
-            self.mva=saspy.SAS_session()
-            self.mva._startsas(path=self._path, version=self._version)
-        finally:
-            signal.signal(signal.SIGINT, sig)
+            self.mva=saspy.SAS_session(Kernel=self)
+        except:
+            self.mva = None
 
     def _which_display(self,log,output,lst_len):
         lines=re.split(r'[\n]\s*',log)
@@ -133,8 +116,10 @@ class SASKernel(MetaKernel):
         interrupted = False
         lst_len=30762 # the length of the html5 with no real listing output
 
-        if re.match(r'endsas;',code):
-            self.do_shutdown(False)
+        if self.mva == None:
+           self._allow_stdin = True
+           self._start_sas()
+
         if code.startswith('Obfuscated SAS Code'):
             logger.debug("decoding string")
             tmp1=code.split()
@@ -149,6 +134,11 @@ class SASKernel(MetaKernel):
                  res=self.mva.submit(code, "text")
             else: 
                  res=self.mva.submit(code)
+            if res['LOG'].find("SAS process has terminated unexpectedly") > -1:
+               print(res['LOG'], '\n' "Restarting SAS session on your behalf")
+               self.do_shutdown(True)
+               return res['LOG']
+
             output=res['LST']
             log=res['LOG']            
             dis=self._which_display(log,output,lst_len)
@@ -249,6 +239,9 @@ class SASKernel(MetaKernel):
             with open(self.hist_file, 'wb') as fid:
                 data = '\n'.join(self.hist_cache[-self.max_hist_cache:])
                 fid.write(data.encode('utf-8'))
+        if self.mva:
+           self.mva._endsas() 
+           self.mva = None
         if restart:
             self.Print("Restarting kernel...")
             self.reload_magics()
