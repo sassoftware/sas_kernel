@@ -45,8 +45,7 @@ class SASKernel(MetaKernel):
     banner = "SAS Kernel"
     language_info = {'name': 'sas',
                      'mimetype': 'text/x-sas',
-                     "codemirror_mode": "SAS",
-                     "version": __version__,
+                     "codemirror_mode": "sas",
                      'file_extension': '.sas'
                      }
     def __init__(self,**kwargs):
