@@ -23,7 +23,7 @@ import json
 from . import __version__
 
 # color syntax for the SASLog
-from saspy.SASLogLexer import *
+from saspy.SASLogLexer import SASLogStyle, SASLogLexer
 from pygments.formatters import HtmlFormatter
 from pygments import highlight
 
@@ -49,8 +49,6 @@ class SASKernel(MetaKernel):
                      }
 
     def __init__(self, **kwargs):
-        # the filepath below assumes that the json files are in the same directory as the kernel.py
-        # which should be fine since they will be delivered as part of the pip module
         with open(os.path.dirname(os.path.realpath(__file__)) + '/data/' + 'sasproclist.json') as proclist:
             self.proclist = json.load(proclist)
         with open(os.path.dirname(os.path.realpath(__file__)) + '/data/' + 'sasgrammardictionary.json') as compglo:
@@ -59,19 +57,34 @@ class SASKernel(MetaKernel):
         MetaKernel.__init__(self, **kwargs)
         self.mva = None
         self.cachedlog = None
+        self.lst_len = -99  # initialize the length to a negative number to trigger function
         print(dir(self))
+
+    def do_apply(self, content, bufs, msg_id, reply_metadata):
+        pass
+
+    def do_clear(self):
+        pass
 
     def get_usage(self):
         return "This is the SAS kernel."
 
+    def _get_lst_len(self):
+        code = "data _null_; run;"
+        res = self.mva.submit(code)
+        assert isinstance(res, dict)
+        self.lst_len = len(res['LST'])
+        assert isinstance(self.lst_len, int)
+        return
+
     def _start_sas(self):
         try:
             import saspy as saspy
-            self.mva = saspy.SAS_session(Kernel=self)
+            self.mva = saspy.SASsession(kernel=self)
         except:
             self.mva = None
 
-    def _which_display(self, log, output, lst_len):
+    def _which_display(self, log, output):
         lines = re.split(r'[\n]\s*', log)
         i = 0
         elog = []
@@ -87,18 +100,18 @@ class SASKernel(MetaKernel):
         logger.debug("tlog: " + str(tlog))
 
         color_log = highlight(log, SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
-        # store the log for display in showSASLog
+        # store the log for display in the showSASLog nbextension
         self.cachedlog = color_log
         # Are there errors in the log? if show the lines on each side of the error
-        if len(elog) == 0 and len(output) > lst_len:  # no error and LST output
+        if len(elog) == 0 and len(output) > self.lst_len:  # no error and LST output
             debug1 = 1
             logger.debug("DEBUG1: " + str(debug1) + " no error and LST output ")
             return HTML(output)
-        elif len(elog) == 0 and len(output) <= lst_len:  # no error and no LST
+        elif len(elog) == 0 and len(output) <= self.lst_len:  # no error and no LST
             debug1 = 2
             logger.debug("DEBUG1: " + str(debug1) + " no error and no LST")
             return HTML(color_log)
-        elif len(elog) > 0 and len(output) <= lst_len:  # error and no LST
+        elif len(elog) > 0 and len(output) <= self.lst_len:  # error and no LST
             debug1 = 3
             logger.debug("DEBUG1: " + str(debug1) + " error and no LST")
             return HTML(color_log)
@@ -111,12 +124,13 @@ class SASKernel(MetaKernel):
         if not code.strip():
             return {'status': 'ok', 'execution_count': self.execution_count,
                     'payload': [], 'user_expressions': {}}
-        interrupted = False
-        lst_len = 30762  # the length of the html5 with no real listing output
 
         if self.mva is None:
             self._allow_stdin = True
             self._start_sas()
+
+        if self.lst_len < 0:
+            self._get_lst_len()
 
         if code.startswith('Obfuscated SAS Code'):
             logger.debug("decoding string")
@@ -139,7 +153,7 @@ class SASKernel(MetaKernel):
 
             output = res['LST']
             log = res['LOG']
-            dis = self._which_display(log, output, lst_len)
+            dis = self._which_display(log, output)
             return dis
         elif code.startswith("CompleteshowSASLog_11092015") == True and code.startswith('showSASLog_11092015') == False:
             full_log = highlight(self.mva._log, SASLogLexer(),
@@ -156,18 +170,15 @@ class SASKernel(MetaKernel):
             relstart = info['start']
         seg = info['line'][:relstart]
         if relstart > 0 and re.match('(?i)proc', seg.rsplit(None, 1)[-1]):
-            # taking the path ro proclist
-            # potentials=re.findall('(?i)'+info['obj']+'\W\w+',self.strproclist)
             potentials = re.findall('(?i)^' + info['obj'] + '.*', self.strproclist, re.MULTILINE)
             return potentials
         else:
-            # we are in the middle we should determine if it is "foop" or "foos"
             lastproc = info['code'].lower()[:info['help_pos']].rfind('proc')
             lastdata = info['code'].lower()[:info['help_pos']].rfind('data ')
             proc = False
             data = False
             if lastproc + lastdata == -2:
-                somewhereelse = True
+                pass
             else:
                 if lastproc > lastdata:
                     proc = True
@@ -196,8 +207,6 @@ class SASKernel(MetaKernel):
                 mylist = self.compglo['DATA' + mykey][0]
                 potentials = re.findall('(?i)^' + info['obj'] + '.*', '\n'.join(str(x) for x in mylist), re.MULTILINE)
                 return potentials
-                # keep in mind lin_num
-
             else:
                 potentials = ['']
                 return potentials

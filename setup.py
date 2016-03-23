@@ -24,8 +24,6 @@ import json
 import os
 import sys
 
-# import saspy.sas_magic
-
 try:
     from jupyter_client.kernelspec import install_kernel_spec
 except ImportError:
