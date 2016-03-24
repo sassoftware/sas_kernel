@@ -1,37 +1,86 @@
+# SAS Kernel for Juypter
+
 ## What is this?
 
 A SAS Kernel for [Jupyter Notebooks](http://www.jupyter.org)
 
-It relies on Python3.X
-
-and integrates or extends the following items:
-
-* Jupyter notebook components
-* JupyterHub for multi-user servers
-* Jupyter kernel for SAS
-* CodeMirror mode for SAS
-* Theme for SAS
-* SAS Extension to show the SAS Log
-* NBgrader for academic use of Jupyter
+## Dependencies
+* Python3.X
+* Jupyter
+* SAS 9.4 or higher
+* Linux OS
 
 ## Install
 To successfully use the SAS Kernel you must have each of the following:
 * [SAS version 9.4 or above](http://www.sas.com)
 * [Jupyter](http://jupyter.org)
-
-    * Jupyter has a number of dependencies. The quickest path to get up an running, in my opinion, is to use [Anaconda Python](http://docs.continuum.io/anaconda/index)
+    * Jupyter has a number of dependencies. See the subsections for steps on installing Jupyter on your system.
 * [Python 3](http://www.python.org)
+
+### Install for Anaconda Python (assuming SAS already installed)
+1. [Download](https://www.continuum.io/downloads) and install Anaconda Python (make sure you get Python3.X)
+
+1. Install sas_kernel
+`pip install saspy sas_kernel`
+ 
+1. Verify that the sas_kernel is installed
+`jupyter kernelspec list`
+
+    This should produce output similar to this:
+    ```
+    Available kernels:
+      python3    /usr/lib/python3.5/site-packages/ipykernel/resources
+      sas        /usr/local/share/jupyter/kernels/sas
+    ```
+
+1. Verify SAS Executable is correct
+    1. find the sascfg.py file -- it is currently located in the site-packages area of python install
+    ` find / -name sascfg.py`
+    1. edit the file with the correct path the SAS executable and include any options you wish it include in the SAS invocation. See examples in the file
+
+
+### Install for Centos 6 (assuming SAS already installed)
+1. yum packages
+`sudo yum install https://centos6.iuscommunity.org/ius-release.rpm`
+`sudo yum install python35u gcc-c++ python35u-devel python35u-pip python35u-tools nodejs npm mlocate libselinux-python`
+ 
+1. pip
+`wget https://bootstrap.pypa.io/get-pip.py`
+`python3.5 get-pip.py`
+`pip3 --version`
+ 
+1. jupyter and sas_kernel
+`pip3.5 install jupyter`
+`pip3.5 install saspy sas_kernel`
+ 
+1. Verify that the sas_kernel is installed
+`jupyter kernelspec list`
+
+    This should produce output similar to this:
+    ```
+    Available kernels:
+      python3    /usr/lib/python3.5/site-packages/ipykernel/resources
+      sas        /usr/local/share/jupyter/kernels/sas
+    ```
+
+ 
+1. Verify SAS Executable is correct
+    1. find the sascfg.py file -- it is currently located in the site-packages area of python install
+    ` find / -name sascfg.py`
+    1. edit the file with the correct path the SAS executable and include any options you wish it include in the SAS invocation. See examples in the file
+
+
+
 
 ## Improving Usability
 There are a few NBExtensions that have been created to make working with Jupyter notebooks more productive. These are largely the result of pain points from my use of SAS Kernel for programming tasks. The extensions can be found [here](). The list includes:
 * SAS Log -- which show the SAS log for the last executed cell or the entire log since the last (re)start of the notebook
-* SAS Explore -- which gives a list of the assigned library's (LIBNAMES) and the DATA Sets (MEMNAME) within them.
-* SAS Tasks -- 
 
 ## Jupyterhub
+The SAS kernel can be used with JupyterHub for more information look [here](https://jupyterhub.readthedocs.org/en/latest/) 
 
 ## NBGrader
-
+[nbgrader](http://nbgrader.readthedocs.org/en/stable/) is a system for assigning and grading notebooks and extends jupyter. I have a number of contributions that I'm currently working on in conjuction with teaching SAS programming in a classroom setting. You can see my forked repo [here](https://github.com/jld23/nbgrader)
 
 ## FAQ
 * Is there a SAS Magic that I can access from a python kernel?
@@ -50,17 +99,19 @@ There are a few NBExtensions that have been created to make working with Jupyter
 
 * How can I see my SAS log, I only see the listing output?
     SAS is different from many other programming languages in that it has two useful information streams, the log (which details the technical details of what happened and how long it took) and the lst (which includes the tables and graphics from the analysis).  The SAS Kernel attempts to show you I *think* you want.  Here are the rules:
+        
     LOG|LST|DISPLAYED| NOTES
     ---|---|---|---
     Yes|No|LOG|This happens when you run DATA Step or a PROC with the `noprint` option
-    Yes|Yes|LST|
-    Yes (with ERROR message(s))|Yes|ERROR messages with context from the log, then the listing output
-    Yes (with ERROR message(s))|No|LOG|
+    Yes|Yes|LST|---
+    Yes (with ERROR message(s))|Yes|ERROR messages with context from the log, then the listing output|---
+    Yes (with ERROR message(s))|No|LOG|---
+
 
     If you want to see the log but it was not displayed you can use [SASLog NBExtension]() which will show the log for the last executed cell or the entire log since the last (re)start of the notebook
 
 * Will this leave a bunch of SAS sessions hanging around?
-    A SAS session is started for each notebook you have open ie 5 notebooks open = 5 SAS sessions. Those sessions will remain active for the life of the notebook. If you shutdown your notebook, the SAS session will also terminate. In Jupyterhub, there are configuration options to shutdown inactive sessions and the SAS kernel complies with those directives.
+    A SAS session is started for each notebook you have open i.e. 5 notebooks open = 5 SAS sessions. Those sessions will remain active for the life of the notebook. If you shutdown your notebook, the SAS session will also terminate. In Jupyterhub, there are configuration options to shutdown inactive sessions and the SAS kernel complies with those directives.
 
 * I restarted my SAS Kernel and now my WORK library is now empty. WHat happened?
     When you restart the kernel in a notebook you are terminating the current SAS session and starting a new one. All of the temporary artifacts, datasets in the WORK library, assigned libnames, filename, WORK macros, and so on are destroyed.
