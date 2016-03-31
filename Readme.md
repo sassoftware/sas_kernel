@@ -76,6 +76,22 @@ To successfully use the SAS Kernel you must have each of the following:
 There are a few NBExtensions that have been created to make working with Jupyter notebooks more productive. These are largely the result of pain points from my use of SAS Kernel for programming tasks. The extensions can be found [here](). The list includes:
 * SAS Log -- which show the SAS log for the last executed cell or the entire log since the last (re)start of the notebook
 
+### Installing the SAS Extensions
+If you cloned the repo from github you have an `nbexensions` directory within the file structure
+```
+jupyter nbextension install showSASLog/main.js
+```
+Which should display something similar to this (if you have super user rights):
+`copying showSASLog/main.js -> /usr/local/share/jupyter/nbextensions/main.js`
+
+
+Then enable the notebook extension with the following command:
+```
+jupyter nbextension enable showSASLog
+``` 
+
+To disable (not that you'd ever want to):
+ `jupyter nbextension disable showSASLog`
 ## Jupyterhub
 The SAS kernel can be used with JupyterHub for more information look [here](https://jupyterhub.readthedocs.org/en/latest/) 
 

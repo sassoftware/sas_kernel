@@ -61,7 +61,7 @@ if svem_flag in sys.argv:
     sys.argv.remove(svem_flag)
 
 setup(name='SAS_kernel',
-      version='0.2',
+      version='1.0',
       description='A SAS kernel for IPython',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
@@ -69,9 +69,11 @@ setup(name='SAS_kernel',
       packages=['sas_kernel'],
       cmdclass={'install': InstallWithKernelspec},
       package_data={'sas_kernel': ['data/*.json']},
+      data_files=[("./sas_kernel/images", ["sas_kernel/images/logo-64x64.png"])],
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy', 'ipykernel', 'pygments', 'jupyter_client'],
       classifiers=[
           'Framework :: IPython',
+          'Framework :: Jupyter',
           'Programming Language :: Python :: 3',
           'Programming Language :: SAS    :: 9',
       ]
