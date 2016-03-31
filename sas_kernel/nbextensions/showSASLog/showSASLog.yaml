@@ -1,0 +1,11 @@
+Type: IPython Notebook Extension
+Name: ShowSASLog
+Description: >
+  Show the SAS log from either the
+last executed cell in the notebook
+OR
+the complete log for the notebook
+Icon: sasLogJoint.PNG
+Link: readme.md
+Main: main.js
+Compatibility: 4.x
