@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #
 # Copyright SAS Institute
 #
@@ -54,11 +55,6 @@ class InstallWithKernelspec(install):
                 install_kernel_spec(td, 'SAS', user=self.user, replace=True)
             except:
                 print("Could not install SAS Kernel as %s user" % self.user)
-
-
-svem_flag = '--single-version-externally-managed'
-if svem_flag in sys.argv:
-    sys.argv.remove(svem_flag)
 
 setup(name='SAS_kernel',
       version='1.0',
