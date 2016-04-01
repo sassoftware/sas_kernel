@@ -62,14 +62,14 @@ setup(name='SAS_kernel',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
       author_email='jared.dean@sas.com',
+      url='https://github.com/sassoftware/sas_kernel',
       packages=['sas_kernel'],
       cmdclass={'install': InstallWithKernelspec},
       package_data={'sas_kernel': ['data/*.json']},
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy', 'ipykernel', 'pygments', 'jupyter_client'],
       classifiers=[
           'Framework :: IPython',
-          'Framework :: Jupyter',
+          'License :: OSI Approved :: Apache Software License',
           'Programming Language :: Python :: 3',
-          'Programming Language :: SAS    :: 9',
       ]
       )
