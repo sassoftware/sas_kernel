@@ -68,8 +68,7 @@ setup(name='SAS_kernel',
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy', 'ipykernel', 'pygments', 'jupyter_client'],
       classifiers=[
           'Framework :: IPython',
-          'Framework :: Jupyter',
           'Programming Language :: Python :: 3',
-          'Programming Language :: SAS    :: 9',
+          'License :: OSI Approved :: Apache Software License',
       ]
       )
