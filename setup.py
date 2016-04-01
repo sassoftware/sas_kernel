@@ -69,7 +69,6 @@ setup(name='SAS_kernel',
       packages=['sas_kernel'],
       cmdclass={'install': InstallWithKernelspec},
       package_data={'sas_kernel': ['data/*.json']},
-      data_files=[("./sas_kernel/images", ["sas_kernel/images/logo-64x64.png"])],
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy', 'ipykernel', 'pygments', 'jupyter_client'],
       classifiers=[
           'Framework :: IPython',
