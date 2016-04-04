@@ -101,7 +101,7 @@ The SAS kernel can be used with JupyterHub for more information look [here](http
 ## FAQ
 * Is there a SAS Magic that I can access from a python kernel?
     Yes! There are actually several cell magics available from SAS. 
-    They are `%%SAS`, `%%IML`, `%%SQL` (which uses SAS SQL), and `%%OPTMODEL`. To load these magics in your notebook, execute the following command `%load_ext sas_magic`. You can check that the magics have are successfully activated by looking at the results of `%lsmagic` and looking in the cell magic section.
+    They are `%%SAS`, `%%IML`, `%%SQL` (which uses SAS SQL), and `%%OPTMODEL`. To load these magics in your notebook, execute the following command `%load_ext saspy.sas_magic`. You can check that the magics have are successfully activated by looking at the results of `%lsmagic` and looking in the cell magic section.
     If you use multiple SAS Cell magics in the *same* notebook they will share a SAS session (have the same WORK libname and MACROS). There is currently no sharing of SAS Sessions between different notebooks.
 
 * Do I need to buy SAS to use this kernel?
