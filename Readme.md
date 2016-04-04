@@ -21,7 +21,9 @@ To successfully use the SAS Kernel you must have each of the following:
 1. [Download](https://www.continuum.io/downloads) and install Anaconda Python (make sure you get Python3.X)
 
 1. Install sas_kernel
-`pip install saspy sas_kernel`
+   ```
+   pip install saspy sas_kernel
+   ```
  
 1. Verify that the sas_kernel is installed
 `jupyter kernelspec list`
@@ -41,17 +43,23 @@ To successfully use the SAS Kernel you must have each of the following:
 
 ### Install for Centos 6 (assuming SAS already installed)
 1. yum packages
-`sudo yum install https://centos6.iuscommunity.org/ius-release.rpm`
-`sudo yum install python35u gcc-c++ python35u-devel python35u-pip python35u-tools nodejs npm mlocate libselinux-python`
+   ```
+   sudo yum install https://centos6.iuscommunity.org/ius-release.rpm
+   sudo yum install python35u gcc-c++ python35u-devel python35u-pip python35u-tools nodejs npm mlocate libselinux-python
+   ```
  
 1. pip
-`wget https://bootstrap.pypa.io/get-pip.py`
-`python3.5 get-pip.py`
-`pip3 --version`
+   ```
+   wget https://bootstrap.pypa.io/get-pip.py
+   python3.5 get-pip.py
+   pip3 --version
+   ```
  
 1. jupyter and sas_kernel
-`pip3.5 install jupyter`
-`pip3.5 install saspy sas_kernel`
+   ```
+   pip3.5 install jupyter
+   pip3.5 install saspy sas_kernel
+   ```
  
 1. Verify that the sas_kernel is installed
 `jupyter kernelspec list`
@@ -101,7 +109,7 @@ The SAS kernel can be used with JupyterHub for more information look [here](http
 ## FAQ
 * Is there a SAS Magic that I can access from a python kernel?
     Yes! There are actually several cell magics available from SAS. 
-    They are `%%SAS`, `%%IML`, `%%SQL` (which uses SAS SQL), and `%%OPTMODEL`. To load these magics in your notebook, execute the following command `%load_ext saspy.sas_magic`. You can check that the magics have are successfully activated by looking at the results of `%lsmagic` and looking in the cell magic section.
+    They are `%%SAS`, `%%IML`, and `%%OPTMODEL`. To load these magics in your notebook, execute the following command `%load_ext saspy.sas_magic`. You can check that the magics have are successfully activated by looking at the results of `%lsmagic` and looking in the cell magic section.
     If you use multiple SAS Cell magics in the *same* notebook they will share a SAS session (have the same WORK libname and MACROS). There is currently no sharing of SAS Sessions between different notebooks.
 
 * Do I need to buy SAS to use this kernel?
