@@ -57,7 +57,7 @@ class InstallWithKernelspec(install):
                 print("Could not install SAS Kernel as %s user" % self.user)
 
 setup(name='SAS_kernel',
-      version='1.0',
+      version='1.1',
       description='A SAS kernel for IPython',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
@@ -66,7 +66,7 @@ setup(name='SAS_kernel',
       packages=['sas_kernel'],
       cmdclass={'install': InstallWithKernelspec},
       package_data={'sas_kernel': ['data/*.json']},
-      install_requires=['pexpect>=3.3', 'metakernel', 'saspy', 'ipykernel', 'pygments', 'jupyter_client'],
+      install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.1', 'ipykernel', 'pygments', 'jupyter_client'],
       classifiers=[
           'Framework :: IPython',
           'License :: OSI Approved :: Apache Software License',
