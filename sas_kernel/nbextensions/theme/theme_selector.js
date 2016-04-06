@@ -8,27 +8,8 @@ define(["require"], function(require) {
     "use strict";
 
     var themes = {
-        Default: "./themes/theme_default.css",
-        _3024_Dark : "./themes/base16-3024-dark.css",
-        _3024_Light : "./themes/base16-3024-light.css",
-        Ocean_Light : "./themes/base16-ocean-light.css",
-        Paraiso_Dark : "./themes/base16-paraiso-dark.css",
-        Paraiso_Light : "./themes/base16-paraiso-light.css",
-        Pop_Dark : "./themes/base16-pop-dark.css",
-        Pop_Light : "./themes/base16-pop-light.css",
-        Railscasts_Dark : "./themes/base16-railscasts-dark.css",
-        Railscasts_Light : "./themes/base16-railscasts-light.css",
-        Shapeshifter_Dark : "./themes/base16-shapeshifter-dark.css",
-        Shapeshifter_Light : "./themes/base16-shapeshifter-light.css",
-        Solarized_Dark : "./themes/base16-solarized-dark.css",
-        Solarized_Light : "./themes/base16-solarized-light.css",
-        Summerfruit_Dark : "./themes/base16-summerfruit-dark.css",
-        Summerfruit_Light : "./themes/base16-summerfruit-light.css",
-        Tomorrow_Dark : "./themes/base16-tomorrow-dark.css",
-        Tomorrow_Light : "./themes/base16-tomorrow-light.css",
-        Twilight_Dark : "./themes/base16-twilight-dark.css",
-        Twilight_Light : "./themes/base16-twilight-light.css",
-        SAS_Light : "./themes/base16-sas-light.css"
+        Default: "./theme_default.css",
+        SAS_Light : "./base16-sas-light.css"
     };
 
 
