@@ -19,7 +19,9 @@ To successfully use the SAS Kernel you must have each of the following:
 
 ### Install for Anaconda Python (assuming SAS already installed)
 1. [Download](https://www.continuum.io/downloads) and install Anaconda Python (make sure you get Python3.X). If you install Anaconda without super user rights (root or sudo) then other users on the system will not be able to access the SAS kernel.
-
+   A couple notes that I've observed:
+   * The default install location is the users home directory. This is fine for a single user install I would put it in a common location (`/opt`) if you're doing a system wide install
+   * One of the prompts is to add the path to your enviornment. I recommend you want to answer 'yes' to that question so that all the installing user has the executables in their path. If you're doing a system wide install (root or sudo) all the other users should add that path to their enviornmental variables  
 1. Install sas_kernel. The sas_kernel has a dependency on saspy which is located [here](https://github.com/sassoftware/saspy).
    In the command below I'm assuming that `pip` maps to python3 if that is not the case the you might need to use `pip3` instead. 
    ```
@@ -32,20 +34,21 @@ To successfully use the SAS Kernel you must have each of the following:
     If you installed as a superuser, your output should similar to this:
     ```
     Available kernels:
-      python3    /usr/lib/python3.5/site-packages/ipykernel/resources
+      python3    /opt/Anaconda3-2.5.0/lib/python3.5/site-packages/ipykernel/resources
       sas        /usr/local/share/jupyter/kernels/sas
     ```
 
-    If you installed as a regular user, your output should similar to this:
+    If you installed as a regular user (sas in this case), your output should similar to this:
     ```
     Available kernels:
-      python3    /usr/lib/python3.5/site-packages/ipykernel/resources
+      python3    /home/sas/anaconda3/lib/python3.5/site-packages/ipykernel/resources
       sas        /home/sas/.local/share/jupyter/kernels/sas
     ```
 1. Verify SAS Executable is correct
-    1. find the sascfg.py file -- it is currently located in the site-packages area of python install
+    1. find the sascfg.py file -- it is currently located in the install location (see above) `[install location]/site-packages/saspy/sascfg.py`
+    This command will search the OS for the file location:
     ` find / -name sascfg.py`
-    1. edit the file with the correct path the SAS executable and include any options you wish it include in the SAS invocation. See examples in the file
+    1. edit the file with the correct path the SAS executable and include any options you wish it include in the SAS invocation. See examples in the [file](https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py)
 
 
 ### Install for Centos 6 (assuming SAS already installed)
