@@ -95,7 +95,7 @@ There are a few NBExtensions that have been created to make working with Jupyter
 * themes -- this allows you to change the color scheme for your code to match the traditional SAS color scheme
 
 ### Installing the SAS Extensions
-Details for installing the extensions for SAS can be found [here](./nbextensions/README.md)
+Details for installing the extensions for SAS can be found [here](./sas_kernel/nbextensions/README.md)
 
 ## Jupyterhub
 The SAS kernel can be used with JupyterHub for more information look [here](https://jupyterhub.readthedocs.org/en/latest/) 
@@ -134,7 +134,7 @@ The SAS kernel can be used with JupyterHub for more information look [here](http
     Yes (with ERROR message(s))|No|LOG|---
 
 
-    If you want to see the log but it was not displayed you can use [SASLog NBExtension](./nbextensions/README.md) which will show the log for the last executed cell or the entire log since the last (re)start of the notebook
+    If you want to see the log but it was not displayed you can use [SASLog NBExtension](./sas_kernel/nbextensions/README.md) which will show the log for the last executed cell or the entire log since the last (re)start of the notebook
 
 * Will this leave a bunch of SAS sessions hanging around?
 
