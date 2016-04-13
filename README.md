@@ -134,7 +134,7 @@ The SAS kernel can be used with JupyterHub for more information look [here](http
     Yes (with ERROR message(s))|No|LOG|---
 
 
-    If you want to see the log but it was not displayed you can use [SASLog NBExtension]() which will show the log for the last executed cell or the entire log since the last (re)start of the notebook
+    If you want to see the log but it was not displayed you can use [SASLog NBExtension](./nbextensions/README.md) which will show the log for the last executed cell or the entire log since the last (re)start of the notebook
 
 * Will this leave a bunch of SAS sessions hanging around?
 
