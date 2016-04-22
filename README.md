@@ -1,4 +1,4 @@
-# SAS Kernel for Juypter
+# SAS Kernel for Jupyter
 
 ## What is this?
 
