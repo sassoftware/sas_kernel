@@ -57,13 +57,13 @@ class InstallWithKernelspec(install):
                 print("Could not install SAS Kernel as %s user" % self.user)
 
 setup(name='SAS_kernel',
-      version='1.1',
+      version='1.2',
       description='A SAS kernel for IPython',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
       author_email='jared.dean@sas.com',
       url='https://github.com/sassoftware/sas_kernel',
-      packages=['sas_kernel'],
+      packages=['sas_kernel', 'sas_kernel.nbextensions],
       cmdclass={'install': InstallWithKernelspec},
       package_data={'sas_kernel': ['data/*.json']},
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.1', 'ipykernel', 'pygments', 'jupyter_client'],
