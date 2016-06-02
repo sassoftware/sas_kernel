@@ -14,15 +14,8 @@
 #  limitations under the License.
 #
 
-def _jupyter_server_extension_paths():
-    return [{
-        "sas_kernel": "showSASLog"
-    }]
-
-# Jupyter Extension points
 def _jupyter_nbextension_paths():
-    return [dict(
-        section="notebook",
+    return [dict(section="notebook",
         # the path is relative to the `my_fancy_module` directory
         src="showSASLog",
         # directory in the `nbextension/` namespace
@@ -30,6 +23,13 @@ def _jupyter_nbextension_paths():
         # _also_ in the `nbextension/` namespace
         require="showSASLog/main")]
 
-def load_jupyter_server_extension(nbapp):
-    nbapp.log.info("showSASLog nbextension is enabled!")
+def _jupyter_nbextension_paths():
+    return [dict(section="notebook",
+        # the path is relative to the `my_fancy_module` directory
+        src="theme",
+        # directory in the `nbextension/` namespace
+        dest="theme",
+        # _also_ in the `nbextension/` namespace
+        require="theme/theme_selector")]
+
 
