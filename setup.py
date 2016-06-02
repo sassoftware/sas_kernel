@@ -56,6 +56,19 @@ class InstallWithKernelspec(install):
             except:
                 print("Could not install SAS Kernel as %s user" % self.user)
 
+        # os.system('jupyter nbextension install ./sas_kernel/nbextensions/showSASLog')
+        #os.system('jupyter nbextension install ./sas_kernel/nbextensions/theme')
+        # os.system('jupyter nbextension enable showSASLog/main')
+        # os.system('jupyter nbextension enable theme/theme_selector')
+
+class InstallAndEnableNBextensions(install):
+    def run(self):
+        install.run(self)
+        os.system('jupyter nbextension install ./sas_kernel/nbextensions/showSASLog')
+        os.system('jupyter nbextension install ./sas_kernel/nbextensions/theme')
+        os.system('jupyter nbextension enable showSASLog/main')
+        os.system('jupyter nbextension enable theme/theme_selector')
+
 setup(name='SAS_kernel',
       version='1.2',
       description='A SAS kernel for IPython',
@@ -63,8 +76,8 @@ setup(name='SAS_kernel',
       author='Jared Dean',
       author_email='jared.dean@sas.com',
       url='https://github.com/sassoftware/sas_kernel',
-      packages=['sas_kernel', 'sas_kernel.nbextensions],
-      cmdclass={'install': InstallWithKernelspec},
+      packages=['sas_kernel','sas_kernel.nbextensions'],
+      cmdclass={'install': InstallWithKernelspec},  # , 'nbext': InstallAndEnableNBextensions},
       package_data={'sas_kernel': ['data/*.json']},
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.1', 'ipykernel', 'pygments', 'jupyter_client'],
       classifiers=[
