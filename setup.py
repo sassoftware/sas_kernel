@@ -15,9 +15,9 @@
 #  limitations under the License.
 #
 try:
-    from setuptools import setup
+    from setuptools import setup, find_packages
 except ImportError:
-    from distutils.core import setup
+    from distutils.core import setup, find_packages
 
 from distutils.command.install import install
 from distutils import log
@@ -39,6 +39,9 @@ kernel_json = {
     "language": "sas"
 }
 
+svem_flag = '--single-version-externally-managed'
+if svem_flag in sys.argv:
+    sys.argv.remove(svem_flag)
 
 class InstallWithKernelspec(install):
     def run(self):
@@ -64,9 +67,9 @@ setup(name='SAS_kernel',
       license='Apache Software License',
       author_email='jared.dean@sas.com',
       url='https://github.com/sassoftware/sas_kernel',
-      packages=['sas_kernel','sas_kernel.nbextensions'],
+      packages=find_packages(),
       cmdclass={'install': InstallWithKernelspec},
-      package_data={'sas_kernel': ['data/*.json']},
+      package_data = {'': ['*.js', '*.md', '*.yaml', '*.css']},
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.2', 'ipykernel', 'pygments', 'jupyter'],
       classifiers=[
           'Framework :: IPython',

@@ -1,5 +1,20 @@
 # SAS NBextensions
 
+
+## Installing from PyPi
+With the release of Jupyter 4.2 you can now install and enable nbextensions in a much improved way.
+To install and enable the showSASLog extension use the following command:
+```
+jupyter nbextension install --py sas_kernel.showSASLog
+jupyter nbextension enable sas_kernel.showSASLog --py
+```
+
+To install and enable the theme extension use the following command:
+```
+jupyter nbextension install --py sas_kernel.theme
+jupyter nbextension enable sas_kernel.theme --py
+```
+
 ## Installing from a cloned repository
 In your cloned repo you have an `nbexensions` directory within the file structure as shown below:
 
@@ -46,5 +61,3 @@ To disable (not that you'd ever want to):
 ## Example
 There is a [notebook](../../notebook/loadSASExtensions.ipynb) that walks through the steps to install and enable the extensions
 
-## Installing from PyPi
-At this point the extensions can only be installed from a cloned repository (see above)
