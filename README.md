@@ -99,6 +99,7 @@ There are a few NBExtensions that have been created to make working with Jupyter
 
 ### Installing the SAS Extensions
 Details for installing the extensions for SAS can be found [here](./sas_kernel/nbextensions/README.md)
+**The install experience was improved with version 1.2**
 
 ## Jupyterhub
 The SAS kernel can be used with JupyterHub for more information look [here](https://jupyterhub.readthedocs.org/en/latest/) 
