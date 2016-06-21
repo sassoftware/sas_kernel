@@ -41,6 +41,7 @@ kernel_json = {
 # Create temp directory for install of kernel.json and logo files
 tempdir=TemporaryDirectory()
 temppath=str(tempdir).split('\'')[1]
+
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
     sys.argv.remove(svem_flag)
@@ -65,7 +66,7 @@ class InstallWithKernelspec(install):
                 print("Could not install SAS Kernel as %s user" % self.user)
 
 setup(name='SAS_kernel',
-      version='1.2.dev2',
+      version='1.2',
       description='A SAS kernel for IPython',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
