@@ -18,18 +18,18 @@ try:
     from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup, find_packages
-
-from distutils.command.install import install
-from distutils import log
-import json
-import os
-import sys
-
 try:
     from jupyter_client.kernelspec import install_kernel_spec
 except ImportError:
     from IPython.kernel.kernelspec import install_kernel_spec
+
+from distutils.command.install import install
+from distutils import log
 from IPython.utils.tempdir import TemporaryDirectory
+import json
+import os
+import sys
+
 
 kernel_json = {
     "argv": [sys.executable,
@@ -38,7 +38,9 @@ kernel_json = {
     "codemirror_mode": "sas",
     "language": "sas"
 }
-
+# Create temp directory for install of kernel.json and logo files
+tempdir=TemporaryDirectory()
+temppath=str(tempdir).split('\'')[1]
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
     sys.argv.remove(svem_flag)
@@ -49,18 +51,21 @@ class InstallWithKernelspec(install):
         install.run(self)
 
         # Now write the kernelspec
-        with TemporaryDirectory() as td:
-            os.chmod(td, 0o755)  # Starts off as 700, not user readable
-            with open(os.path.join(td, 'kernel.json'), 'w') as f:
-                json.dump(kernel_json, f, sort_keys=True)
+        with tempdir:
+            os.chmod(temppath, 0o755)  # Starts off as 700, not user readable
             log.info('Installing IPython kernel spec')
+            with open(os.path.join(temppath, 'kernel.json'), 'w') as f:
+                json.dump(kernel_json, f, sort_keys=True)
+            log.info('files copied to kernel:')
+            for i in os.listdir(temppath):
+                log.info(i)
             try:
-                install_kernel_spec(td, 'SAS', user=self.user, replace=True)
+                install_kernel_spec(temppath, 'SAS', user=self.user, replace=True)
             except:
                 print("Could not install SAS Kernel as %s user" % self.user)
 
 setup(name='SAS_kernel',
-      version='1.2',
+      version='1.2.dev2',
       description='A SAS kernel for IPython',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
@@ -69,7 +74,9 @@ setup(name='SAS_kernel',
       url='https://github.com/sassoftware/sas_kernel',
       packages=find_packages(),
       cmdclass={'install': InstallWithKernelspec},
-      package_data = {'': ['*.js', '*.md', '*.yaml', '*.css']},
+      package_data = {'': ['*.js', '*.md', '*.yaml', '*.css'],
+                      'sas_kernel':['data/*.json']},
+      data_files = [(temppath, ['sas_kernel/data/logo-64x64.png'])],
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.2', 'ipykernel', 'pygments', 'jupyter'],
       classifiers=[
           'Framework :: IPython',
