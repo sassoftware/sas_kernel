@@ -22,6 +22,8 @@ import re
 import json
 from . import __version__
 
+from .sask_magic import register_magics
+
 # color syntax for the SASLog
 from saspy.SASLogLexer import SASLogStyle, SASLogLexer
 from pygments.formatters import HtmlFormatter

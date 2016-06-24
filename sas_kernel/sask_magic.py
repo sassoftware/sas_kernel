@@ -17,10 +17,11 @@ from __future__ import print_function
 from metakernel import Magic
 from IPython.display import HTML
 
+
 class SASKMagic(Magic):
 
     def __init__(self, *args, **kwargs):
-        super(SASKMagic, self).__init__(*args, **kwargs)
+        super(SASKMagic, self)#.__init__(*args, **kwargs)
 
     def line_prompt4var(self, code):
         """

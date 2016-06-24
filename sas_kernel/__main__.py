@@ -17,4 +17,6 @@
 
 from ipykernel.kernelapp import IPKernelApp
 from .kernel import SASKernel
+
 IPKernelApp.launch_instance(kernel_class=SASKernel)
+from .sask_magic import register_magics
