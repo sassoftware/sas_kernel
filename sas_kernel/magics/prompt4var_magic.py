@@ -13,15 +13,14 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-from __future__ import print_function
-from metakernel import Magic
+from metakernel import Magic, option
 from IPython.display import HTML
 
 
-class SASKMagic(Magic):
-
-    def __init__(self, *args, **kwargs):
-        super(SASKMagic, self)#.__init__(*args, **kwargs)
+class Prompt4VarMagic(Magic):
+    """def __init__(self, *args, **kwargs):
+        super(SASKMagic, self).__init__(*args, **kwargs)
+    """
 
     def line_prompt4var(self, code):
         """
@@ -51,4 +50,16 @@ class SASKMagic(Magic):
 
 
 def register_magics(kernel):
-    kernel.register_magics(SASKMagic)
+    kernel.register_magics(Prompt4VarMagic)
+
+def register_ipython_magics():
+    from metakernel import IPythonKernel
+    from IPython.core.magic import register_line_magic
+    kernel = IPythonKernel()
+    magic = Prompt4VarMagic(kernel)
+    # Make magics callable:
+    kernel.line_magics["prompt4var"] = magic
+
+    @register_line_magic
+    def prompt4var(line):
+        kernel.call_magic("%prompt4var " + line)
