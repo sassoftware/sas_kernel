@@ -13,44 +13,57 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-from metakernel import Magic, option
+from metakernel import Magic
+from collections import OrderedDict
 from IPython.display import HTML
+from sas_kernel.kernel import SASKernel
+
 
 
 class Prompt4VarMagic(Magic):
-    """def __init__(self, *args, **kwargs):
-        super(SASKMagic, self).__init__(*args, **kwargs)
-    """
+    def __init__(self, *args, **kwargs):
+        super(Prompt4VarMagic, self).__init__(*args, **kwargs)
 
-    def line_prompt4var(self, code):
+
+    def line_prompt4var(self, *args):
         """
-        %prompt4var CODE - display code as HTML
-        This line magic will send the CODE to the browser as
-        HTML.
+        %%prompt4var - Create secret macro variables that will
+        not be recorded in the Jupyter notebook or SAS log
         Example:
-            %html <u>This is underlined!</u>
+        %prompt4var fpath1 lib1
+        filname file1 "&fpath1";
+        libname foo "&lib1"
         """
-        html = HTML(code)
-        self.kernel.Display(html)
+        prmpt=OrderedDict()
+        for arg in args:
+            assert isinstance(arg,(str))
+            prmpt[arg]=False
 
-    def cell_prompt4var(self):
+            #for key in arg:
+            #    prmpt[key]=False
+        res=mva.submit(code=self.code,results="text",prompt=prmpt)
+
+    def cell_prompt4var(self, *args):
         """
-        %%prompt4var - display contents of cell as HTML
-        This cell magic will send the cell to the browser as
-        HTML.
+        %%prompt4var - Create secret macro variables that will
+        not be recorded in the Jupyter notebook or SAS log
         Example:
-            %%html
-
-            <script src="..."></script>
-            <div>Contents of div tag</div>
+        %%prompt4var pw1 pw2
+        libname foo terdata user=scott password=&pw1;
+        libname bar oracle user=jld23 password=&pw1;
         """
-        html = HTML(self.code)
-        self.kernel.Display(html)
-        self.evaluate = False
+        prmpt=OrderedDict()
+        for arg in args:
+            assert isinstance(arg,(str))
+            prmpt[arg]=True
+        res=self.kernel.mva.submit(code=self.code,results="HTML",prompt=prmpt)
+        dis = SASKernel._which_display(res['LOG'], res['LST'])
+        return dis
 
 
 def register_magics(kernel):
     kernel.register_magics(Prompt4VarMagic)
+
 
 def register_ipython_magics():
     from metakernel import IPythonKernel
