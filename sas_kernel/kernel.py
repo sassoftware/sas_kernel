@@ -22,7 +22,6 @@ import re
 import json
 from . import __version__
 
-from .sask_magic import register_magics
 
 # color syntax for the SASLog
 from saspy.SASLogLexer import SASLogStyle, SASLogLexer
@@ -60,7 +59,7 @@ class SASKernel(MetaKernel):
         self.mva = None
         self.cachedlog = None
         self.lst_len = -99  # initialize the length to a negative number to trigger function
-        print(dir(self))
+        # print(dir(self))
 
     def do_apply(self, content, bufs, msg_id, reply_metadata):
         pass

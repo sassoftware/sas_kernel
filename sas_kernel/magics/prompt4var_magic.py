@@ -15,15 +15,11 @@
 #
 from metakernel import Magic
 from collections import OrderedDict
-from IPython.display import HTML
-from sas_kernel.kernel import SASKernel
-
 
 
 class Prompt4VarMagic(Magic):
     def __init__(self, *args, **kwargs):
         super(Prompt4VarMagic, self).__init__(*args, **kwargs)
-
 
     def line_prompt4var(self, *args):
         """
@@ -31,17 +27,14 @@ class Prompt4VarMagic(Magic):
         not be recorded in the Jupyter notebook or SAS log
         Example:
         %prompt4var fpath1 lib1
-        filname file1 "&fpath1";
+        filename file1 "&fpath1";
         libname foo "&lib1"
         """
-        prmpt=OrderedDict()
+        prmpt = OrderedDict()
         for arg in args:
-            assert isinstance(arg,(str))
-            prmpt[arg]=False
-
-            #for key in arg:
-            #    prmpt[key]=False
-        res=mva.submit(code=self.code,results="text",prompt=prmpt)
+            assert isinstance(arg, str)
+            prmpt[arg] = False
+        self.kernel.mva.submit(code=self.code, results="text", prompt=prmpt)
 
     def cell_prompt4var(self, *args):
         """
@@ -52,12 +45,13 @@ class Prompt4VarMagic(Magic):
         libname foo terdata user=scott password=&pw1;
         libname bar oracle user=jld23 password=&pw1;
         """
-        prmpt=OrderedDict()
+
+        prmpt = OrderedDict()
         for arg in args:
-            assert isinstance(arg,(str))
-            prmpt[arg]=True
-        res=self.kernel.mva.submit(code=self.code,results="HTML",prompt=prmpt)
-        dis = SASKernel._which_display(res['LOG'], res['LST'])
+            assert isinstance(arg, str)
+            prmpt[arg] = True
+        res = self.kernel.mva.submit(code=self.code, results="HTML", prompt=prmpt)
+        dis = self.kernel._which_display(res['LOG'], res['LST'])
         return dis
 
 
