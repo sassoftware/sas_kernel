@@ -101,6 +101,9 @@ There are a few NBExtensions that have been created to make working with Jupyter
 Details for installing the extensions for SAS can be found [here](./sas_kernel/nbextensions/README.md)
 **The install experience was improved with version 1.2**
 
+### Jupyter Magics for the sas_kernel
+There are magics that have been written specifically for the sas_kernel to get more details see the [README](./sas_kernel/magics/README.md) 
+
 ## Jupyterhub
 The SAS kernel can be used with JupyterHub for more information look [here](https://jupyterhub.readthedocs.org/en/latest/) 
 

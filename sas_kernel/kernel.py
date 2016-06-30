@@ -55,6 +55,7 @@ class SASKernel(MetaKernel):
         with open(os.path.dirname(os.path.realpath(__file__)) + '/data/' + 'sasgrammardictionary.json') as compglo:
             self.compglo = json.load(compglo)
         self.strproclist = '\n'.join(str(x) for x in self.proclist)
+        self.promptDict = {}
         MetaKernel.__init__(self, **kwargs)
         self.mva = None
         self.cachedlog = None
@@ -146,7 +147,8 @@ class SASKernel(MetaKernel):
             if code.startswith("/*SASKernelTest*/"):
                 res = self.mva.submit(code, "text")
             else:
-                res = self.mva.submit(code)
+                res = self.mva.submit(code, prompt=self.promptDict)
+                self.promptDict = {}
             if res['LOG'].find("SAS process has terminated unexpectedly") > -1:
                 print(res['LOG'], '\n' "Restarting SAS session on your behalf")
                 self.do_shutdown(True)

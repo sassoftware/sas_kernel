@@ -13,8 +13,9 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-from metakernel import Magic
 from collections import OrderedDict
+
+from metakernel import Magic
 
 
 class Prompt4VarMagic(Magic):
@@ -23,36 +24,62 @@ class Prompt4VarMagic(Magic):
 
     def line_prompt4var(self, *args):
         """
-        %%prompt4var - Create secret macro variables that will
-        not be recorded in the Jupyter notebook or SAS log
+        %%prompt4var - Prompt for macro variables that will
+        be assigned to the SAS session. The variables will be
+        prompted each time the line magic is executed.
         Example:
-        %prompt4var fpath1 lib1
-        filename file1 "&fpath1";
-        libname foo "&lib1"
+        %prompt4var libpath file1
+        filename myfile "~&file1.";
+        libname data "&libpath";
         """
         prmpt = OrderedDict()
         for arg in args:
             assert isinstance(arg, str)
             prmpt[arg] = False
-        self.kernel.mva.submit(code=self.code, results="text", prompt=prmpt)
+        if not len(self.code):
+            if self.kernel.mva is None:
+                self.kernel._allow_stdin = True
+                self.kernel._start_sas()
+            self.kernel.mva.submit(code=self.code, results="html", prompt=prmpt)
+        else:
+            self.kernel.promptDict = prmpt
 
     def cell_prompt4var(self, *args):
         """
-        %%prompt4var - Create secret macro variables that will
-        not be recorded in the Jupyter notebook or SAS log
-        Example:
-        %%prompt4var pw1 pw2
-        libname foo terdata user=scott password=&pw1;
-        libname bar oracle user=jld23 password=&pw1;
-        """
+        %%prompt4var - The cell magic prompts users for variables that are
+        intended to be private -- passwords and such. The macro variables
+        will be deleted from the when the cell finishes processing.
+        Libnames assigned will still be active but the password will not
+        be stored anywhere.
 
+        Examples:
+        %%prompt4var alter read
+        data work.cars(alter="&alter" read="&read");
+            set sashelp.cars;
+            id = _n_;
+        run;
+        proc print data=cars(read="badpw" obs=10);
+        run;
+        proc print data=cars(read="&read" obs=10);
+        run;
+
+
+        %%prompt4var pw1 pw2
+        libname foo teradata user=scott password=&pw1;
+        libname bar oracle user=tiger password=&pw2;
+        """
+        print(dir(self))
         prmpt = OrderedDict()
         for arg in args:
             assert isinstance(arg, str)
             prmpt[arg] = True
-        res = self.kernel.mva.submit(code=self.code, results="HTML", prompt=prmpt)
-        dis = self.kernel._which_display(res['LOG'], res['LST'])
-        return dis
+        if not len(self.code):
+            if self.kernel.mva is None:
+                self._allow_stdin = True
+                self.kernel._start_sas()
+            self.kernel.mva.submit(code=self.code, results="html", prompt=prmpt)
+        else:
+            self.kernel.cell_dict = prmpt
 
 
 def register_magics(kernel):
