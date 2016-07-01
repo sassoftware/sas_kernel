@@ -1,4 +1,4 @@
-# SAS Kernel for Juypter
+# SAS Kernel for Jupyter
 
 ## What is this?
 
@@ -18,34 +18,46 @@ To successfully use the SAS Kernel you must have each of the following:
 * [Python 3](http://www.python.org)
 
 ### Install for Anaconda Python (assuming SAS already installed)
-1. [Download](https://www.continuum.io/downloads) and install Anaconda Python (make sure you get Python3.X)
-
-1. Install sas_kernel
+1. [Download](https://www.continuum.io/downloads) and install Anaconda Python (make sure you get Python3.X). If you install Anaconda without super user rights (root or sudo) then other users on the system will not be able to access the SAS kernel.
+   A couple notes that I've observed:
+   * The default install location is the users home directory. This is fine for a single user install I would put it in a common location (`/opt`) if you're doing a system wide install
+   * One of the prompts is to add the path to your enviornment. I recommend you want to answer 'yes' to that question so that all the installing user has the executables in their path. If you're doing a system wide install (root or sudo) all the other users should add that path to their enviornmental variables  
+1. Install sas_kernel. The sas_kernel has a dependency on saspy which is located [here](https://github.com/sassoftware/saspy).
+   In the command below I'm assuming that `pip` maps to python3 if that is not the case the you might need to use `pip3` instead. 
    ```
-   pip install saspy sas_kernel
+   pip install sas_kernel
    ```
  
 1. Verify that the sas_kernel is installed
 `jupyter kernelspec list`
 
-    This should produce output similar to this:
+    If you installed as a superuser, your output should similar to this:
     ```
     Available kernels:
-      python3    /usr/lib/python3.5/site-packages/ipykernel/resources
+      python3    /opt/Anaconda3-2.5.0/lib/python3.5/site-packages/ipykernel/resources
       sas        /usr/local/share/jupyter/kernels/sas
     ```
 
+    If you installed as a regular user (sas in this case), your output should similar to this:
+    ```
+    Available kernels:
+      python3    /home/sas/anaconda3/lib/python3.5/site-packages/ipykernel/resources
+      sas        /home/sas/.local/share/jupyter/kernels/sas
+    ```
 1. Verify SAS Executable is correct
-    1. find the sascfg.py file -- it is currently located in the site-packages area of python install
+    1. find the sascfg.py file -- it is currently located in the install location (see above) `[install location]/site-packages/saspy/sascfg.py`
+    This command will search the OS for the file location:
     ` find / -name sascfg.py`
-    1. edit the file with the correct path the SAS executable and include any options you wish it include in the SAS invocation. See examples in the file
+    1. edit the file with the correct path the SAS executable and include any options you wish it include in the SAS invocation. See examples in the [file](https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py)
 
 
 ### Install for Centos 6 (assuming SAS already installed)
+These instructions assume you'll be installed system wide for all users using a superuser account (root or sudo)
+
 1. yum packages
    ```
    sudo yum install https://centos6.iuscommunity.org/ius-release.rpm
-   sudo yum install python35u gcc-c++ python35u-devel python35u-pip python35u-tools nodejs npm mlocate libselinux-python
+   sudo yum install python35u gcc-c++ python35u-devel python35u-pip python35u-tools nodejs npm libselinux-python
    ```
  
 1. pip
@@ -55,10 +67,10 @@ To successfully use the SAS Kernel you must have each of the following:
    pip3 --version
    ```
  
-1. jupyter and sas_kernel
+1. jupyter and sas_kernel. The sas_kernel has a dependency on saspy which is located [here](https://github.com/sassoftware/saspy).
    ```
    pip3.5 install jupyter
-   pip3.5 install saspy sas_kernel
+   pip3.5 install sas_kernel
    ```
  
 1. Verify that the sas_kernel is installed
@@ -81,25 +93,17 @@ To successfully use the SAS Kernel you must have each of the following:
 
 
 ## Improving Usability
-There are a few NBExtensions that have been created to make working with Jupyter notebooks more productive. These are largely the result of pain points from my use of SAS Kernel for programming tasks. The extensions can be found [here](). The list includes:
+There are a few NBExtensions that have been created to make working with Jupyter notebooks more productive. These are largely the result of pain points from my use of SAS Kernel for programming tasks. The extensions can be found [here](nbextensions.md). The list includes:
 * SAS Log -- which show the SAS log for the last executed cell or the entire log since the last (re)start of the notebook
+* themes -- this allows you to change the color scheme for your code to match the traditional SAS color scheme
 
 ### Installing the SAS Extensions
-If you cloned the repo from github you have an `nbexensions` directory within the file structure
-```
-jupyter nbextension install showSASLog/main.js
-```
-Which should display something similar to this (if you have super user rights):
-`copying showSASLog/main.js -> /usr/local/share/jupyter/nbextensions/main.js`
+Details for installing the extensions for SAS can be found [here](./sas_kernel/nbextensions/README.md)
+**The install experience was improved with version 1.2**
 
+### Jupyter Magics for the sas_kernel
+There are magics that have been written specifically for the sas_kernel to get more details see the [README](./sas_kernel/magics/README.md) 
 
-Then enable the notebook extension with the following command:
-```
-jupyter nbextension enable showSASLog
-``` 
-
-To disable (not that you'd ever want to):
- `jupyter nbextension disable showSASLog`
 ## Jupyterhub
 The SAS kernel can be used with JupyterHub for more information look [here](https://jupyterhub.readthedocs.org/en/latest/) 
 
@@ -137,7 +141,7 @@ The SAS kernel can be used with JupyterHub for more information look [here](http
     Yes (with ERROR message(s))|No|LOG|---
 
 
-    If you want to see the log but it was not displayed you can use [SASLog NBExtension]() which will show the log for the last executed cell or the entire log since the last (re)start of the notebook
+    If you want to see the log but it was not displayed you can use [SASLog NBExtension](./sas_kernel/nbextensions/README.md) which will show the log for the last executed cell or the entire log since the last (re)start of the notebook
 
 * Will this leave a bunch of SAS sessions hanging around?
 

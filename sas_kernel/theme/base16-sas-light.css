@@ -1,0 +1,77 @@
+/*
+    Name:       Base16 SAS Light
+    Author:     Jared Dean SAS Instititue
+    CodeMirror template adapted for IPython Notebook by Jared Deam 
+    CodeMirror template by Jan T. Sott (https://github.com/idleberg/base16-chrome-devtools)
+*/
+
+/*
+    Jupyter GLOBALS
+*/
+
+div.cell.edit_mode {
+  border: thin #a1c659 solid !important;
+}
+
+.edit_mode div.cell.selected{
+  border-color: #fda331;
+}
+
+.CodeMirror pre {
+  font-family: 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+}
+
+div.cell.selected {
+  border-color: #76c7b7;
+}
+
+div.input_prompt {
+  color: #6fb3d2;
+}
+
+div.output_prompt {
+  color: #fb0120;
+}
+
+/*
+     GLOBALS
+*/
+
+span.ansiblack {color: #303030;}
+span.ansiblue {color: #76c7b7;}
+span.ansigray {color: #d0d0d0;}
+span.ansigreen {color: #a1c659;}
+span.ansipurple {color: #d381c3;}
+span.ansired {color: #fb0120;}
+span.ansiyellow {color: #fda331;}
+
+div.output_stderr {background-color: #fb0120;}
+div.output_stderr pre {color: #f5f5f5;}
+
+.cm-s-ipython.CodeMirror {background: #ffffff; color: #303030;}
+.cm-s-ipython div.CodeMirror-selected {background: /*#f5f5f5*/ #CCCCCC  !important;}
+.cm-s-ipython .CodeMirror-gutters {background: #ffffff; border-right: 0px;}
+.cm-s-ipython .CodeMirror-linenumber {color: /*#d0d0d0*/ #000000;}
+.cm-s-ipython .CodeMirror-cursor {border-left: 1px solid #b0b0b0 !important;}
+
+.cm-s-ipython span.cm-comment {color: #008000; font-weight: italic;}
+.cm-s-ipython span.cm-atom {color: #fb0120;}
+.cm-s-ipython span.cm-number {color: #fc6d24;}
+
+.cm-s-ipython span.cm-property, .cm-s-ipython span.cm-attribute {color: #a1c659;}
+.cm-s-ipython span.cm-keyword {color: #0000FF;}
+.cm-s-ipython span.cm-string {color: #800080;}
+.cm-s-ipython span.cm-operator {color: #000000;}
+.cm-s-ipython span.cm-builtin {color: #000080; font-weight: bold; }
+
+.cm-s-ipython span.cm-variable {color: #505050;}
+.cm-s-ipython span.cm-variable-2 {color: #000080;}
+.cm-s-ipython span.cm-def {color: #0000FF;}
+.cm-s-ipython span.cm-error {background: #fb0120; color: #b0b0b0;}
+.cm-s-ipython span.cm-bracket {color: #505050;}
+.cm-s-ipython span.cm-tag {color: #fb0120;}
+.cm-s-ipython span.cm-link {color: #d381c3;}
+.cm-s-ipython span.cm-meta {color: #fb0120;}
+
+.cm-s-ipython .CodeMirror-matchingbracket { text-decoration: underline; color: #303030 !important;}

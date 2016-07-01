@@ -13,10 +13,9 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
+"""SAS Kernel Juypter Implementation"""
 
+from sas_kernel._version import version_info, __version__
 
-from ipykernel.kernelapp import IPKernelApp
-from .kernel import SASKernel
-
-IPKernelApp.launch_instance(kernel_class=SASKernel)
-# from .sask_magic import register_magics
+def _jupyter_nbextension_paths():
+    return [dict(section="notebook", src="", dest="theme", require="theme/theme_selector")]
