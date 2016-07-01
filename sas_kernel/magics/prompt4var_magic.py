@@ -68,7 +68,6 @@ class Prompt4VarMagic(Magic):
         libname foo teradata user=scott password=&pw1;
         libname bar oracle user=tiger password=&pw2;
         """
-        print(dir(self))
         prmpt = OrderedDict()
         for arg in args:
             assert isinstance(arg, str)
@@ -79,7 +78,7 @@ class Prompt4VarMagic(Magic):
                 self.kernel._start_sas()
             self.kernel.mva.submit(code=self.code, results="html", prompt=prmpt)
         else:
-            self.kernel.cell_dict = prmpt
+            self.kernel.promptDict = prmpt
 
 
 def register_magics(kernel):
