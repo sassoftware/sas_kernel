@@ -39,12 +39,13 @@ kernel_json = {
     "language": "sas"
 }
 # Create temp directory for install of kernel.json and logo files
-tempdir=TemporaryDirectory()
-temppath=str(tempdir).split('\'')[1]
+tempdir = TemporaryDirectory()
+temppath = str(tempdir).split('\'')[1]
 
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
     sys.argv.remove(svem_flag)
+
 
 class InstallWithKernelspec(install):
     def run(self):
@@ -77,9 +78,8 @@ setup(name='SAS_kernel',
       url='https://github.com/sassoftware/sas_kernel',
       packages=find_packages(),
       cmdclass={'install': InstallWithKernelspec},
-      package_data = {'': ['*.js', '*.md', '*.yaml', '*.css'],
-                      'sas_kernel':['data/*.json']},
-      data_files = [(temppath, ['sas_kernel/data/logo-64x64.png'])],
+      package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json']},
+      data_files=[(temppath, ['sas_kernel/data/logo-64x64.png'])],
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.2', 'ipykernel', 'pygments', 'jupyter'],
       classifiers=[
           'Framework :: IPython',
