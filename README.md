@@ -7,8 +7,10 @@ A SAS Kernel for [Jupyter Notebooks](http://www.jupyter.org)
 ## Dependencies
 * Python3.X
 * Jupyter
-* SAS 9.4 or higher
+* SAS 9.4 or higher  -- This includes [SAS Viya](http://www.sas.com/en_us/software/viya.html)
 * Linux OS
+
+With the latest changes in [saspy](https://github.com/sassoftware/saspy) it is no longer a requirement that Jupyter and SAS be installed on the same machine. SAS and Jupyter can now communicate via passwordless ssh. This is in response to [issue 11](https://github.com/sassoftware/sas_kernel/issues/11). The configuration details are located in [sascfg.py](https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py)
 
 ## Install
 To successfully use the SAS Kernel you must have each of the following:
@@ -21,7 +23,7 @@ To successfully use the SAS Kernel you must have each of the following:
 1. [Download](https://www.continuum.io/downloads) and install Anaconda Python (make sure you get Python3.X). If you install Anaconda without super user rights (root or sudo) then other users on the system will not be able to access the SAS kernel.
    A couple notes that I've observed:
    * The default install location is the users home directory. This is fine for a single user install I would put it in a common location (`/opt`) if you're doing a system wide install
-   * One of the prompts is to add the path to your enviornment. I recommend you want to answer 'yes' to that question so that all the installing user has the executables in their path. If you're doing a system wide install (root or sudo) all the other users should add that path to their enviornmental variables  
+   * One of the prompts is to add the path to your environment. I recommend you want to answer 'yes' to that question so that all the installing user has the executables in their path. If you're doing a system wide install (root or sudo) all the other users should add that path to their environmental variables  
 1. Install sas_kernel. The sas_kernel has a dependency on saspy which is located [here](https://github.com/sassoftware/saspy).
    In the command below I'm assuming that `pip` maps to python3 if that is not the case the you might need to use `pip3` instead. 
    ```
@@ -57,7 +59,7 @@ These instructions assume you'll be installed system wide for all users using a 
 1. yum packages
    ```
    sudo yum install https://centos6.iuscommunity.org/ius-release.rpm
-   sudo yum install python35u gcc-c++ python35u-devel python35u-pip python35u-tools nodejs npm libselinux-python
+   sudo yum install python35u gcc-c++ python35u-devel python35u-pip python35u-tools
    ```
  
 1. pip
@@ -108,7 +110,7 @@ There are magics that have been written specifically for the sas_kernel to get m
 The SAS kernel can be used with JupyterHub for more information look [here](https://jupyterhub.readthedocs.org/en/latest/) 
 
 ## NBGrader
-[nbgrader](http://nbgrader.readthedocs.org/en/stable/) is a system for assigning and grading notebooks and extends jupyter. I have a number of contributions that I'm currently working on in conjuction with teaching SAS programming in a classroom setting. You can see my forked repo [here](https://github.com/jld23/nbgrader)
+[nbgrader](http://nbgrader.readthedocs.org/en/stable/) is a system for assigning and grading notebooks and extends jupyter. I have a number of contributions that I'm currently working on in conjunction with teaching SAS programming in a classroom setting. You can see my forked repo [here](https://github.com/jld23/nbgrader)
 
 ## FAQ
 * Is there a SAS Magic that I can access from a python kernel?
@@ -149,4 +151,4 @@ The SAS kernel can be used with JupyterHub for more information look [here](http
 
 * I restarted my SAS Kernel and now my WORK library is now empty. What happened?
 
-    When you restart the kernel in a notebook you are terminating the current SAS session and starting a new one. All of the temporary artifacts, datasets in the WORK library, assigned libnames, filename, WORK macros, and so on are destroyed.
+    When you restart the kernel in a notebook you are terminating the current SAS session and starting a new one. All of the temporary artifacts, data sets in the WORK library, assigned libnames, filename, WORK macros, and so on are destroyed.
