@@ -61,9 +61,11 @@ class InstallWithKernelspec(install):
             for i in os.listdir(temppath):
                 log.info(i)
             try:
-                install_kernel_spec(temppath, 'SAS', user=self.user, replace=True)
+                install_kernel_spec(temppath, 'SAS', user=False, replace=True)
+                print("SAS Kernel installed as superuser: %s " % self.user)
             except:
-                print("Could not install SAS Kernel as %s user" % self.user)
+                install_kernel_spec(temppath, 'SAS', user=True, replace=True)
+                print("SAS Kernel installed as user: %s " % self.user)
 
 setup(name='SAS_kernel',
       version='1.2',
