@@ -78,7 +78,7 @@ setup(name='SAS_kernel',
       url='https://github.com/sassoftware/sas_kernel',
       packages=find_packages(),
       cmdclass={'install': InstallWithKernelspec},
-      package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json']},
+      package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json', 'data/*.png']},
       data_files=[(temppath, ['sas_kernel/data/logo-64x64.png'])],
       install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.2.1', 'ipykernel', 'pygments', 'jupyter'],
       classifiers=[
