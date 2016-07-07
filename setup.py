@@ -29,17 +29,7 @@ from IPython.utils.tempdir import TemporaryDirectory
 import json
 import os
 import sys
-<<<<<<< HEAD
-#import saspy.sas_magic
 
-try:
-  from jupyter_client.kernelspec import install_kernel_spec
-except ImportError:
-  from IPython.kernel.kernelspec import install_kernel_spec
-from IPython.utils.tempdir import TemporaryDirectory
-=======
-
->>>>>>> tomhttp
 
 kernel_json = {
     "argv": [sys.executable,
@@ -63,21 +53,6 @@ class InstallWithKernelspec(install):
         install.run(self)
 
         # Now write the kernelspec
-<<<<<<< HEAD
-        with TemporaryDirectory() as td:
-            os.chmod(td, 0o755) # Starts off as 700, not user readable
-            with open(os.path.join(td, 'kernel.json'), 'w') as f:
-                json.dump(kernel_json, f, sort_keys=True)
-            log.info('Installing IPython kernel spec')
-            try:
-              install_kernel_spec(td, 'SAS', user=self.user, replace=True)
-            except:
-              print("Could not install SAS Kernel as %s user" % self.user)
-
-svem_flag = '--single-version-externally-managed'
-if svem_flag in sys.argv:
-    sys.argv.remove(svem_flag)
-=======
         with tempdir:
             os.chmod(temppath, 0o755)  # Starts off as 700, not user readable
             log.info('Installing IPython kernel spec')
@@ -92,7 +67,6 @@ if svem_flag in sys.argv:
             except:
                 install_kernel_spec(temppath, 'SAS', user=True, replace=True)
                 print("SAS Kernel installed as user: %s " % self.user)
->>>>>>> tomhttp
 
 setup(name='SAS_kernel',
       version='1.2',
@@ -101,16 +75,6 @@ setup(name='SAS_kernel',
       author='Jared Dean',
       license='Apache Software License',
       author_email='jared.dean@sas.com',
-<<<<<<< HEAD
-      packages=['sas_kernel'],
-      cmdclass={'install': install_with_kernelspec},
-      package_data={'sas_kernel': ['data/*.json']},
-      install_requires=['pexpect>=3.3','metakernel','saspy'],
-      classifiers = [
-        'Framework :: IPython',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: SAS    :: 9',
-=======
       url='https://github.com/sassoftware/sas_kernel',
       packages=find_packages(),
       cmdclass={'install': InstallWithKernelspec},
@@ -121,6 +85,5 @@ setup(name='SAS_kernel',
           'Framework :: IPython',
           'License :: OSI Approved :: Apache Software License',
           'Programming Language :: Python :: 3',
->>>>>>> tomhttp
       ]
       )
