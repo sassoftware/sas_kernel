@@ -12,7 +12,6 @@ pyvenv.cfg
 *.sas7bcat
 *.sas7bitm
 .ipynb_checkpoints/
-*.png
 *.rej
 *.orig
 *~
