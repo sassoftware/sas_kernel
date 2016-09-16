@@ -1,8 +1,6 @@
-Type: IPython Notebook Extension
-Name: Theme Selector
-Description: >
-  Select Themes for color syntax
-Link: readme.md
-#Icon: notification.png
-Main: theme_selector.js
 Compatibility: 4.x
+Description: "Select Themes for color syntax"
+Link: readme.md
+Main: theme_selector.js
+Name: "Theme Selector"
+Type: "IPython Notebook Extension"
