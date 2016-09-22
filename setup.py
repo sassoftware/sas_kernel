@@ -18,18 +18,12 @@ try:
     from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup, find_packages
-try:
-    from jupyter_client.kernelspec import install_kernel_spec
-except ImportError:
-    from IPython.kernel.kernelspec import install_kernel_spec
-
 from distutils.command.install import install
 from distutils import log
-from IPython.utils.tempdir import TemporaryDirectory
 import json
 import os
 import sys
-
+import tempfile
 
 kernel_json = {
     "argv": [sys.executable,
@@ -38,9 +32,9 @@ kernel_json = {
     "codemirror_mode": "sas",
     "language": "sas"
 }
-# Create temp directory for install of kernel.json and logo files
-tempdir = TemporaryDirectory()
-temppath = str(tempdir).split('\'')[1]
+tempdir=tempfile.TemporaryDirectory()
+temppath=tempfile.TemporaryDirectory().name
+
 
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
@@ -48,14 +42,23 @@ if svem_flag in sys.argv:
 
 
 class InstallWithKernelspec(install):
+
     def run(self):
+        try:
+            from jupyter_client.kernelspec import install_kernel_spec
+        except ImportError:
+            try:
+                from IPython.kernel.kernelspec import install_kernel_spec
+            except ImportError:
+                print ("Please install either Jupyter to IPython before continuing")
+
         # Regular installation
         install.run(self)
 
         # Now write the kernelspec
         with tempdir:
             os.chmod(temppath, 0o755)  # Starts off as 700, not user readable
-            log.info('Installing IPython kernel spec')
+            log.info('Installing Jupyter kernel spec')
             with open(os.path.join(temppath, 'kernel.json'), 'w') as f:
                 json.dump(kernel_json, f, sort_keys=True)
             log.info('files copied to kernel:')
@@ -63,13 +66,13 @@ class InstallWithKernelspec(install):
                 log.info(i)
             try:
                 install_kernel_spec(temppath, 'SAS', user=False, replace=True)
-                print("SAS Kernel installed as superuser: %s " % self.user)
+                print("SAS Kernel installed as superuser")
             except:
                 install_kernel_spec(temppath, 'SAS', user=True, replace=True)
-                print("SAS Kernel installed as user: %s " % self.user)
+                print("SAS Kernel installed as user")
 
 setup(name='SAS_kernel',
-      version='1.2',
+      version='1.2.1',
       description='A SAS kernel for IPython',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
@@ -80,7 +83,7 @@ setup(name='SAS_kernel',
       cmdclass={'install': InstallWithKernelspec},
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json', 'data/*.png']},
       data_files=[(temppath, ['sas_kernel/data/logo-64x64.png'])],
-      install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.2.1', 'ipykernel', 'pygments', 'jupyter'],
+      install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.2.2', 'IPython', 'pygments', 'jupyter'],
       classifiers=[
           'Framework :: IPython',
           'License :: OSI Approved :: Apache Software License',
