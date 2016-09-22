@@ -42,15 +42,16 @@ if svem_flag in sys.argv:
 
 
 class InstallWithKernelspec(install):
-    try:
-        from jupyter_client.kernelspec import install_kernel_spec
-    except ImportError:
-        try:
-            from IPython.kernel.kernelspec import install_kernel_spec
-        except ImportError:
-            print ("Please install either Jupyter to IPython before continuing")
+    
 
     def run(self):
+        try:
+            from jupyter_client.kernelspec import install_kernel_spec
+        except ImportError:
+            try:
+                from IPython.kernel.kernelspec import install_kernel_spec
+            except ImportError:
+                print ("Please install either Jupyter to IPython before continuing")
         # Regular installation
         install.run(self)
 
