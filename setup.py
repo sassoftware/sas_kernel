@@ -42,7 +42,6 @@ if svem_flag in sys.argv:
 
 
 class InstallWithKernelspec(install):
-
     def run(self):
         try:
             from jupyter_client.kernelspec import install_kernel_spec
