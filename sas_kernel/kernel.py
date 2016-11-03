@@ -159,7 +159,7 @@ class SASKernel(MetaKernel):
             dis = self._which_display(log, output)
             return dis
         elif code.startswith("CompleteshowSASLog_11092015") == True and code.startswith('showSASLog_11092015') == False:
-            full_log = highlight(self.mva._log, SASLogLexer(),
+            full_log = highlight(self.mva.saslog(), SASLogLexer(),
                                  HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>",
                                                title="Full SAS Log"))
             return full_log.replace('\n', ' ')
