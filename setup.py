@@ -71,7 +71,7 @@ class InstallWithKernelspec(install):
                 print("SAS Kernel installed as user")
 
 setup(name='SAS_kernel',
-      version='1.2.1',
+      version='2.1.0',
       description='A SAS kernel for IPython',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
@@ -82,10 +82,12 @@ setup(name='SAS_kernel',
       cmdclass={'install': InstallWithKernelspec},
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json', 'data/*.png']},
       data_files=[(temppath, ['sas_kernel/data/logo-64x64.png'])],
-      install_requires=['pexpect>=3.3', 'metakernel', 'saspy>=1.2.2', 'IPython', 'pygments', 'jupyter'],
-      classifiers=[
-          'Framework :: IPython',
-          'License :: OSI Approved :: Apache Software License',
-          'Programming Language :: Python :: 3',
-      ]
+      install_requires=['saspy>=1.2.2', 'pygments', "metakernel>=0.18.0", "jupyter_client >=4.4.0",
+                        "ipython>=4.0.0"
+                        ],
+      classifiers=['Framework :: IPython',
+                   'License :: OSI Approved :: Apache Software License',
+                   "Programming Language :: Python :: 3.4",
+                   "Programming Language :: Python :: 3.5",
+                   "Topic :: System :: Shells"]
       )
