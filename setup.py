@@ -72,7 +72,7 @@ class InstallWithKernelspec(install):
 
 setup(name='SAS_kernel',
       version='1.2.1',
-      description='A SAS kernel for IPython',
+      description='A SAS kernel for Jupyter',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
       license='Apache Software License',
