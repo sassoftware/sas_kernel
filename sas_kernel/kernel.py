@@ -38,6 +38,9 @@ version_pat = re.compile(r'version (\d+(\.\d+)+)')
 
 
 class SASKernel(MetaKernel):
+    """
+    SAS Kernel for Jupyter implemntation. This module relies on SASPy
+    """
     implementation = 'sas_kernel'
     implementation_version = '1.0'
     language = 'sas'
@@ -86,7 +89,16 @@ class SASKernel(MetaKernel):
         except:
             self.mva = None
 
-    def _which_display(self, log, output):
+    def _which_display(self, log: str, output: str) -> str:
+        """
+        Determines if the log or lst should be returned as the results for the cell based on parsing the log
+        looking for errors and the presence of lst output.
+
+        :param log: str log from code submission
+        :param output: None or str lst output if there was any
+        :return: The correct results based on log and lst
+        :rtype: str
+        """
         lines = re.split(r'[\n]\s*', log)
         i = 0
         elog = []
@@ -122,7 +134,14 @@ class SASKernel(MetaKernel):
             logger.debug("DEBUG1: " + str(debug1) + " errors and LST")
             return HTML(color_log + output)
 
-    def do_execute_direct(self, code, silent=False):
+    def do_execute_direct(self, code: str, silent: bool = False) -> str:
+        """
+        This is the main method that takes code from the Jupyter cell and submits it to the SAS server
+
+        :param code: code from the cell
+        :param silent:
+        :return: str with either the log or list
+        """
         if not code.strip():
             return {'status': 'ok', 'execution_count': self.execution_count,
                     'payload': [], 'user_expressions': {}}
@@ -167,6 +186,9 @@ class SASKernel(MetaKernel):
             return self.cachedlog.replace('\n', ' ')
 
     def get_completions(self, info):
+        """
+        Get completions from kernel for procs and statements.
+        """
         if info['line_num'] > 1:
             relstart = info['column'] - (info['help_pos'] - info['start'])
         else:
