@@ -20,10 +20,13 @@ except ImportError:
     from distutils.core import setup, find_packages
 from distutils.command.install import install
 from distutils import log
+from sas_kernel import __version__
+
 import json
 import os
 import sys
 import tempfile
+from sas_kernel import __version__
 
 kernel_json = {
     "argv": [sys.executable,
@@ -71,7 +74,7 @@ class InstallWithKernelspec(install):
                 print("SAS Kernel installed as user")
 
 setup(name='SAS_kernel',
-      version='2.1.0',
+      version=__version__,
       description='A SAS kernel for Jupyter',
       long_description=open('README.rst', 'rb').read().decode('utf-8'),
       author='Jared Dean',
