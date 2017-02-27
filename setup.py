@@ -26,6 +26,7 @@ import json
 import os
 import sys
 import tempfile
+from sas_kernel import __version__
 
 kernel_json = {
     "argv": [sys.executable,
