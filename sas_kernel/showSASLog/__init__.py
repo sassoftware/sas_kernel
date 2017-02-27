@@ -14,9 +14,11 @@
 #  limitations under the License.
 #
 
+from sas_kernel import __version__
+
 def _jupyter_nbextension_paths():
     return [dict(section="notebook",
-                 # the path is relative to the `my_fancy_module` directory
+                 # relative path to the module directory
                  src="",
                  # directory in the `nbextension/` namespace
                  dest="showSASLog",
