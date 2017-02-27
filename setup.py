@@ -24,6 +24,7 @@ import json
 import os
 import sys
 import tempfile
+from sas_kernel import __version__
 
 kernel_json = {
     "argv": [sys.executable,
@@ -71,22 +72,23 @@ class InstallWithKernelspec(install):
                 print("SAS Kernel installed as user")
 
 setup(name='SAS_kernel',
-      #version=__version__,
-      version = '2.1.0'
-      description = 'A SAS kernel for Jupyter',
-      long_description = open('README.rst', 'rb').read().decode('utf-8'),
-      author = 'Jared Dean',
-      license = 'Apache Software License',
-      author_email = 'jared.dean@sas.com',
-      url = 'https://github.com/sassoftware/sas_kernel',
-      packages = find_packages(),
-      cmdclass = {'install': InstallWithKernelspec},
-      package_data = {'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json', 'data/*.png']},
-      data_files = [(temppath, ['sas_kernel/data/logo-64x64.png'])],
-      install_requires = ['metakernel >= 18.0', 'saspy>=2.1', 'pygments', 'jupyter'],
-      classifiers=[
-          'Framework :: IPython',
-          'License :: OSI Approved :: Apache Software License',
-          'Programming Language :: Python :: 3',
-      ]
+      version=__version__,
+      description='A SAS kernel for IPython',
+      long_description=open('README.rst', 'rb').read().decode('utf-8'),
+      author='Jared Dean',
+      license='Apache Software License',
+      author_email='jared.dean@sas.com',
+      url='https://github.com/sassoftware/sas_kernel',
+      packages=find_packages(),
+      cmdclass={'install': InstallWithKernelspec},
+      package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json', 'data/*.png']},
+      data_files=[(temppath, ['sas_kernel/data/logo-64x64.png'])],
+      install_requires=['saspy>=2.1.0', 'pygments', "metakernel>=0.18.0", "jupyter_client>=4.4.0",
+                        "ipython>=4.0.0"
+                        ],
+      classifiers=['Framework :: IPython',
+                   'License :: OSI Approved :: Apache Software License',
+                   "Programming Language :: Python :: 3.4",
+                   "Programming Language :: Python :: 3.5",
+                   "Topic :: System :: Shells"]
       )
