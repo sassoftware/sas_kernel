@@ -39,7 +39,7 @@ version_pat = re.compile(r'version (\d+(\.\d+)+)')
 
 class SASKernel(MetaKernel):
     """
-    SAS Kernel for Jupyter implemntation. This module relies on SASPy
+    SAS Kernel for Jupyter implementation. This module relies on SASPy
     """
     implementation = 'sas_kernel'
     implementation_version = '1.0'

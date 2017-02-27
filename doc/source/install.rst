@@ -313,4 +313,4 @@ Example
 There is a `notebook`_ that walks through the steps to install and
 enable the extensions
 
-.. _notebook: ../../notebook/loadSASExtensions.ipynb
+.. _notebook: https://github.com/sassoftware/sas_kernel/blob/master/notebook/loadSASExtensions.ipynb

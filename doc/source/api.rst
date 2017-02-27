@@ -15,7 +15,7 @@ API Reference
     :inherited-members:
     :show-inheritance:
 
-SAS Session Object
-------------------
+SAS Kernel Object
+-----------------
 .. autoclass:: SASKernel
     :members:
