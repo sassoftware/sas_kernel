@@ -212,7 +212,8 @@ This should produce output similar to this:
 
    1. find the sascfg.py file -- it is currently located in the
       site-packages area of python install ``find / -name sascfg.py``
-   **NOTE:** For OSX the only supported configuration is through the
+
+**NOTE:** For OSX the only supported configuration is through the
 `IOM interface http://support.sas.com/documentation/cdl/en/itechov/64881/HTML/default/viewer.htm#titlepage.htm`__
 so you will need use the IOM template in `sascfg.py`
 

@@ -13,38 +13,32 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-from metakernel import MetaKernel
 import base64
-
-from IPython.display import HTML
 import os
 import re
 import json
-from . import __version__
+# Create Logger
+import logging
 
-
+from metakernel import MetaKernel
+from sas_kernel import __version__
+from IPython.display import HTML
 # color syntax for the SASLog
 from saspy.SASLogLexer import SASLogStyle, SASLogLexer
 from pygments.formatters import HtmlFormatter
 from pygments import highlight
 
-# Create Logger
-import logging
-
 logger = logging.getLogger('')
 logger.setLevel(logging.WARN)
-
-version_pat = re.compile(r'version (\d+(\.\d+)+)')
-
 
 class SASKernel(MetaKernel):
     """
     SAS Kernel for Jupyter implementation. This module relies on SASPy
     """
     implementation = 'sas_kernel'
-    implementation_version = '1.0'
+    implementation_version = __version__
     language = 'sas'
-    language_version = __version__,
+    language_version = '9.4+',
     banner = "SAS Kernel"
     language_info = {'name': 'sas',
                      'mimetype': 'text/x-sas',
@@ -285,5 +279,6 @@ class SASKernel(MetaKernel):
 
 if __name__ == '__main__':
     from ipykernel.kernelapp import IPKernelApp
-
+    from .kernel import SASKernel
+    from sas_kernel import __version__
     IPKernelApp.launch_instance(kernel_class=SASKernel)

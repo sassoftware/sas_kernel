@@ -20,11 +20,12 @@ except ImportError:
     from distutils.core import setup, find_packages
 from distutils.command.install import install
 from distutils import log
+from sas_kernel import __version__
+
 import json
 import os
 import sys
 import tempfile
-from sas_kernel import __version__
 
 kernel_json = {
     "argv": [sys.executable,
