@@ -9,7 +9,7 @@
 API Reference
 *************
 
-.. automodule:: sas_kernel
+.. automodule:: sas_kernel.kernel
     :members:
     :undoc-members:
     :inherited-members:

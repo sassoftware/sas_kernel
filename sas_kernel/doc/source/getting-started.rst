@@ -1,6 +1,6 @@
 
-Introduction
-============
+Getting Started
+===============
 
 The SAS Kernel for Juypter is designed to allow users to use Jupyter Notebooks
 to interact with SAS (SAS 9.4 or SAS Viya). It makes SAS the
@@ -104,8 +104,8 @@ Split the data into training and test
         time_spend_company;
     run;
 
-Decision Tree
--------------
+`Decision Tree <http://support.sas.com/documentation/cdl/en/stathpug/68163/HTML/default/viewer.htm#stathpug_hpsplit_toc.htm>`__
+-------------------------------------------------------------------------------------------------------------------------------
 
 .. code:: sas
 

@@ -2,8 +2,8 @@
 .. Copyright SAS Institute
 
 
-SAS Kernel Installation
-=======================
+Installing the SAS Kernel
+=========================
 
 The SASPY package installs just like any other Python package.
 It is a pure Python package and works with Python 3.3+
@@ -34,8 +34,8 @@ To successfully use the SAS Kernel you must have each of the following:
 dependencies. See the subsections for steps on installing Jupyter on
 your system. \* `Python 3 <http://www.python.org>`__
 
-Install for Anaconda Python (assuming SAS already installed)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Linux Install for Anaconda Python (assuming SAS already installed)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. `Download <https://www.continuum.io/downloads>`__ and install
    Anaconda Python (make sure you get Python3.X). If you install
@@ -89,8 +89,8 @@ Install for Anaconda Python (assuming SAS already installed)
       examples in the
       `file <https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py>`__
 
-Install for Centos 6 (assuming SAS already installed)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Linux Install for Centos 6 (assuming SAS already installed)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 These instructions assume you'll be installed system wide for all users
 using a superuser account (root or sudo)
@@ -124,8 +124,8 @@ using a superuser account (root or sudo)
       examples in the file
 
 
-Install for Windows (assuming SAS already installed)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Windows Install (assuming SAS already installed)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. `Download <https://www.continuum.io/downloads>`__ and install
    Anaconda Python (make sure you get Python3.X). If you install
@@ -134,17 +134,27 @@ Install for Windows (assuming SAS already installed)
    that I've observed:
 
 -  I would install in the default location unless you have a good reason to move it.
-   It will cut down on headaches later.The default install location is the users home directory. This is
-   fine for a single user install. I would put it in a common location
-   if you're doing a system wide install.
--  One of the prompts is to make Python accessible to just he installing user or all users.
+   It will cut down on headaches later.
+
+.. image:: ./images/ap3.PNG
+    :scale: 50%
+
+-  One of the prompts is to make Python accessible to just the installing user or all users.
    Select the best response for you situation.
+
+.. image:: ./images/ap2.PNG
+    :scale: 50%
+
 -  Another of the prompts is to add the path to your environment. I
    recommend you want to answer 'yes' to that question to make it easier to
    start python and Jupyter.
 
+.. image:: ./images/ap4.PNG
+    :scale: 50%
+
+
 **This next section of steps will be performed from the command windows
-Start --> Run --> `cmd`**
+Start --> Run --> cmd**
 
 1. Install sas\_kernel. The sas\_kernel has a dependency on saspy which
    is located `here <https://github.com/sassoftware/saspy>`__. In the
@@ -159,21 +169,23 @@ This should produce output similar to this:
    ::
 
        Available kernels:
-         python3    c:\
-         sas        c:\
+         python3    C:\Users\jadean\AppData\Local\Continuum\Anaconda3\lib\site-packages\ipykernel\resources
+         sas        C:\ProgramData\jupyter\kernels\sas
+
 
 5. Verify SAS Executable is correct
 
-   1. find the sascfg.py file -- it is currently located in the
-      site-packages area of python install ``find / -name sascfg.py``
+   1. find the sascfg.py file -- it is located in the site-packages area of python install.
+      Here is the default location ``C:\ProgramData\Anaconda3\Lib\site-packages``
+      You can also search the file system for the file.
    2. edit the file with the correct path the SAS executable and include
       any options you wish it include in the SAS invocation. See
-      examples in the file
+      examples in the file.
 
 
 
-Install for OSX
-~~~~~~~~~~~~~~~
+OSX (Mac) Install
+~~~~~~~~~~~~~~~~~
 
 1. `Download <https://www.continuum.io/downloads>`__ and install
    Anaconda Python (make sure you get Python3.X). If you install
@@ -182,10 +194,8 @@ Install for OSX
    that I've observed:
 
 -  I would install in the default location unless you have a good reason to move it.
-   It will cut down on headaches later.The default install location is the users home directory. This is
-   fine for a single user install. I would put it in a common location
-   if you're doing a system wide install.
--  One of the prompts is to make Python accessible to just he installing user or all users.
+   It will cut down on headaches later.
+-  One of the prompts is to make Python accessible to just the installing user or all users.
    Select the best response for you situation.
 -  Another of the prompts is to add the path to your environment. I
    recommend you want to answer 'yes' to that question to make it easier to
@@ -214,12 +224,12 @@ This should produce output similar to this:
       site-packages area of python install ``find / -name sascfg.py``
 
 **NOTE:** For OSX the only supported configuration is through the
-`IOM interface http://support.sas.com/documentation/cdl/en/itechov/64881/HTML/default/viewer.htm#titlepage.htm`__
+`IOM interface <http://support.sas.com/documentation/cdl/en/itechov/64881/HTML/default/viewer.htm#titlepage.htm>`__
 so you will need use the IOM template in `sascfg.py`
 
 
-SAS NBextensions
-================
+Installing SAS NBextensions
+===========================
 
 Installing from PyPi
 --------------------
