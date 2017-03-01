@@ -20,13 +20,13 @@ except ImportError:
     from distutils.core import setup, find_packages
 from distutils.command.install import install
 from distutils import log
-from sas_kernel import __version__
+from shutil import copyfile
 
 import json
 import os
 import sys
-import tempfile
 from sas_kernel import __version__
+from sas_kernel.data import _dataRoot
 
 kernel_json = {
     "argv": [sys.executable,
@@ -35,9 +35,6 @@ kernel_json = {
     "codemirror_mode": "sas",
     "language": "sas"
 }
-tempdir = tempfile.TemporaryDirectory()
-temppath = tempfile.TemporaryDirectory().name
-
 
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
@@ -57,12 +54,16 @@ class InstallWithKernelspec(install):
         # Regular installation
         install.run(self)
 
+        from IPython.utils.tempdir import TemporaryDirectory
+
         # Now write the kernelspec
-        with tempdir:
+        with TemporaryDirectory() as temppath:
             os.chmod(temppath, 0o755)  # Starts off as 700, not user readable
             log.info('Installing Jupyter kernel spec')
             with open(os.path.join(temppath, 'kernel.json'), 'w') as f:
                 json.dump(kernel_json, f, sort_keys=True)
+            copyfile(os.path.join(_dataRoot, 'logo-64x64.png'), os.path.join(temppath, 'logo-64x64.png'))
+
             log.info('files copied to kernel:')
             for i in os.listdir(temppath):
                 log.info(i)
@@ -84,7 +85,6 @@ setup(name='SAS_kernel',
       packages=find_packages(),
       cmdclass={'install': InstallWithKernelspec},
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json', 'data/*.png']},
-      data_files=[(temppath, ['sas_kernel/data/logo-64x64.png'])],
       install_requires=['saspy>=1.2.2', 'pygments', "metakernel>=0.18.0", "jupyter_client >=4.4.0",
                         "ipython>=4.0.0"
                         ],
