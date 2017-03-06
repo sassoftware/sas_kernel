@@ -5,7 +5,7 @@
 Installing the SAS Kernel
 =========================
 
-The SASPY package installs just like any other Python package.
+The SASPy package installs just like any other Python package.
 It is a pure Python package and works with Python 3.3+
 installations.  To install using `pip`, you execute the following::
 
