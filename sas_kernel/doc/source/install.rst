@@ -2,7 +2,8 @@
 .. Copyright SAS Institute
 
 
-Installing the SAS Kernel
+=========================
+Installing the SAS kernel
 =========================
 
 The SAS kernel package installs just like any other Python package.
@@ -16,8 +17,9 @@ following commands.
     pip install http://github.com/sassoftware/sas_kernel/releases/sas_kernel-X.X.X.tar.gz
 
 
-Linux Install for Anaconda Python (assuming SAS already installed)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+******************************************************************
+Linux install for Anaconda Python (assuming SAS already installed)
+******************************************************************
 
 #. Go to https://www.continuum.io/downloads and install
    Anaconda Python (make sure you get Python3.X). If you install
@@ -77,8 +79,10 @@ Linux Install for Anaconda Python (assuming SAS already installed)
       any options that you want to modify the SAS invocation. See the
       examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
 
-Linux Install for Centos 6 (assuming SAS already installed)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+***********************************************************
+Linux install for Centos 6 (assuming SAS already installed)
+***********************************************************
 
 These instructions describe hot to perform a system-wide installation for all users.
 You must have Superuser privileges (root or sudo).
@@ -130,8 +134,9 @@ You must have Superuser privileges (root or sudo).
       examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
 
 
-Windows Install (assuming SAS already installed)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+************************************************
+Windows install (assuming SAS already installed)
+************************************************
 
 #. Go to https://www.continuum.io/downloads and install
    Anaconda Python (make sure you get Python3.X). If you install
@@ -161,6 +166,7 @@ Windows Install (assuming SAS already installed)
 
 
    .. IMPORTANT::
+
       This next group of steps is performed from a Windows command prompt (
       :menuselection:`Start --> Run --> cmd`)
 
@@ -196,9 +202,9 @@ Windows Install (assuming SAS already installed)
       examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
 
 
-
-OSX (Mac) Install
-~~~~~~~~~~~~~~~~~
+*****************
+OSX (Mac) install
+*****************
 
 #. Go to https://www.continuum.io/downloads and install
    Anaconda Python (make sure you get Python3.X). If you install
@@ -253,40 +259,41 @@ OSX (Mac) Install
       See `IOM interface <http://support.sas.com/documentation/cdl/en/itechov/64881/HTML/
       default/viewer.htm#titlepage.htm>`_ for information about the SAS integrated object model.
 
-      .. NOTE::
-         For OSX, the only supported configuration is an IOM connection.
+      .. NOTE:: For OSX, the only supported configuration is an IOM connection.
 
 
+===========================
 Installing SAS NBextensions
 ===========================
 
+********************
 Installing from PyPi
---------------------
+********************
 
-With the release of Jupyter 4.2 (sas\_kernel version 1.2) you can now
-install and enable nbextensions in a much improved way. To install and
-enable the showSASLog extension use the following command:
+With the release of Jupyter 4.2 (SAS kernel package version 1.2) the
+installation and enabling of nbextensions is improved. To install and
+enable the showSASLog extension use the following commands.
 
 ::
 
     jupyter nbextension install --py sas_kernel.showSASLog
     jupyter nbextension enable sas_kernel.showSASLog --py
 
-To install and enable the theme extension use the following command:
+To install and enable the theme extension use the following commands.
 
 ::
 
     jupyter nbextension install --py sas_kernel.theme
     jupyter nbextension enable sas_kernel.theme --py
 
-To verify the ebextensions you have installed use the following command:
+To verify the nbextensions you installed use the following commands.
 
 ::
 
     jupyter nbextension list
 
 If the extensions are correctly installed you will see output similar to
-this:
+the following:
 
 ::
 
@@ -298,10 +305,11 @@ this:
           theme/theme_selector  enabled
           - Validating: OK
 
+***********************************
 Installing from a cloned repository
------------------------------------
+***********************************
 
-In your cloned repo you have a directory for each nbextension within the
+The cloned repository has a directory for each nbextension within the
 file structure as shown below:
 
 ::
@@ -311,46 +319,53 @@ file structure as shown below:
     +-- showSASLog
     +-- theme
 
-Extensions are installed from the command line. To install it systemwide
-use the following command (you must be root or have sudo privileges).
-This assumes you’re in the nbextensions directory otherwise adjust your
-path.
+You can install the extensions from the command line. To install an extension
+system-wide, use the following command with Superuser privileges (root or 
+sudo). The following command assumes that you are in the nbextensions
+directory. Adjust the path if you are not. 
 
 ::
 
     jupyter nbextension install ./showSASLog
+   
+Your output should look similar to the following (installed with Superuser
+privileges):
 
-Which should display something similar to this (if you have super user
-rights):
+::
 
-``copying showSASLog/main.js -> /usr/local/share/jupyter/nbextensions/main.js``
+    copying showSASLog/main.js -> /usr/local/share/jupyter/nbextensions/main.js
 
-To install for the current user only use the following command. Again
-assumes you’re in the nbextensions directory otherwise adjust your path.
+To install for the your user acount only, use the following command. Again,
+the sample command assumes that you are in the nbextensions directory. Adjust
+the path if you are not.
 
 ::
 
     jupyter nbextension install ./showSASLog --user
 
-Which should display something similar to this (if you DO NOT have super
-user rights):
+Your output should look similar to the following (installed for your user
+account only):
 
-``copying showSASLog/main.js -> /home/sas/.local/share/jupyter/nbextensions/showSASLog/main.js``
+::
 
-Then enable the notebook extension with the following command:
+    copying showSASLog/main.js -> /home/sas/.local/share/jupyter/nbextensions/showSASLog/main.js
+
+Then enable the notebook extension with the following command.
 
 ::
 
     jupyter nbextension enable showSASLog
 
-To disable (not that you’d ever want to):
+To disable the extension, you can run the following command.
 
-``jupyter nbextension disable showSASLog``
+::
+
+    jupyter nbextension disable showSASLog
 
 Example
--------
+=======
 
 There is a `notebook`_ that walks through the steps to install and
-enable the extensions
+enable the extensions:
 
 .. _notebook: https://github.com/sassoftware/sas_kernel/blob/master/notebook/loadSASExtensions.ipynb
