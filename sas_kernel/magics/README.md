@@ -6,7 +6,7 @@ Magics must be at the the first line of the cell or else they will be submitted 
 This presents a problem for SAS since SAS Macro (R) uses `%` to denote a macro variable. Currently if you have a SAS Macro in the first line it will try and interpret it as a magic. Entering a blank line will resolve the issue
 
 ## prompt4var
-prompt4var includes both a line and cell magics. The general function of hte magic is to prompt the user for values to create macro variables in the SAS session associated with that notebook.
+prompt4var includes both a line and cell magics. The general function of the magic is to prompt the user for values to create macro variables in the SAS session associated with that notebook.
 ### Line Magic
 
 #### Examples
