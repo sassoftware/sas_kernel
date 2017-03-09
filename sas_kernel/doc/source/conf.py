@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# SASPY documentation build configuration file, created by
+# SAS kernel documentation build configuration file, created by
 # sphinx-quickstart on Fri Oct 28 10:08:55 2016.
 #
 # This file is execfile()d with the current directory set to its
@@ -258,7 +258,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'saspy.tex', 'SASpy Documentation',
+    (master_doc, 'sas_kernel.tex', 'SAS Kernel Documentation',
      'SAS', 'manual'),
 ]
 
@@ -288,7 +288,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'saspy', 'SASpy Documentation',
+    (master_doc, 'sas_kernel', 'SAS Kernel Documentation',
      [author], 1)
 ]
 
@@ -302,8 +302,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'saspy', 'SASpy Documentation',
-     author, 'SASpy', 'One line description of project.',
+    (master_doc, 'sas_kernel', 'SAS Kernel Documentation',
+     author, 'sas_kernel', 'Provides a SAS kernel for use with Jupyter Notebook.',
      'Miscellaneous'),
 ]
 
