@@ -14,8 +14,8 @@ SAS Kernel
 
 **Issues & Ideas:** `<https://github.com/sassoftware/sas_kernel/issues>`_
 
-The SAS Kernel project defines a kernel for `Jupyter Notebooks <http://www.jupyter.org>`__.
-Making it possible to use Jupyter for writing and maintaining SAS coding projects.
+The SAS Kernel project provides a kernel for `Jupyter Notebooks <http://www.jupyter.org>`__.
+The kernel makes it possible to use Jupyter for writing and maintaining SAS coding projects.
 
 .. toctree::
    overview
