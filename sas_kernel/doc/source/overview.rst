@@ -16,7 +16,7 @@ provide the following programming experience:
 * syntax highlighting for SAS programming statements
 * store the input and output from an interactive SAS session
 
-After installing the SAS kernel you can use a notebook and a SAS installation to
+After installing the SAS kernel, you can use a notebook and a SAS installation to
 write, document, and submit SAS programming statements.
 
 
@@ -45,11 +45,11 @@ the value in a SAS macro variable.
 Seasoned SAS programmers might notice that Python magics begin with a percent
 sign (%) and that SAS macro variables also begin with a percent sign. To ensure
 that magics are interpreted by Python, they must be specified in the first line
-of a notebook cell. Otherwise, the magic (%xxxxx) is sumitted to SAS.
+of a notebook cell. Otherwise, the magic (%xxxxx) is submitted to SAS.
 
-If you need to run a SAS macro as the first statement in a notebook cell, then
-insert a blank line as the first line. The blank line prevents Python from
-intepreting the macro variable as a magic.
+If you need to run a SAS macro as the first statement, then insert a blank line
+as the first line in the notebook cell and the macro on the second line. The
+blank line prevents Python from intrepreting the macro variable as a magic.
 
 
 ************
@@ -113,7 +113,7 @@ FAQ
 -  If stdin, stdout, and stderr have been supported for so long why do I
    need to have SAS 9.4 or newer?
 
-   First, SAS 9.4 was released in July 2013 so it is not a bleeding edge
+   First, SAS 9.4 was released in July 2013, so it is not a bleeding edge
    requirement. The reason for the prerequisite is that SAS 9.4 introduced
    support for creating of HTML5 documents. The SAS kernel relies on the
    HTML5 output so that it can render attractive tables and graphs automagically.
@@ -147,11 +147,11 @@ FAQ
 
 -  Will this leave a bunch of SAS sessions hanging around?
 
-   A SAS session is started for each notebook you have open. For example,
+   A SAS session is started for each notebook that you have open. For example,
    if you open 5 notebooks, you start 5 SAS sessions. Those sessions remain
-   active as long as the notebook is running. If you shutdown your notebook,
+   active as long as the notebook is running. If you shut down your notebook,
    the associated SAS session terminates. In JupyterHub, there are configuration
-   options to shutdown inactive sessions and the SAS kernel complies
+   options to shut down inactive sessions and the SAS kernel complies
    with those directives.
 
 -  I restarted my SAS kernel and now my Work library is now empty. What
@@ -159,5 +159,5 @@ FAQ
 
    When you restart the kernel in a notebook, you terminate the SAS session
    and start a new one. All of the temporary artifacts, such as data sets in
-   the Work library, assigned librefs, filerefs, Work macros, and so on 
+   the Work library, assigned librefs, filerefs, Work macros, and so on,
    are destroyed.

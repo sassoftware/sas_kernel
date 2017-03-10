@@ -7,7 +7,7 @@ Installing the SAS kernel
 =========================
 
 The SAS kernel package installs just like any other Python package.
-It is a pure Python package and works with Python 3.3+
+It is a pure Python package and works with Python 3.X
 installations.  To install using ``pip``, you execute one of the 
 following commands.
 
@@ -23,12 +23,12 @@ Linux install for Anaconda Python (assuming SAS already installed)
 
 #. Go to https://www.continuum.io/downloads and install
    Anaconda Python (make sure you get Python3.X). If you install
-   Anaconda without Superuser privileges (root or sudo) then other users
+   Anaconda without Superuser privileges (root or sudo), then other users
    on the system will not be able to access the SAS kernel. Consider the
    following:
 
    * The default installation location is your home directory. This is
-     fine for a single user install. If you want a system-wide installation
+     fine for a single user install. If you want a system-wide installation,
      then use a common location such as ``/opt``.
 
    * One installation prompt is to add the path to your environment. SAS
@@ -65,7 +65,7 @@ Linux install for Anaconda Python (assuming SAS already installed)
          python3    /home/sas/anaconda3/lib/python3.5/site-packages/ipykernel/resources
          sas        /home/sas/.local/share/jupyter/kernels/sas
 
-#. Verify the SAS executable is correct.
+#. Verify that the SAS executable is correct.
 
    #. Find the sascfg.py file -- it is located relative to the Python3 installation
       location (see above, [install location]/site-packages/saspy/sascfg.py).
@@ -119,7 +119,7 @@ You must have Superuser privileges (root or sudo).
          python3    /usr/lib/python3.5/site-packages/ipykernel/resources
          sas        /usr/local/share/jupyter/kernels/sas
 
-#. Verify the SAS executable is correct.
+#. Verify that the SAS executable is correct.
 
    #. Find the sascfg.py file -- it is located relative to the Python3 installation
       location (see above, [install location]/site-packages/saspy/sascfg.py).
@@ -140,7 +140,7 @@ Windows install (assuming SAS already installed)
 
 #. Go to https://www.continuum.io/downloads and install
    Anaconda Python (make sure you get Python3.X). If you install
-   Anaconda without Administrator privileges then other users
+   Anaconda without Administrator privileges, then other users
    on the system will not be able to access the SAS kernel. Consider the
    following:
 
@@ -151,7 +151,7 @@ Windows install (assuming SAS already installed)
         :scale: 50%
 
    * One installation prompt is to make Python accessible for just your account
-     or for all users.  Select the best response for you situation.
+     or for all users.  Select the best response for your situation.
 
      .. image:: ./images/ap2.PNG
         :scale: 50%
@@ -190,7 +190,7 @@ Windows install (assuming SAS already installed)
          python3    C:\Users\sas\AppData\Local\Continuum\Anaconda3\lib\site-packages\ipykernel\resources
          sas        C:\ProgramData\jupyter\kernels\sas
 
-#. Verify the SAS executable is correct.
+#. Verify that the SAS executable is correct.
 
    #. Find the sascfg.py file -- it is located relative to the Python3 installation.
       The default location is C:\\ProgramData\\Anaconda3\\Lib\\site-packages\\saspy\\sascfg.py.
@@ -208,7 +208,7 @@ OSX (Mac) install
 
 #. Go to https://www.continuum.io/downloads and install
    Anaconda Python (make sure you get Python3.X). If you install
-   Anaconda without Administrator privileges then other users
+   Anaconda without Administrator privileges, then other users
    on the system will not be able to access the SAS kernel. Consider the
    following:
 
@@ -216,7 +216,7 @@ OSX (Mac) install
      Using the default location simplifies administration. 
 
    * One installation prompt is to make Python accessible for just your account
-     or for all users.  Select the best response for you situation.
+     or for all users.  Select the best response for your situation.
 
    * Another installation prompt is to add the path to your environment. SAS
      recommends that you answer 'yes' to the prompt so that you get the 
@@ -243,7 +243,7 @@ OSX (Mac) install
           python3              /Users/sas/anaconda3/lib/python3.5/site-packages/ipykernel/resources
           sas                  /usr/local/share/jupyter/kernels/sas
 
-#. Verify the SAS executable is correct.
+#. Verify that the SAS executable is correct.
    #. Find the sascfg.py file -- it is located relative to the Python3 installation
       location (see above, [install location]/site-packages/saspy/sascfg.py).
 
@@ -286,13 +286,13 @@ To install and enable the theme extension use the following commands.
     jupyter nbextension install --py sas_kernel.theme
     jupyter nbextension enable sas_kernel.theme --py
 
-To verify the nbextensions you installed use the following commands.
+To verify the nbextensions that you installed use the following commands.
 
 ::
 
     jupyter nbextension list
 
-If the extensions are correctly installed you will see output similar to
+If the extensions are correctly installed, you will see output similar to
 the following:
 
 ::
@@ -335,7 +335,7 @@ privileges):
 
     copying showSASLog/main.js -> /usr/local/share/jupyter/nbextensions/main.js
 
-To install for the your user acount only, use the following command. Again,
+To install for your user account only, use the following command. Again,
 the sample command assumes that you are in the nbextensions directory. Adjust
 the path if you are not.
 
