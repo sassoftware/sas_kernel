@@ -1,8 +1,12 @@
-Overview of SAS Kernel
-======================
+######################
+Overview of SAS kernel
+######################
+.. I used http://documentation-style-guide-sphinx.readthedocs.io/en/latest/style-guide.html
 
+
+*************
 What is this?
--------------
+*************
 
 A SAS kernel for `Jupyter Notebooks <http://www.jupyter.org>`_. Jupyter Notebooks
 are capable of running programs in a variety of programming languages and it is
@@ -15,14 +19,42 @@ provide the following programming experience:
 After installing the SAS kernel you can use a notebook and a SAS installation to
 write, document, and submit SAS programming statements.
 
+
+************
+Dependencies
+************
+
+-  Python3.X or higher.
+-  Jupyter
+-  SAS 9.4 or higher. SAS Viya 3.1 or higher is also supported.
+
+Previous release of the SAS kernel supported connecting to SAS on Linux only. For this release,
+you can connect to SAS on any platform that is supported for the specified SAS releases.
+
+Jupyter has a number of dependencies. See the subsections for steps on installing Jupyter on
+your system.
+
+
+**************
 Jupyter magics
-~~~~~~~~~~~~~~
+**************
 The %%prompt4var magic is written specifically for the SAS kernel. The purpose of
 the magic is to prompt for sensitive information such as a password and store
 the value in a SAS macro variable.
 
+Seasoned SAS programmers might notice that Python magics begin with a percent
+sign (%) and that SAS macro variables also begin with a percent sign. To ensure
+that magics are interpreted by Python, they must be specified in the first line
+of a notebook cell. Otherwise, the magic (%xxxxx) is sumitted to SAS.
+
+If you need to run a SAS macro as the first statement in a notebook cell, then
+insert a blank line as the first line. The blank line prevents Python from
+intepreting the macro variable as a magic.
+
+
+************
 NBExtensions
-~~~~~~~~~~~~
+************
 There are a few NBExtensions to make working with notebooks more productive and pleasant.
 These are largely the result of pain points and gotchas. These include:
 
@@ -39,31 +71,18 @@ is provided in this documentation. The source code for the extensions can be fou
 https://github.com/sassoftware/sas_kernel/tree/master/sas_kernel/nbextensions.
 
 
-Dependencies
-------------
-
--  Python3.3 or higher.
--  Jupyter
--  SAS 9.4 or higher. SAS Viya 3.1 or higher is also supported.
-
-Previous release of the SAS kernel supported connecting to SAS on Linux only. For this release,
-you can connect to SAS on any platform that is supported for the specified SAS releases.
-
-Jupyter has a number of dependencies. See the subsections for steps on installing Jupyter on
-your system.
-
-
+****************************************
 Integration with other notebook software
-----------------------------------------
+****************************************
 
 JupyterHub
-~~~~~~~~~~
+==========
 
 The SAS kernel can be used with JupyterHub. For more information, see
 https://jupyterhub.readthedocs.org.
 
 NBGrader
-~~~~~~~~
+========
 
 NBGrader is a system for assigning and grading notebooks and extends 
 Jupyter Notebook. For more information, see http://nbgrader.readthedocs.org.
@@ -72,10 +91,10 @@ This forked repo (https://github.com/jld23/nbgrader) includes
 a number of contributions that are used for
 teaching SAS programming in a classroom setting.
 
-.. _overview-faq:
 
+***
 FAQ
----
+***
 
 -  Do I need to buy SAS to use this kernel?
 
