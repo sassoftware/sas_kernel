@@ -244,6 +244,7 @@ OSX (Mac) install
           sas                  /usr/local/share/jupyter/kernels/sas
 
 #. Verify that the SAS executable is correct.
+
    #. Find the sascfg.py file -- it is located relative to the Python3 installation
       location (see above, [install location]/site-packages/saspy/sascfg.py).
 
@@ -366,6 +367,6 @@ Example
 =======
 
 There is a `notebook`_ that walks through the steps to install and
-enable the extensions:
+enable the extensions.
 
 .. _notebook: https://github.com/sassoftware/sas_kernel/blob/master/notebook/loadSASExtensions.ipynb
