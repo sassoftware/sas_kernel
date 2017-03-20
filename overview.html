@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Overview of SAS kernel &mdash; sas_kernel 2.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="sas_kernel 2.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Installing the SAS kernel" href="install.html"/>
+        <link rel="prev" title="SAS Kernel" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sas_kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview of SAS kernel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-this">What is this?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jupyter-magics">Jupyter magics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nbextensions">NBExtensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-with-other-notebook-software">Integration with other notebook software</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#jupyterhub">JupyterHub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nbgrader">NBGrader</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing the SAS kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#installing-sas-nbextensions">Installing SAS NBextensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sas_kernel</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Overview of SAS kernel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="overview-of-sas-kernel">
+<h1>Overview of SAS kernel<a class="headerlink" href="#overview-of-sas-kernel" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-this">
+<h2>What is this?<a class="headerlink" href="#what-is-this" title="Permalink to this headline">¶</a></h2>
+<p>A SAS kernel for <a class="reference external" href="http://www.jupyter.org">Jupyter Notebooks</a>. Jupyter Notebooks
+are capable of running programs in a variety of programming languages and it is
+the kernel that enables this ability. The SAS kernel enables Jupyter Notebook to
+provide the following programming experience:</p>
+<ul class="simple">
+<li>syntax highlighting for SAS programming statements</li>
+<li>store the input and output from an interactive SAS session</li>
+</ul>
+<p>After installing the SAS kernel, you can use a notebook and a SAS installation to
+write, document, and submit SAS programming statements.</p>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Python3.X or higher.</li>
+<li>Jupyter</li>
+<li>SAS 9.4 or higher. SAS Viya 3.1 or higher is also supported.</li>
+</ul>
+<p>Previous release of the SAS kernel supported connecting to SAS on Linux only. For this release,
+you can connect to SAS on any platform that is supported for the specified SAS releases.</p>
+<p>Jupyter has a number of dependencies. See the subsections for steps on installing Jupyter on
+your system.</p>
+</div>
+<div class="section" id="jupyter-magics">
+<h2>Jupyter magics<a class="headerlink" href="#jupyter-magics" title="Permalink to this headline">¶</a></h2>
+<p>The %%prompt4var magic is written specifically for the SAS kernel. The purpose of
+the magic is to prompt for sensitive information such as a password and store
+the value in a SAS macro variable.</p>
+<p>Seasoned SAS programmers might notice that Python magics begin with a percent
+sign (%) and that SAS macro variables also begin with a percent sign. To ensure
+that magics are interpreted by Python, they must be specified in the first line
+of a notebook cell. Otherwise, the magic (%xxxxx) is submitted to SAS.</p>
+<p>If you need to run a SAS macro as the first statement, then insert a blank line
+as the first line in the notebook cell and the macro on the second line. The
+blank line prevents Python from intrepreting the macro variable as a magic.</p>
+</div>
+<div class="section" id="nbextensions">
+<h2>NBExtensions<a class="headerlink" href="#nbextensions" title="Permalink to this headline">¶</a></h2>
+<p>There are a few NBExtensions to make working with notebooks more productive and pleasant.
+These are largely the result of pain points and gotchas. These include:</p>
+<dl class="docutils">
+<dt>SAS Log</dt>
+<dd>This extension shows the SAS log for the last executed cell or the entire log
+since the last restart of the notebook.</dd>
+<dt>Themes</dt>
+<dd>This extension enables you to change the color scheme for your code to match
+the traditional SAS theme.</dd>
+</dl>
+<p>You can install the extensions after you install the SAS kernel. Installation information
+is provided in this documentation. The source code for the extensions can be found at
+<a class="reference external" href="https://github.com/sassoftware/sas_kernel/tree/master/sas_kernel/nbextensions">https://github.com/sassoftware/sas_kernel/tree/master/sas_kernel/nbextensions</a>.</p>
+</div>
+<div class="section" id="integration-with-other-notebook-software">
+<h2>Integration with other notebook software<a class="headerlink" href="#integration-with-other-notebook-software" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jupyterhub">
+<h3>JupyterHub<a class="headerlink" href="#jupyterhub" title="Permalink to this headline">¶</a></h3>
+<p>The SAS kernel can be used with JupyterHub. For more information, see
+<a class="reference external" href="https://jupyterhub.readthedocs.org">https://jupyterhub.readthedocs.org</a>.</p>
+</div>
+<div class="section" id="nbgrader">
+<h3>NBGrader<a class="headerlink" href="#nbgrader" title="Permalink to this headline">¶</a></h3>
+<p>NBGrader is a system for assigning and grading notebooks and extends
+Jupyter Notebook. For more information, see <a class="reference external" href="http://nbgrader.readthedocs.org">http://nbgrader.readthedocs.org</a>.</p>
+<p>This forked repo (<a class="reference external" href="https://github.com/jld23/nbgrader">https://github.com/jld23/nbgrader</a>) includes
+a number of contributions that are used for
+teaching SAS programming in a classroom setting.</p>
+</div>
+</div>
+<div class="section" id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Do I need to buy SAS to use this kernel?</p>
+<p>The SAS kernel is simply a program that enables Jupyter to communicate
+with SAS. As such, if SAS is not installed, then this kernel is not helpful.
+For information about purchasing SAS, see
+<a class="reference external" href="http://www.sas.com/en_us/software/how-to-buy.html">http://www.sas.com/en_us/software/how-to-buy.html</a>.</p>
+</li>
+<li><p class="first">How does Jupyter communicate with SAS?</p>
+<p>Behind a Jupyter Notebook is a Python session. The Python session
+submits code to SAS and receives responses through socket I/O communication.
+The submit and receive strategy leverages the stdin, stdout, and stderr
+capabilities that have been supported in SAS for a long time.</p>
+</li>
+<li><p class="first">If stdin, stdout, and stderr have been supported for so long why do I
+need to have SAS 9.4 or newer?</p>
+<p>First, SAS 9.4 was released in July 2013, so it is not a bleeding edge
+requirement. The reason for the prerequisite is that SAS 9.4 introduced
+support for creating of HTML5 documents. The SAS kernel relies on the
+HTML5 output so that it can render attractive tables and graphs automagically.</p>
+<p>For information about SAS Viya, see <a class="reference external" href="http://www.sas.com/viya">http://www.sas.com/viya</a>.</p>
+</li>
+<li><p class="first">How can I see my SAS log, I only see the listing output?</p>
+<p>SAS is different from many other programming languages in that it has
+two useful information streams, the log (which details the technical
+details of what happened and how long it took) and the lst (which
+includes the tables and graphics from the analysis). The SAS kernel
+attempts to show you what we <em>think</em> you want. Here are the rules:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="4%" />
+<col width="38%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">LOG</th>
+<th class="head">LST</th>
+<th class="head">DISPLAYED</th>
+<th class="head">NOTES</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Yes</td>
+<td>No</td>
+<td>LOG</td>
+<td>This happens when you run DATA step or a PROC with the <code class="docutils literal"><span class="pre">noprint</span></code> option.</td>
+</tr>
+<tr class="row-odd"><td>Yes</td>
+<td>Yes</td>
+<td>LST</td>
+<td>&#8212;</td>
+</tr>
+<tr class="row-even"><td>Yes (with ERROR message(s))</td>
+<td>Yes</td>
+<td>ERROR messages with context from the log, then the listing output.</td>
+<td>&#8212;</td>
+</tr>
+<tr class="row-odd"><td>Yes (with ERROR message(s))</td>
+<td>No</td>
+<td>LOG</td>
+<td>&#8212;</td>
+</tr>
+</tbody>
+</table>
+<p>If you want to see the log but it was not displayed, you can use
+the SAS log NBExtension. The extension shows the log for the last
+executed cell or the entire log since the last (re)start of the notebook.</p>
+</li>
+<li><p class="first">Will this leave a bunch of SAS sessions hanging around?</p>
+<p>A SAS session is started for each notebook that you have open. For example,
+if you open 5 notebooks, you start 5 SAS sessions. Those sessions remain
+active as long as the notebook is running. If you shut down your notebook,
+the associated SAS session terminates. In JupyterHub, there are configuration
+options to shut down inactive sessions and the SAS kernel complies
+with those directives.</p>
+</li>
+<li><p class="first">I restarted my SAS kernel and now my Work library is now empty. What
+happened?</p>
+<p>When you restart the kernel in a notebook, you terminate the SAS session
+and start a new one. All of the temporary artifacts, such as data sets in
+the Work library, assigned librefs, filerefs, Work macros, and so on,
+are destroyed.</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Installing the SAS kernel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="SAS Kernel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 SAS Institute Inc. All Rights Reserved..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

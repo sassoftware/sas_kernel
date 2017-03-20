@@ -1,0 +1,581 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing the SAS kernel &mdash; sas_kernel 2.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="sas_kernel 2.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Getting started" href="getting-started.html"/>
+        <link rel="prev" title="Overview of SAS kernel" href="overview.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sas_kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of SAS kernel</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing the SAS kernel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#linux-install-for-anaconda-python-assuming-sas-already-installed">Linux install for Anaconda Python (assuming SAS already installed)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux-install-for-centos-6-assuming-sas-already-installed">Linux install for Centos 6 (assuming SAS already installed)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows-install-assuming-sas-already-installed">Windows install (assuming SAS already installed)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#osx-mac-install">OSX (Mac) install</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#installing-sas-nbextensions">Installing SAS NBextensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-from-pypi">Installing from PyPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-from-a-cloned-repository">Installing from a cloned repository</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sas_kernel</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installing the SAS kernel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installing-the-sas-kernel">
+<h1>Installing the SAS kernel<a class="headerlink" href="#installing-the-sas-kernel" title="Permalink to this headline">¶</a></h1>
+<p>The SAS kernel package installs just like any other Python package.
+It is a pure Python package and works with Python 3.X
+installations.  To install using <code class="docutils literal"><span class="pre">pip</span></code>, you execute one of the
+following commands.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sas_kernel</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sassoftware</span><span class="o">/</span><span class="n">sas_kernel</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">sas_kernel</span><span class="o">-</span><span class="n">X</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<div class="section" id="linux-install-for-anaconda-python-assuming-sas-already-installed">
+<h2>Linux install for Anaconda Python (assuming SAS already installed)<a class="headerlink" href="#linux-install-for-anaconda-python-assuming-sas-already-installed" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Go to <a class="reference external" href="https://www.continuum.io/downloads">https://www.continuum.io/downloads</a> and install
+Anaconda Python (make sure you get Python3.X). If you install
+Anaconda without Superuser privileges (root or sudo), then other users
+on the system will not be able to access the SAS kernel. Consider the
+following:</p>
+<ul class="simple">
+<li>The default installation location is your home directory. This is
+fine for a single user install. If you want a system-wide installation,
+then use a common location such as <code class="docutils literal"><span class="pre">/opt</span></code>.</li>
+<li>One installation prompt is to add the path to your environment. SAS
+recommends that you answer &#8216;yes&#8217; to the prompt so that you get the
+executables in your path automatically. If you are performing a system-wide
+installation (using root or sudo), then all the other users must add
+the path to their environmental variables.</li>
+</ul>
+</li>
+<li><p class="first">Install the SAS kernel package. The package has a dependency on the SASPy
+package. The SASPy package is available from <a class="reference external" href="https://github.com/sassoftware/saspy">https://github.com/sassoftware/saspy</a>.
+If the <code class="docutils literal"><span class="pre">pip</span></code> command in your path does not map to Python3, then use <code class="docutils literal"><span class="pre">pip3</span></code>
+instead.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sas_kernel</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify that the package is installed.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">kernelspec</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>If you installed as a Superuser, your output should look similar to the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">kernels</span><span class="p">:</span>
+  <span class="n">python3</span>    <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">Anaconda3</span><span class="o">-</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">5</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">ipykernel</span><span class="o">/</span><span class="n">resources</span>
+  <span class="n">sas</span>        <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">sas</span>
+</pre></div>
+</div>
+<p>If you installed as a regular user (the sas user account, in this case), your output
+should look similar to the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">kernels</span><span class="p">:</span>
+  <span class="n">python3</span>    <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">sas</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">5</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">ipykernel</span><span class="o">/</span><span class="n">resources</span>
+  <span class="n">sas</span>        <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">sas</span><span class="o">/.</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">sas</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify that the SAS executable is correct.</p>
+<ol class="arabic">
+<li><p class="first">Find the sascfg.py file &#8211; it is located relative to the Python3 installation
+location (see above, [install location]/site-packages/saspy/sascfg.py).</p>
+<p>The following command searches the filesystem for the sascfg.py file.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">name</span> <span class="n">sascfg</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Edit the file with the correct path the SAS executable and include
+any options that you want to modify the SAS invocation. See the
+examples in <a class="reference external" href="https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py">https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py</a>.</p>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="linux-install-for-centos-6-assuming-sas-already-installed">
+<h2>Linux install for Centos 6 (assuming SAS already installed)<a class="headerlink" href="#linux-install-for-centos-6-assuming-sas-already-installed" title="Permalink to this headline">¶</a></h2>
+<p>These instructions describe hot to perform a system-wide installation for all users.
+You must have Superuser privileges (root or sudo).</p>
+<ol class="arabic">
+<li><p class="first">You can use the <code class="docutils literal"><span class="pre">yum</span></code> command to install from RPM packages.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">centos6</span><span class="o">.</span><span class="n">iuscommunity</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">ius</span><span class="o">-</span><span class="n">release</span><span class="o">.</span><span class="n">rpm</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">python35u</span> <span class="n">gcc</span><span class="o">-</span><span class="n">c</span><span class="o">++</span> <span class="n">python35u</span><span class="o">-</span><span class="n">devel</span> <span class="n">python35u</span><span class="o">-</span><span class="n">pip</span> <span class="n">python35u</span><span class="o">-</span><span class="n">tools</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">You can use the <code class="docutils literal"><span class="pre">pip</span></code> command.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>wget https://bootstrap.pypa.io/get-pip.py
+python3.5 get-pip.py
+pip3 --version``
+</pre></div>
+</div>
+</li>
+<li><p class="first">Install Jupyter and the SAS kernel package. The package has a dependency on the SASPy
+package. The SASPy package is available from <a class="reference external" href="https://github.com/sassoftware/saspy">https://github.com/sassoftware/saspy</a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip3</span><span class="o">.</span><span class="mi">5</span> <span class="n">install</span> <span class="n">jupyter</span>
+<span class="n">pip3</span><span class="o">.</span><span class="mi">5</span> <span class="n">install</span> <span class="n">sas_kernel</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify that the SAS kernel package is installed.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">kernelspec</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>Your output should look similar to the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">kernels</span><span class="p">:</span>
+  <span class="n">python3</span>    <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">5</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">ipykernel</span><span class="o">/</span><span class="n">resources</span>
+  <span class="n">sas</span>        <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">sas</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify that the SAS executable is correct.</p>
+<ol class="arabic">
+<li><p class="first">Find the sascfg.py file &#8211; it is located relative to the Python3 installation
+location (see above, [install location]/site-packages/saspy/sascfg.py).</p>
+<p>The following command searches the filesystem for the sascfg.py file.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">name</span> <span class="n">sascfg</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Edit the file with the correct path the SAS executable and include
+any options that you want to modify the SAS invocation. See the
+examples in <a class="reference external" href="https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py">https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py</a>.</p>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="windows-install-assuming-sas-already-installed">
+<h2>Windows install (assuming SAS already installed)<a class="headerlink" href="#windows-install-assuming-sas-already-installed" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Go to <a class="reference external" href="https://www.continuum.io/downloads">https://www.continuum.io/downloads</a> and install
+Anaconda Python (make sure you get Python3.X). If you install
+Anaconda without Administrator privileges, then other users
+on the system will not be able to access the SAS kernel. Consider the
+following:</p>
+<ul>
+<li><p class="first">Install in the default location unless you have a good reason to change it.
+Using the default location simplifies administration.</p>
+<a class="reference internal image-reference" href="_images/ap3.PNG"><img alt="_images/ap3.PNG" src="_images/ap3.PNG" style="width: 372.5px; height: 291.0px;" /></a>
+</li>
+<li><p class="first">One installation prompt is to make Python accessible for just your account
+or for all users.  Select the best response for your situation.</p>
+<a class="reference internal image-reference" href="_images/ap2.PNG"><img alt="_images/ap2.PNG" src="_images/ap2.PNG" style="width: 373.0px; height: 293.0px;" /></a>
+</li>
+<li><p class="first">Another installation prompt is to add the path to your environment. SAS
+recommends that you answer &#8216;yes&#8217; to the prompt so that you get the
+executables in your path automatically. Adding the path your environment
+simplifies starting Python and Jupyter.</p>
+<a class="reference internal image-reference" href="_images/ap4.PNG"><img alt="_images/ap4.PNG" src="_images/ap4.PNG" style="width: 373.5px; height: 290.5px;" /></a>
+</li>
+</ul>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This next group of steps is performed from a Windows command prompt (
+<span class="menuselection">Start ‣ Run ‣ cmd</span>)</p>
+</div>
+</li>
+<li><p class="first">Install the SAS kernel package. The package has a dependency on the SASPy
+package. The SASPy package is available from <a class="reference external" href="https://github.com/sassoftware/saspy">https://github.com/sassoftware/saspy</a>.
+If the <code class="docutils literal"><span class="pre">pip</span></code> command in your path does not map to Python3, then use <code class="docutils literal"><span class="pre">pip3</span></code>
+instead.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sas_kernel</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify that the package is installed.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">kernelspec</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>Your output should look similar to the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">kernels</span><span class="p">:</span>
+  <span class="n">python3</span>    <span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">sas</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Continuum</span>\<span class="n">Anaconda3</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">ipykernel</span>\<span class="n">resources</span>
+  <span class="n">sas</span>        <span class="n">C</span><span class="p">:</span>\<span class="n">ProgramData</span>\<span class="n">jupyter</span>\<span class="n">kernels</span>\<span class="n">sas</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify that the SAS executable is correct.</p>
+<ol class="arabic">
+<li><p class="first">Find the sascfg.py file &#8211; it is located relative to the Python3 installation.
+The default location is C:\ProgramData\Anaconda3\Lib\site-packages\saspy\sascfg.py.</p>
+<p>You can also search the file system for the file.</p>
+</li>
+<li><p class="first">Edit the file with the correct path the SAS executable and include
+any options that you want to modify the SAS invocation. See the
+examples in <a class="reference external" href="https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py">https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py</a>.</p>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="osx-mac-install">
+<h2>OSX (Mac) install<a class="headerlink" href="#osx-mac-install" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Go to <a class="reference external" href="https://www.continuum.io/downloads">https://www.continuum.io/downloads</a> and install
+Anaconda Python (make sure you get Python3.X). If you install
+Anaconda without Administrator privileges, then other users
+on the system will not be able to access the SAS kernel. Consider the
+following:</p>
+<ul class="simple">
+<li>Install in the default location unless you have a good reason to change it.
+Using the default location simplifies administration.</li>
+<li>One installation prompt is to make Python accessible for just your account
+or for all users.  Select the best response for your situation.</li>
+<li>Another installation prompt is to add the path to your environment. SAS
+recommends that you answer &#8216;yes&#8217; to the prompt so that you get the
+executables in your path automatically. Adding the path your environment
+simplifies starting Python and Jupyter.</li>
+</ul>
+</li>
+<li><p class="first">Install the SAS kernel package. The package has a dependency on the SASPy
+package. The SASPy package is available from <a class="reference external" href="https://github.com/sassoftware/saspy">https://github.com/sassoftware/saspy</a>.
+If the <code class="docutils literal"><span class="pre">pip</span></code> command in your path does not map to Python3, then use <code class="docutils literal"><span class="pre">pip3</span></code>
+instead.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sas_kernel</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify that the package is installed.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">kernelspec</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>Your output should look similar to the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">kernels</span><span class="p">:</span>
+   <span class="n">python3</span>              <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">sas</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">5</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">ipykernel</span><span class="o">/</span><span class="n">resources</span>
+   <span class="n">sas</span>                  <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">kernels</span><span class="o">/</span><span class="n">sas</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Verify that the SAS executable is correct.</p>
+<ol class="arabic">
+<li><p class="first">Find the sascfg.py file &#8211; it is located relative to the Python3 installation
+location (see above, [install location]/site-packages/saspy/sascfg.py).</p>
+<p>The following command searches the filesystem for the sascfg.py file.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">name</span> <span class="n">sascfg</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Edit the file and configure an IOM connection. You can modify the iomwin or
+iomlinux settings that are in the file.</p>
+<p>See the examples in <a class="reference external" href="https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py">https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py</a>.
+See <a class="reference external" href="http://support.sas.com/documentation/cdl/en/itechov/64881/HTML/default/viewer.htm#titlepage.htm">IOM interface</a> for information about the SAS integrated object model.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For OSX, the only supported configuration is an IOM connection.</p>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="installing-sas-nbextensions">
+<h1>Installing SAS NBextensions<a class="headerlink" href="#installing-sas-nbextensions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installing-from-pypi">
+<h2>Installing from PyPi<a class="headerlink" href="#installing-from-pypi" title="Permalink to this headline">¶</a></h2>
+<p>With the release of Jupyter 4.2 (SAS kernel package version 1.2) the
+installation and enabling of nbextensions is improved. To install and
+enable the showSASLog extension use the following commands.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">install</span> <span class="o">--</span><span class="n">py</span> <span class="n">sas_kernel</span><span class="o">.</span><span class="n">showSASLog</span>
+<span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">enable</span> <span class="n">sas_kernel</span><span class="o">.</span><span class="n">showSASLog</span> <span class="o">--</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>To install and enable the theme extension use the following commands.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">install</span> <span class="o">--</span><span class="n">py</span> <span class="n">sas_kernel</span><span class="o">.</span><span class="n">theme</span>
+<span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">enable</span> <span class="n">sas_kernel</span><span class="o">.</span><span class="n">theme</span> <span class="o">--</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>To verify the nbextensions that you installed use the following commands.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbextension</span> <span class="nb">list</span>
+</pre></div>
+</div>
+<p>If the extensions are correctly installed, you will see output similar to
+the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Known</span> <span class="n">nbextensions</span><span class="p">:</span>
+  <span class="n">config</span> <span class="nb">dir</span><span class="p">:</span> <span class="o">/</span><span class="n">root</span><span class="o">/.</span><span class="n">jupyter</span><span class="o">/</span><span class="n">nbconfig</span>
+    <span class="n">notebook</span> <span class="n">section</span>
+      <span class="n">showSASLog</span><span class="o">/</span><span class="n">main</span>  <span class="n">enabled</span>
+      <span class="o">-</span> <span class="n">Validating</span><span class="p">:</span> <span class="n">OK</span>
+      <span class="n">theme</span><span class="o">/</span><span class="n">theme_selector</span>  <span class="n">enabled</span>
+      <span class="o">-</span> <span class="n">Validating</span><span class="p">:</span> <span class="n">OK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-from-a-cloned-repository">
+<h2>Installing from a cloned repository<a class="headerlink" href="#installing-from-a-cloned-repository" title="Permalink to this headline">¶</a></h2>
+<p>The cloned repository has a directory for each nbextension within the
+file structure as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sas_kernel</span>
+<span class="o">|</span>
+<span class="o">+--</span> <span class="n">showSASLog</span>
+<span class="o">+--</span> <span class="n">theme</span>
+</pre></div>
+</div>
+<p>You can install the extensions from the command line. To install an extension
+system-wide, use the following command with Superuser privileges (root or
+sudo). The following command assumes that you are in the nbextensions
+directory. Adjust the path if you are not.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">install</span> <span class="o">./</span><span class="n">showSASLog</span>
+</pre></div>
+</div>
+<p>Your output should look similar to the following (installed with Superuser
+privileges):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">copying</span> <span class="n">showSASLog</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">js</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">nbextensions</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">js</span>
+</pre></div>
+</div>
+<p>To install for your user account only, use the following command. Again,
+the sample command assumes that you are in the nbextensions directory. Adjust
+the path if you are not.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">install</span> <span class="o">./</span><span class="n">showSASLog</span> <span class="o">--</span><span class="n">user</span>
+</pre></div>
+</div>
+<p>Your output should look similar to the following (installed for your user
+account only):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">copying</span> <span class="n">showSASLog</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">js</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">sas</span><span class="o">/.</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">jupyter</span><span class="o">/</span><span class="n">nbextensions</span><span class="o">/</span><span class="n">showSASLog</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">js</span>
+</pre></div>
+</div>
+<p>Then enable the notebook extension with the following command.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">enable</span> <span class="n">showSASLog</span>
+</pre></div>
+</div>
+<p>To disable the extension, you can run the following command.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">nbextension</span> <span class="n">disable</span> <span class="n">showSASLog</span>
+</pre></div>
+</div>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>There is a <a class="reference external" href="https://github.com/sassoftware/sas_kernel/blob/master/notebook/loadSASExtensions.ipynb">notebook</a> that walks through the steps to install and
+enable the extensions.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="getting-started.html" class="btn btn-neutral float-right" title="Getting started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral" title="Overview of SAS kernel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 SAS Institute Inc. All Rights Reserved..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

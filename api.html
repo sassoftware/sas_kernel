@@ -1,0 +1,1242 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; sas_kernel 2.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="sas_kernel 2.1.0 documentation" href="index.html"/>
+        <link rel="next" title="License" href="license.html"/>
+        <link rel="prev" title="Getting started" href="getting-started.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sas_kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of SAS kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing the SAS kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#installing-sas-nbextensions">Installing SAS NBextensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sas-kernel-object">SAS Kernel Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sas_kernel</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-sas_kernel.kernel">
+<span id="api-reference"></span><span id="api"></span><h1>API Reference<a class="headerlink" href="#module-sas_kernel.kernel" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="sas_kernel.kernel.SASKernel">
+<em class="property">class </em><code class="descclassname">sas_kernel.kernel.</code><code class="descname">SASKernel</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">metakernel._metakernel.MetaKernel</span></code></p>
+<p>SAS Kernel for Jupyter implementation. This module relies on SASPy</p>
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.Display">
+<code class="descname">Display</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.Error">
+<code class="descname">Error</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.Print">
+<code class="descname">Print</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Print" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.Write">
+<code class="descname">Write</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.abort_request">
+<code class="descname">abort_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.abort_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>abort a specific msg by id</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.aborted">
+<code class="descname">aborted</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.aborted" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.add_traits">
+<code class="descname">add_traits</code><span class="sig-paren">(</span><em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.add_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamically add trait attributes to the HasTraits instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.apply_request">
+<code class="descname">apply_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.apply_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.banner">
+<code class="descname">banner</code><em class="property"> = 'SAS Kernel'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.banner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.call_magic">
+<code class="descname">call_magic</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.call_magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an line, such as &#8220;%download <a class="reference external" href="http://example.com/">http://example.com/</a>&#8221;, parse
+and execute magic.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.class_config_rst_doc">
+<code class="descname">class_config_rst_doc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.class_config_rst_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate rST documentation for this class&#8217; config options.</p>
+<p>Excludes traits defined on parent classes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.class_config_section">
+<code class="descname">class_config_section</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.class_get_help">
+<code class="descname">class_get_help</code><span class="sig-paren">(</span><em>inst=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.class_get_trait_help">
+<code class="descname">class_get_trait_help</code><span class="sig-paren">(</span><em>trait</em>, <em>inst=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.class_own_trait_events">
+<code class="descname">class_own_trait_events</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.class_own_trait_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dict of all event handlers defined on this class, not a parent.</p>
+<p>Works like <code class="docutils literal"><span class="pre">event_handlers</span></code>, except for excluding traits from parents.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.class_own_traits">
+<code class="descname">class_own_traits</code><span class="sig-paren">(</span><em>**metadata</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.class_own_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dict of all the traitlets defined on this class, not a parent.</p>
+<p>Works like <cite>class_traits</cite>, except for excluding traits from parents.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.class_print_help">
+<code class="descname">class_print_help</code><span class="sig-paren">(</span><em>inst=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.class_trait_names">
+<code class="descname">class_trait_names</code><span class="sig-paren">(</span><em>**metadata</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this class&#8217; traits.</p>
+<p>This method is just like the <a class="reference internal" href="#sas_kernel.kernel.SASKernel.trait_names" title="sas_kernel.kernel.SASKernel.trait_names"><code class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></code></a> method,
+but is unbound.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.class_traits">
+<code class="descname">class_traits</code><span class="sig-paren">(</span><em>**metadata</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a <code class="docutils literal"><span class="pre">dict</span></code> of all the traits of this class.  The dictionary
+is keyed on the name and the values are the TraitType objects.</p>
+<p>This method is just like the <a class="reference internal" href="#sas_kernel.kernel.SASKernel.traits" title="sas_kernel.kernel.SASKernel.traits"><code class="xref py py-meth docutils literal"><span class="pre">traits()</span></code></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>The metadata kwargs allow functions to be passed in which
+filter traits based on metadata values.  The functions should
+take a single value as an argument and return a boolean.  If
+any function returns False, then the trait is not included in
+the output.  If a metadata key doesn&#8217;t exist, None will be passed
+to the function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.clear_instance">
+<code class="descname">clear_instance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.clear_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>unset _instance for this class and singleton parents.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.clear_output">
+<code class="descname">clear_output</code><span class="sig-paren">(</span><em>wait=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.clear_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.clear_request">
+<code class="descname">clear_request</code><span class="sig-paren">(</span><em>stream</em>, <em>idents</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.clear_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear our namespace.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.comm_info_request">
+<code class="descname">comm_info_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.comm_info_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.complete_request">
+<code class="descname">complete_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.complete_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.config">
+<code class="descname">config</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+<p>Subclasses can declare default classes by overriding the klass attribute</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.connect_request">
+<code class="descname">connect_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.connect_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.control_msg_types">
+<code class="descname">control_msg_types</code><em class="property"> = ['execute_request', 'complete_request', 'inspect_request', 'history_request', 'comm_info_request', 'kernel_info_request', 'connect_request', 'shutdown_request', 'is_complete_request', 'apply_request', 'clear_request', 'abort_request']</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.control_msg_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.control_stream">
+<code class="descname">control_stream</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.control_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+<p>Subclasses can declare default classes by overriding the klass attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.cross_validation_lock">
+<code class="descname">cross_validation_lock</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.cross_validation_lock" title="Permalink to this definition">¶</a></dt>
+<dd><p>A contextmanager for running a block with our cross validation lock set
+to True.</p>
+<p>At the end of the block, the lock&#8217;s value is restored to its value
+prior to entering the block.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.dispatch_control">
+<code class="descname">dispatch_control</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.dispatch_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>dispatch control requests</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.dispatch_shell">
+<code class="descname">dispatch_shell</code><span class="sig-paren">(</span><em>stream</em>, <em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.dispatch_shell" title="Permalink to this definition">¶</a></dt>
+<dd><p>dispatch shell requests</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_apply">
+<code class="descname">do_apply</code><span class="sig-paren">(</span><em>content</em>, <em>bufs</em>, <em>msg_id</em>, <em>reply_metadata</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_clear">
+<code class="descname">do_clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_complete">
+<code class="descname">do_complete</code><span class="sig-paren">(</span><em>code</em>, <em>cursor_pos</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_complete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_execute">
+<code class="descname">do_execute</code><span class="sig-paren">(</span><em>code</em>, <em>silent=False</em>, <em>store_history=True</em>, <em>user_expressions=None</em>, <em>allow_stdin=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_execute_direct">
+<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &rarr; str<a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_execute_direct" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the main method that takes code from the Jupyter cell and submits it to the SAS server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>code</strong> &#8211; code from the cell</li>
+<li><strong>silent</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str with either the log or list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_execute_file">
+<code class="descname">do_execute_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_execute_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default code for running a file. Just opens the file, and sends
+the text to do_execute_direct.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_execute_meta">
+<code class="descname">do_execute_meta</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_execute_meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute meta code in the kernel. This uses the execute infrastructure
+but allows JavaScript to talk directly to the kernel bypassing normal
+processing.</p>
+<p>When responding to the %%debug magic, the step and reset meta
+commands can answer with a string in the format:</p>
+<p>&#8220;highlight: [start_line, start_col, end_line, end_col]&#8221;</p>
+<p>for highlighting expressions in the frontend.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_function_direct">
+<code class="descname">do_function_direct</code><span class="sig-paren">(</span><em>function_name</em>, <em>arg</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_function_direct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call a function in the kernel language with args (as a single item).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_history">
+<code class="descname">do_history</code><span class="sig-paren">(</span><em>hist_access_type</em>, <em>output</em>, <em>raw</em>, <em>session=None</em>, <em>start=None</em>, <em>stop=None</em>, <em>n=None</em>, <em>pattern=None</em>, <em>unique=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access history at startup.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_inspect">
+<code class="descname">do_inspect</code><span class="sig-paren">(</span><em>code</em>, <em>cursor_pos</em>, <em>detail_level=0</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_inspect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_is_complete">
+<code class="descname">do_is_complete</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_is_complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given code as string, returns dictionary with &#8216;status&#8217; representing
+whether code is ready to evaluate. Possible values for status are:</p>
+<blockquote>
+<div>&#8216;complete&#8217;   - ready to evaluate
+&#8216;incomplete&#8217; - not yet ready
+&#8216;invalid&#8217;    - invalid code
+&#8216;unknown&#8217;    - unknown; the default unless overridden</div></blockquote>
+<p>Optionally, if &#8216;status&#8217; is &#8216;incomplete&#8217;, you may indicate
+an indentation string.</p>
+<p>Example:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>return {&#8216;status&#8217;</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;incomplete&#8217;,</span><dd>&#8216;indent&#8217;: &#8216; &#8216; * 4}</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_one_iteration">
+<code class="descname">do_one_iteration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_one_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>step eventloop just once</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.do_shutdown">
+<code class="descname">do_shutdown</code><span class="sig-paren">(</span><em>restart</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shut down the app gracefully, saving history.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.enter_eventloop">
+<code class="descname">enter_eventloop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.enter_eventloop" title="Permalink to this definition">¶</a></dt>
+<dd><p>enter eventloop</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.eventloop">
+<code class="descname">eventloop</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.eventloop" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait which allows any value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.execute_request">
+<code class="descname">execute_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.execute_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>handle an execute_request</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.execution_count">
+<code class="descname">execution_count</code><em class="property"> = 0</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.execution_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.finish_metadata">
+<code class="descname">finish_metadata</code><span class="sig-paren">(</span><em>parent</em>, <em>metadata</em>, <em>reply_content</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.finish_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finish populating metadata.</p>
+<p>Run after completing an execution request.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.func_call_regex">
+<code class="descname">func_call_regex</code><em class="property"> = '([^\\d\\W][\\w\\.]*)\\([^\\)\\()]*\\Z'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.func_call_regex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.get_completions">
+<code class="descname">get_completions</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_completions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get completions from kernel for procs and statements.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.get_help_on">
+<code class="descname">get_help_on</code><span class="sig-paren">(</span><em>expr</em>, <em>level=0</em>, <em>none_on_fail=False</em>, <em>cursor_pos=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_help_on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.get_kernel_help_on">
+<code class="descname">get_kernel_help_on</code><span class="sig-paren">(</span><em>info</em>, <em>level=0</em>, <em>none_on_fail=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_kernel_help_on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.get_local_magics_dir">
+<code class="descname">get_local_magics_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_local_magics_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the path to local magics dir (eg ~/.ipython/metakernel/magics)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.get_magic">
+<code class="descname">get_magic</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_magic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.get_magic_args">
+<code class="descname">get_magic_args</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_magic_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.get_usage">
+<code class="descname">get_usage</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_usage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.get_variable">
+<code class="descname">get_variable</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lookup a variable name and return a Python-typed value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.getpass">
+<code class="descname">getpass</code><span class="sig-paren">(</span><em>prompt=''</em>, <em>stream=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.getpass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward getpass to frontends</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>StdinNotImplentedError if active frontend doesn&#8217;t support stdin.</strong></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.handle_plot_settings">
+<code class="descname">handle_plot_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.handle_plot_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle the current plot settings</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.has_trait">
+<code class="descname">has_trait</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.has_trait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the object has a trait with the specified name.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.help_links">
+<code class="descname">help_links</code><em class="property"> = [{'text': 'MetaKernel Magics', 'url': 'https://github.com/calysto/metakernel/blob/master/metakernel/magics/README.md'}]</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.help_links" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.help_suffix">
+<code class="descname">help_suffix</code><em class="property"> = '?'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.help_suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.history_request">
+<code class="descname">history_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.history_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.hold_trait_notifications">
+<code class="descname">hold_trait_notifications</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.hold_trait_notifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context manager for bundling trait change notifications and cross
+validation.</p>
+<p>Use this when doing multiple trait assignments (init, config), to avoid
+race conditions in trait notifiers requesting other trait values.
+All trait notifications will fire after all values have been assigned.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.ident">
+<code class="descname">ident</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.ident" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.identifier_regex">
+<code class="descname">identifier_regex</code><em class="property"> = '[^\\d\\W][\\w\\.]*'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.identifier_regex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.implementation">
+<code class="descname">implementation</code><em class="property"> = 'sas_kernel'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.implementation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.implementation_version">
+<code class="descname">implementation_version</code><em class="property"> = '2.1.0'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.implementation_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.init_metadata">
+<code class="descname">init_metadata</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.init_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize metadata.</p>
+<p>Run at the beginning of execution requests.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.initialize_debug">
+<code class="descname">initialize_debug</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.initialize_debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>SAS does not have formal debug tools from this interface</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.initialized">
+<code class="descname">initialized</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.initialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Has an instance been created?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.inspect_request">
+<code class="descname">inspect_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.inspect_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.instance">
+<code class="descname">instance</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a global instance of this class.</p>
+<p>This method create a new instance if none have previously been created
+and returns a previously created instance is one already exists.</p>
+<p>The arguments and keyword arguments passed to this method are passed
+on to the <code class="xref py py-meth docutils literal"><span class="pre">__init__()</span></code> method of the class upon instantiation.</p>
+<p class="rubric">Examples</p>
+<p>Create a singleton class using instance, and retrieve it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">traitlets.config.configurable</span> <span class="k">import</span> <span class="n">SingletonConfigurable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">SingletonConfigurable</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">==</span> <span class="n">Foo</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Create a subclass that is retrived using the base class instance:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">SingletonConfigurable</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bam</span><span class="p">(</span><span class="n">Bar</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bam</span> <span class="o">=</span> <span class="n">Bam</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bam</span> <span class="o">==</span> <span class="n">Bar</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.int_id">
+<code class="descname">int_id</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.int_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>An int trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.iopub_socket">
+<code class="descname">iopub_socket</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.iopub_socket" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait which allows any value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.iopub_thread">
+<code class="descname">iopub_thread</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.iopub_thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait which allows any value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.is_complete_request">
+<code class="descname">is_complete_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.is_complete_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.kernel_info">
+<code class="descname">kernel_info</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.kernel_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.kernel_info_request">
+<code class="descname">kernel_info_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.kernel_info_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.language">
+<code class="descname">language</code><em class="property"> = 'sas'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.language" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.language_info">
+<code class="descname">language_info</code><em class="property"> = {'name': 'sas', 'mimetype': 'text/x-sas', 'codemirror_mode': 'sas', 'file_extension': '.sas'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.language_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.language_version">
+<code class="descname">language_version</code><em class="property"> = ('9.4+',)</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.language_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.log">
+<code class="descname">log</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+<p>Subclasses can declare default classes by overriding the klass attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.magic_prefixes">
+<code class="descname">magic_prefixes</code><em class="property"> = {'magic': '%', 'shell': '!', 'help': '?'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.magic_prefixes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.makeSubkernel">
+<code class="descname">makeSubkernel</code><span class="sig-paren">(</span><em>kernel</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.makeSubkernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run this method in an IPython kernel to set
+this kernel&#8217;s input/output settings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.meta_kernel">
+<code class="descname">meta_kernel</code><em class="property"> = None</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.meta_kernel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.msg_types">
+<code class="descname">msg_types</code><em class="property"> = ['execute_request', 'complete_request', 'inspect_request', 'history_request', 'comm_info_request', 'kernel_info_request', 'connect_request', 'shutdown_request', 'is_complete_request', 'apply_request']</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.msg_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.notify_change">
+<code class="descname">notify_change</code><span class="sig-paren">(</span><em>change</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.notify_change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.observe">
+<code class="descname">observe</code><span class="sig-paren">(</span><em>handler</em>, <em>names=traitlets.All</em>, <em>type='change'</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.observe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes. Its
+signature should be <code class="docutils literal"><span class="pre">handler(change)</span></code>, where <code class="docutils literal"><span class="pre">change</span></code> is a
+dictionary. The change dictionary at least holds a &#8216;type&#8217; key.
+* <code class="docutils literal"><span class="pre">type</span></code>: the type of notification.
+Other keys may be passed depending on the value of &#8216;type&#8217;. In the
+case where type is &#8216;change&#8217;, we also have the following keys:
+* <code class="docutils literal"><span class="pre">owner</span></code> : the HasTraits instance
+* <code class="docutils literal"><span class="pre">old</span></code> : the old value of the modified trait attribute
+* <code class="docutils literal"><span class="pre">new</span></code> : the new value of the modified trait attribute
+* <code class="docutils literal"><span class="pre">name</span></code> : the name of the modified trait attribute.</p>
+</div></blockquote>
+<p><strong>names</strong> : list, str, All</p>
+<blockquote>
+<div><p>If names is All, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>type</strong> : str, All (default: &#8216;change&#8217;)</p>
+<blockquote class="last">
+<div><p>The type of notification to filter by. If equal to All, then all
+notifications are passed to the observe handler.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.on_trait_change">
+<code class="descname">on_trait_change</code><span class="sig-paren">(</span><em>handler=None</em>, <em>name=None</em>, <em>remove=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>DEPRECATED: Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<p>If <cite>remove</cite> is True and <cite>handler</cite> is not specified, all change
+handlers for the specified name are uninstalled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>handler</strong> : callable, None</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its
+signature can be handler(), handler(name), handler(name, new),
+handler(name, old, new), or handler(name, old, new, self).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.parent">
+<code class="descname">parent</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+<p>Subclasses can declare default classes by overriding the klass attribute</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.parse_code">
+<code class="descname">parse_code</code><span class="sig-paren">(</span><em>code</em>, <em>cursor_start=0</em>, <em>cursor_end=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.parse_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.post_execute">
+<code class="descname">post_execute</code><span class="sig-paren">(</span><em>retval</em>, <em>code</em>, <em>silent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.post_execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.post_handler_hook">
+<code class="descname">post_handler_hook</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.post_handler_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook to execute after calling message handler</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.pre_handler_hook">
+<code class="descname">pre_handler_hook</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.pre_handler_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook to execute before calling message handler</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.profile_dir">
+<code class="descname">profile_dir</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+<p>Subclasses can declare default classes by overriding the klass attribute</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.raw_input">
+<code class="descname">raw_input</code><span class="sig-paren">(</span><em>prompt=''</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.raw_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward raw_input to frontends</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>StdinNotImplentedError if active frontend doesn&#8217;t support stdin.</strong></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.record_ports">
+<code class="descname">record_ports</code><span class="sig-paren">(</span><em>ports</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.record_ports" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record the ports that this kernel is using.</p>
+<p>The creator of the Kernel instance must call this methods if they
+want the <a class="reference internal" href="#sas_kernel.kernel.SASKernel.connect_request" title="sas_kernel.kernel.SASKernel.connect_request"><code class="xref py py-meth docutils literal"><span class="pre">connect_request()</span></code></a> method to return the port numbers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.register_magics">
+<code class="descname">register_magics</code><span class="sig-paren">(</span><em>magic_klass</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.register_magics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.reload_magics">
+<code class="descname">reload_magics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.reload_magics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.repr">
+<code class="descname">repr</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.repr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.restart_kernel">
+<code class="descname">restart_kernel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.restart_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restart the kernel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.run_as_main">
+<code class="descname">run_as_main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.run_as_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Launch or install a metakernel.</p>
+<p>Modules implementing a metakernel subclass can use the following lines:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>if __name__ == &#8216;__main__&#8217;:</dt>
+<dd>MetaKernelSubclass.run_as_main()</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.section_names">
+<code class="descname">section_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.section_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>return section names as a list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.send_response">
+<code class="descname">send_response</code><span class="sig-paren">(</span><em>stream</em>, <em>msg_or_type</em>, <em>content=None</em>, <em>ident=None</em>, <em>buffers=None</em>, <em>track=False</em>, <em>header=None</em>, <em>metadata=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.send_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a response to the message we&#8217;re currently processing.</p>
+<p>This accepts all the parameters of <code class="xref py py-meth docutils literal"><span class="pre">jupyter_client.session.Session.send()</span></code>
+except <code class="docutils literal"><span class="pre">parent</span></code>.</p>
+<p>This relies on <a class="reference internal" href="#sas_kernel.kernel.SASKernel.set_parent" title="sas_kernel.kernel.SASKernel.set_parent"><code class="xref py py-meth docutils literal"><span class="pre">set_parent()</span></code></a> having been called for the current
+message.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.session">
+<code class="descname">session</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.session" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+<p>Subclasses can declare default classes by overriding the klass attribute</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.set_parent">
+<code class="descname">set_parent</code><span class="sig-paren">(</span><em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.set_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the current parent_header</p>
+<p>Side effects (IOPub messages) and replies are associated with
+the request that caused them via the parent_header.</p>
+<p>The parent identity is used to route input_request messages
+on the stdin channel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.set_trait">
+<code class="descname">set_trait</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.set_trait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forcibly sets trait attribute, including read-only attributes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.set_variable">
+<code class="descname">set_variable</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.set_variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a variable to a Python-typed value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.setup_instance">
+<code class="descname">setup_instance</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.setup_instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.shell_streams">
+<code class="descname">shell_streams</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.shell_streams" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.should_handle">
+<code class="descname">should_handle</code><span class="sig-paren">(</span><em>stream</em>, <em>msg</em>, <em>idents</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.should_handle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether a shell-channel message should be handled</p>
+<p>Allows subclasses to prevent handling of certain messages (e.g. aborted requests).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.shutdown_request">
+<code class="descname">shutdown_request</code><span class="sig-paren">(</span><em>stream</em>, <em>ident</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.shutdown_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.start">
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>register dispatchers for streams</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.stdin_socket">
+<code class="descname">stdin_socket</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.stdin_socket" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait which allows any value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.trait_events">
+<code class="descname">trait_events</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.trait_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a <code class="docutils literal"><span class="pre">dict</span></code> of all the event handlers of this class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name: str (default: None)</strong></p>
+<blockquote>
+<div><p>The name of a trait of this class. If name is <code class="docutils literal"><span class="pre">None</span></code> then all
+the event handlers of this class will be returned instead.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The event handlers associated with a trait name, or all event handlers.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.trait_metadata">
+<code class="descname">trait_metadata</code><span class="sig-paren">(</span><em>traitname</em>, <em>key</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.trait_names">
+<code class="descname">trait_names</code><span class="sig-paren">(</span><em>**metadata</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this class&#8217; traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.traits">
+<code class="descname">traits</code><span class="sig-paren">(</span><em>**metadata</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a <code class="docutils literal"><span class="pre">dict</span></code> of all the traits of this class.  The dictionary
+is keyed on the name and the values are the TraitType objects.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>The metadata kwargs allow functions to be passed in which
+filter traits based on metadata values.  The functions should
+take a single value as an argument and return a boolean.  If
+any function returns False, then the trait is not included in
+the output.  If a metadata key doesn&#8217;t exist, None will be passed
+to the function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.unobserve">
+<code class="descname">unobserve</code><span class="sig-paren">(</span><em>handler</em>, <em>names=traitlets.All</em>, <em>type='change'</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.unobserve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a trait change handler.</p>
+<p>This is used to unregister handlers to trait change notifications.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>The callable called when a trait attribute changes.</p>
+</div></blockquote>
+<p><strong>names</strong> : list, str, All (default: All)</p>
+<blockquote>
+<div><p>The names of the traits for which the specified handler should be
+uninstalled. If names is All, the specified handler is uninstalled
+from the list of notifiers corresponding to all changes.</p>
+</div></blockquote>
+<p><strong>type</strong> : str or All (default: &#8216;change&#8217;)</p>
+<blockquote class="last">
+<div><p>The type of notification to filter by. If All, the specified handler
+is uninstalled from the list of notifiers corresponding to all types.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.unobserve_all">
+<code class="descname">unobserve_all</code><span class="sig-paren">(</span><em>name=traitlets.All</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.unobserve_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove trait change handlers of any type for the specified name.
+If name is not specified, removes all trait notifiers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.update_config">
+<code class="descname">update_config</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update config and load the new values</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="sas-kernel-object">
+<h2>SAS Kernel Object<a class="headerlink" href="#sas-kernel-object" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">sas_kernel.kernel.</code><code class="descname">SASKernel</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">metakernel._metakernel.MetaKernel</span></code></p>
+<p>SAS Kernel for Jupyter implementation. This module relies on SASPy</p>
+<dl class="method">
+<dt>
+<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &rarr; str</dt>
+<dd><p>This is the main method that takes code from the Jupyter cell and submits it to the SAS server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>code</strong> &#8211; code from the cell</li>
+<li><strong>silent</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">str with either the log or list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">do_shutdown</code><span class="sig-paren">(</span><em>restart</em><span class="sig-paren">)</span></dt>
+<dd><p>Shut down the app gracefully, saving history.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">get_completions</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span></dt>
+<dd><p>Get completions from kernel for procs and statements.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">initialize_debug</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span></dt>
+<dd><p>SAS does not have formal debug tools from this interface</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getting-started.html" class="btn btn-neutral" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 SAS Institute Inc. All Rights Reserved..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

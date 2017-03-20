@@ -1,0 +1,461 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting started &mdash; sas_kernel 2.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="sas_kernel 2.1.0 documentation" href="index.html"/>
+        <link rel="next" title="API Reference" href="api.html"/>
+        <link rel="prev" title="Installing the SAS kernel" href="install.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sas_kernel
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of SAS kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing the SAS kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#installing-sas-nbextensions">Installing SAS NBextensions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#load-data-into-sas">Load data into SAS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#explore-the-data">Explore the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#split-the-data-into-training-and-test">Split the data into training and test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#train-a-series-of-models">Train a series of models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#decision-tree">Decision tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generalized-linear-model">Generalized linear model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logistic-regression">Logistic regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neural-network">Neural network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decision-forest">Decision forest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sas_kernel</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/getting-started.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>The SAS kernel for Juypter is designed to enable users to write programs
+for SAS with Jupyter Notebooks. The kernel makes SAS the analytical engine
+or &#8220;calculator&#8221; for data analysis.</p>
+<p>The following SAS program is a basic example of programming with SAS
+and Jupyter Notebook. The HR_comma_sep.csv file that is referenced in
+the sample code is available from <a class="reference external" href="https://www.kaggle.com/ludobenistant/hr-analytics">https://www.kaggle.com/ludobenistant/hr-analytics</a>.</p>
+<div class="section" id="load-data-into-sas">
+<h2>Load data into SAS<a class="headerlink" href="#load-data-into-sas" title="Permalink to this headline">¶</a></h2>
+<p>The FILENAME statement is used to specify an external file. The
+IMPORT procedure can read data from a variety of external file formats.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>filename x &quot;./HR_comma_sep.csv&quot;;
+proc import datafile=x out=_csv dbms=csv replace; run;
+</pre></div>
+</div>
+</div>
+<div class="section" id="explore-the-data">
+<h2>Explore the data<a class="headerlink" href="#explore-the-data" title="Permalink to this headline">¶</a></h2>
+<p>The CONTENTS procedure can be used to display the column names and
+data types in a SAS data set. The PRINT procedure can be used to
+display rows from a data set.  In this case, the results are limited to
+the first five rows.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc contents data=work._csv;
+    ods select Variables;
+run;
+
+proc print data=work._csv(obs=5);
+run;
+</pre></div>
+</div>
+<p>The MEANS procedure is used to provide descriptive statistics.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc means data=work._csv n nmiss median mean std min p25 p50 p75 max;
+run;
+</pre></div>
+</div>
+<p>The SGPLOT procedure is used to produce a vertical bar charts of frequencies
+for salary and sales.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc sgplot data=work._csv;
+    vbar salary;
+    xaxis discreteorder=data;
+run;
+
+proc sgplot data=work._csv;
+    vbar sales;
+run;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/sgplot_vbar_salary.png"><img alt="Plot of low, medium, and high salary frequencies." src="_images/sgplot_vbar_salary.png" style="width: 384.0px; height: 288.0px;" /></a>
+<p>The plot of sales across groups, such as IT, RandD, and so on is similar.</p>
+<p>Plot histograms with normal distribution curves.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc sgplot data=work._csv;
+    histogram satisfaction_level / scale=count;
+    density satisfaction_level;
+run;
+
+proc sgplot data=work._csv;
+    histogram time_spend_company / scale=count;
+    density time_spend_company;
+run;
+
+proc sgplot data=work._csv;
+    histogram last_evaluation / scale=count;
+    density last_evaluation;
+run;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/hist_satisfaction_level.png"><img alt="Histogram of employee satisfaction." src="_images/hist_satisfaction_level.png" style="width: 384.0px; height: 288.0px;" /></a>
+<p>The plots for time spent with the company and last evaluation
+are similar.</p>
+<p>Plot a heatmap that shows the relationship between employee
+satisfaction and the last evaluation.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc sgplot data=work._csv;
+    heatmap x=last_evaluation y=satisfaction_level;
+run;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/heatmap_satisfaction_evaluation.png"><img alt="Heatmap of employee statisfaction and evaluation." src="_images/heatmap_satisfaction_evaluation.png" style="width: 384.0px; height: 288.0px;" /></a>
+<p>There is a small frequency spike in the lower-right corner
+of the heatmap.</p>
+<p>Narrow the heatmap to the employees that have low satisfaction
+but were evaluated highly.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc sgplot data=work._csv(where=(satisfaction_level &lt;.2 and last_evaluation &gt;. 7));
+    heatmap x=last_evaluation y=satisfaction_level;
+run;
+</pre></div>
+</div>
+<p>Finally, split the median satisfaction level for retained employees
+side-by-side with the median satisfaction for employees who left.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc sgpanel data=work._csv;
+    *where satisfaction_level &lt;.2 and last_evaluation &gt; .7;
+    PANELBY left;
+    hbar sales / response=last_evaluation    stat=median;
+    hbar sales / response=satisfaction_level stat=median ;
+run;
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">You can remove the asterisk to plot the employees with
+low satisfaction and high evaluations.</p>
+</div>
+<a class="reference internal image-reference" href="_images/panel_left_sales.png"><img alt="Heatmap of employee statisfaction and evaluation for employees with low satisfaction and high evaluation." src="_images/panel_left_sales.png" style="width: 384.0px; height: 288.0px;" /></a>
+</div>
+<div class="section" id="split-the-data-into-training-and-test">
+<h2>Split the data into training and test<a class="headerlink" href="#split-the-data-into-training-and-test" title="Permalink to this headline">¶</a></h2>
+<p>Replace the data set with one that includes a partitioning indicator.
+The variable is named _PartInd_ and indicates whether the partition
+is part of the training data (1) or the test data (0). Seventy percent
+of the data is included in training and the remainder is used for testing.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc hpsample data=work._csv out=work._csv samppct=70 seed=9878 partition;
+    class left _character_;
+    target left;
+    var work_accident average_montly_hours last_evaluation number_project
+        promotion_last_5years satisfaction_level time_spend_company;
+run;
+</pre></div>
+</div>
+</div>
+<div class="section" id="train-a-series-of-models">
+<h2>Train a series of models<a class="headerlink" href="#train-a-series-of-models" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="decision-tree">
+<h3>Decision tree<a class="headerlink" href="#decision-tree" title="Permalink to this headline">¶</a></h3>
+<p>The HPSPLIT procedure can train a decision tree model. For documentation,
+see
+<a class="reference external" href="http://documentation.sas.com/?docsetId=statug&amp;docsetVersion=14.2&amp;docsetTarget=statug_hpsplit_toc.htm">http://documentation.sas.com/?docsetId=statug&amp;docsetVersion=14.2&amp;docsetTarget=statug_hpsplit_toc.htm</a>.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc hpsplit data=work._csv(where=(_partInd_=1)) plot=all;
+    class work_accident promotion_last_5years sales salary;
+    model left = work_accident promotion_last_5years sales salary
+                 satisfaction_level time_spend_company number_project
+                 average_montly_hours;
+run;
+</pre></div>
+</div>
+<p>The results include several tables and plots. Only the variable
+information table is shown below.</p>
+<a class="reference internal image-reference" href="_images/hpsplit_variable_importance.png"><img alt="Variable importance for modeling 'left' with the HPSPLIT procedure." src="_images/hpsplit_variable_importance.png" style="width: 594.6px; height: 226.79999999999998px;" /></a>
+</div>
+<div class="section" id="generalized-linear-model">
+<h3>Generalized linear model<a class="headerlink" href="#generalized-linear-model" title="Permalink to this headline">¶</a></h3>
+<p>The GLM procedure can train a generalized linear model. For documentation,
+see
+<a class="reference external" href="http://documentation.sas.com/?docsetId=statug&amp;docsetVersion=14.2&amp;docsetTarget=statug_glm_toc.htm">http://documentation.sas.com/?docsetId=statug&amp;docsetVersion=14.2&amp;docsetTarget=statug_glm_toc.htm</a>.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc glm data=work._csv(where=(_partInd_=1)) plot=all;
+    class work_accident promotion_last_5years sales salary;
+    model left = work_accident promotion_last_5years sales salary
+                 satisfaction_level time_spend_company number_project
+                 average_montly_hours;
+run;
+</pre></div>
+</div>
+<p>The results include several tables. Only the basic statistics and Type I sum of
+squares are shown.</p>
+<a class="reference internal image-reference" href="_images/glm_rsq_ss1.png"><img alt="R-square, basic statistics, and Type I sum of squares." src="_images/glm_rsq_ss1.png" style="width: 595.1999999999999px; height: 276.0px;" /></a>
+</div>
+<div class="section" id="logistic-regression">
+<h3>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h3>
+<p>The HPLOGISTIC procedure can create logistic regression models. For documentation, see
+<a class="reference external" href="http://documentation.sas.com/?docsetId=statug&amp;docsetVersion=14.2&amp;docsetTarget=statug_glm_overview.htm">http://documentation.sas.com/?docsetId=statug&amp;docsetVersion=14.2&amp;docsetTarget=statug_glm_overview.htm</a>.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc hplogistic data=work._csv(where=(_partInd_=1));
+    class work_accident promotion_last_5years sales salary;
+    model left (event=&#39;1&#39;) = work_accident promotion_last_5years sales salary
+                 satisfaction_level time_spend_company number_project
+                 average_montly_hours;
+
+run;
+</pre></div>
+</div>
+</div>
+<div class="section" id="neural-network">
+<h3>Neural network<a class="headerlink" href="#neural-network" title="Permalink to this headline">¶</a></h3>
+<p>The HPNERUAL procedure is available with a SAS Enterprise Miner license.</p>
+<p>The procedure trains a multilayer preceptron neural network. For documentation, see
+<a class="reference external" href="http://documentation.sas.com/?docsetId=emhpprcref&amp;docsetVersion=14.2&amp;docsetTarget=emhpprcref_hpneural_toc.htm">http://documentation.sas.com/?docsetId=emhpprcref&amp;docsetVersion=14.2&amp;docsetTarget=emhpprcref_hpneural_toc.htm</a>.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc hpneural data=work._csv;
+    hidden 19;
+    input work_accident promotion_last_5years sales salary
+          / level=nominal;
+    input satisfaction_level time_spend_company number_project average_montly_hours
+          / level=interval;
+    target left / level=nominal;
+    train numtries=15 maxiter=300;
+run;
+</pre></div>
+</div>
+<p>The results include several tables. The fit statistics and misclassification tables
+are shown below.</p>
+<a class="reference internal image-reference" href="_images/neural_fit_misclass.png"><img alt="Fit statistics and misclassification information." src="_images/neural_fit_misclass.png" style="width: 598.1999999999999px; height: 226.2px;" /></a>
+</div>
+<div class="section" id="decision-forest">
+<h3>Decision forest<a class="headerlink" href="#decision-forest" title="Permalink to this headline">¶</a></h3>
+<p>The HPFOREST procedure is available with a SAS Enterprise Miner license.</p>
+<p>The HPFOREST procedure creates a forest of many decision trees and creates a predictive
+model.  For documentation, see <a class="reference external" href="http://documentation.sas.com/?docsetId=emhpprcref&amp;docsetVersion=14.2&amp;docsetTarget=emhpprcref_hpforest_toc.htm">http://documentation.sas.com/?docsetId=emhpprcref&amp;docsetVersion=14.2&amp;docsetTarget=emhpprcref_hpforest_toc.htm</a>.</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>proc hpforest data=work._csv;
+    input work_accident promotion_last_5years sales salary
+          / level=nominal;
+    input satisfaction_level time_spend_company number_project average_montly_hours
+          / level=interval;
+    target left / level=nominal;
+run;
+</pre></div>
+</div>
+<p>The results include several tables of information. The loss reduction and variable
+importance table is shown below.</p>
+<a class="reference internal image-reference" href="_images/forest_loss_reduction.png"><img alt="Loss reduction and variable importance for the HPFOREST procedure." src="_images/forest_loss_reduction.png" style="width: 595.8px; height: 240.6px;" /></a>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral" title="Installing the SAS kernel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 SAS Institute Inc. All Rights Reserved..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
