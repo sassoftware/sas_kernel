@@ -75,9 +75,8 @@ Linux install for Anaconda Python (assuming SAS already installed)
 
          find / -name sascfg.py
 
-   #. Edit the file with the correct path the SAS executable and include
-      any options that you want to modify the SAS invocation. See the
-      examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
+   #. Edit the file based upon the configuration documentation found at
+      https://sassoftware.github.io/saspy/install.html#configuration.
 
 
 ***********************************************************
@@ -129,9 +128,8 @@ You must have Superuser privileges (root or sudo).
 
          find / -name sascfg.py
 
-   #. Edit the file with the correct path the SAS executable and include
-      any options that you want to modify the SAS invocation. See the
-      examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
+   #. Edit the file based upon the configuration documentation found at
+      https://sassoftware.github.io/saspy/install.html#configuration.
 
 
 ************************************************
@@ -197,10 +195,13 @@ Windows install (assuming SAS already installed)
 
       You can also search the file system for the file.
 
-   #. Edit the file with the correct path the SAS executable and include
-      any options that you want to modify the SAS invocation. See the
-      examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
+   #. Edit the file based upon the configuration documentation found at
+      https://sassoftware.github.io/saspy/install.html#configuration.
 
+      See `IOM interface <http://support.sas.com/documentation/cdl/en/itechov/64881/HTML/
+      default/viewer.htm#titlepage.htm>`_ for information about the SAS integrated object model.
+
+      .. NOTE:: For Windows, the only supported configuration is an IOM connection.
 
 *****************
 OSX (Mac) install
@@ -253,10 +254,9 @@ OSX (Mac) install
 
          find / -name sascfg.py
 
-   #. Edit the file and configure an IOM connection. You can modify the iomwin or 
-      iomlinux settings that are in the file. 
+   #. Edit the file based upon the configuration documentation found at
+      https://sassoftware.github.io/saspy/install.html#configuration.
 
-      See the examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
       See `IOM interface <http://support.sas.com/documentation/cdl/en/itechov/64881/HTML/
       default/viewer.htm#titlepage.htm>`_ for information about the SAS integrated object model.
 
