@@ -396,7 +396,7 @@ prior to entering the block.</p>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.do_execute_direct">
-<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &rarr; str<a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_execute_direct" title="Permalink to this definition">¶</a></dt>
+<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_execute_direct" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the main method that takes code from the Jupyter cell and submits it to the SAS server</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -466,8 +466,8 @@ an indentation string.</p>
 <p>Example:</p>
 <blockquote>
 <div><dl class="docutils">
-<dt>return {&#8216;status&#8217;</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;incomplete&#8217;,</span><dd>&#8216;indent&#8217;: &#8216; &#8216; * 4}</dd>
+<dt>return {&#8216;status&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;incomplete&#8217;,</span></dt>
+<dd>&#8216;indent&#8217;: &#8216; &#8216; * 4}</dd>
 </dl>
 </div></blockquote>
 </dd></dl>
@@ -564,7 +564,7 @@ an indentation string.</p>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.getpass">
-<code class="descname">getpass</code><span class="sig-paren">(</span><em>prompt=''</em>, <em>stream=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.getpass" title="Permalink to this definition">¶</a></dt>
+<code class="descname">getpass</code><span class="sig-paren">(</span><em>prompt=''</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.getpass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Forward getpass to frontends</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -590,7 +590,7 @@ an indentation string.</p>
 
 <dl class="attribute">
 <dt id="sas_kernel.kernel.SASKernel.help_links">
-<code class="descname">help_links</code><em class="property"> = [{'text': 'MetaKernel Magics', 'url': 'https://github.com/calysto/metakernel/blob/master/metakernel/magics/README.md'}]</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.help_links" title="Permalink to this definition">¶</a></dt>
+<code class="descname">help_links</code><em class="property"> = [{'url': 'https://github.com/calysto/metakernel/blob/master/metakernel/magics/README.md', 'text': 'MetaKernel Magics'}]</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.help_links" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -725,7 +725,7 @@ on to the <code class="xref py py-meth docutils literal"><span class="pre">__ini
 
 <dl class="attribute">
 <dt id="sas_kernel.kernel.SASKernel.language_info">
-<code class="descname">language_info</code><em class="property"> = {'name': 'sas', 'mimetype': 'text/x-sas', 'codemirror_mode': 'sas', 'file_extension': '.sas'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.language_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">language_info</code><em class="property"> = {'name': 'sas', 'file_extension': '.sas', 'codemirror_mode': 'sas', 'mimetype': 'text/x-sas'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.language_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -743,7 +743,7 @@ on to the <code class="xref py py-meth docutils literal"><span class="pre">__ini
 
 <dl class="attribute">
 <dt id="sas_kernel.kernel.SASKernel.magic_prefixes">
-<code class="descname">magic_prefixes</code><em class="property"> = {'magic': '%', 'shell': '!', 'help': '?'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.magic_prefixes" title="Permalink to this definition">¶</a></dt>
+<code class="descname">magic_prefixes</code><em class="property"> = {'shell': '!', 'magic': '%', 'help': '?'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.magic_prefixes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1124,7 +1124,7 @@ If name is not specified, removes all trait notifiers.</p>
 <p>SAS Kernel for Jupyter implementation. This module relies on SASPy</p>
 <dl class="method">
 <dt>
-<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &rarr; str</dt>
+<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &#x2192; str</dt>
 <dd><p>This is the main method that takes code from the Jupyter cell and submits it to the SAS server</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1220,7 +1220,7 @@ If name is not specified, removes all trait notifiers.</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
