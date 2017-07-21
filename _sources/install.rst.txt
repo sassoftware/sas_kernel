@@ -65,19 +65,25 @@ Linux install for Anaconda Python (assuming SAS already installed)
          python3    /home/sas/anaconda3/lib/python3.5/site-packages/ipykernel/resources
          sas        /home/sas/.local/share/jupyter/kernels/sas
 
-#. Verify that the SAS executable is correct.
+#. Configure the SAS executable for your system.
 
-   #. Find the sascfg.py file -- it is located relative to the Python3 installation
-      location (see above, [install location]/site-packages/saspy/sascfg.py).
+   The connection of the Jupyter notebook to SAS is made by the SASPy Python package (which was installed as a dependency
+   for you).
 
-      The following command searches the filesystem for the sascfg.py file.
-      ::
 
-         find / -name sascfg.py
+   Use the `SASPy configuration documentation`_ to complete you set up.
+   If you are using Linux or Unix the STDIO_ or `STDIO over SSH`_ will be the fastest connections, but IOM is also available
+   All other systems will use *only* the IOM_ connection. If you want to connect to PC SAS on your local system, use `IOM Local`_
 
-   #. Edit the file with the correct path the SAS executable and include
-      any options that you want to modify the SAS invocation. See the
-      examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
+   .. _STDIO: https://sassoftware.github.io/saspy/install.html#stdio
+   .. _STDIO over SSH: https://sassoftware.github.io/saspy/install.html#stdio-over-ssh
+   .. _IOM: https://sassoftware.github.io/saspy/install.html#iom
+   .. _IOM Local: https://sassoftware.github.io/saspy/install.html#local
+   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+
+   * Configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+   * GitHub version of the file: https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py
+   * More information about SASPy: https://github.com/sassoftware/saspy
 
 
 ***********************************************************
@@ -119,19 +125,25 @@ You must have Superuser privileges (root or sudo).
          python3    /usr/lib/python3.5/site-packages/ipykernel/resources
          sas        /usr/local/share/jupyter/kernels/sas
 
-#. Verify that the SAS executable is correct.
+#. Configure the SAS executable for your system.
 
-   #. Find the sascfg.py file -- it is located relative to the Python3 installation
-      location (see above, [install location]/site-packages/saspy/sascfg.py).
+   The connection of the Jupyter notebook to SAS is made by the SASPy Python package (which was installed as a dependency
+   for you).
 
-      The following command searches the filesystem for the sascfg.py file.
-      ::
 
-         find / -name sascfg.py
+   Use the `SASPy configuration documentation`_ to complete you set up.
+   If you are using Linux or Unix the STDIO_ or `STDIO over SSH`_ will be the fastest connections, but IOM is also available
+   All other systems will use *only* the IOM_ connection. If you want to connect to PC SAS on your local system, use `IOM Local`_
 
-   #. Edit the file with the correct path the SAS executable and include
-      any options that you want to modify the SAS invocation. See the
-      examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
+   .. _STDIO: https://sassoftware.github.io/saspy/install.html#stdio
+   .. _STDIO over SSH: https://sassoftware.github.io/saspy/install.html#stdio-over-ssh
+   .. _IOM: https://sassoftware.github.io/saspy/install.html#iom
+   .. _IOM Local: https://sassoftware.github.io/saspy/install.html#local
+   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+
+   * Configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+   * GitHub version of the file: https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py
+   * More information about SASPy: https://github.com/sassoftware/saspy
 
 
 ************************************************
@@ -190,16 +202,27 @@ Windows install (assuming SAS already installed)
          python3    C:\Users\sas\AppData\Local\Continuum\Anaconda3\lib\site-packages\ipykernel\resources
          sas        C:\ProgramData\jupyter\kernels\sas
 
-#. Verify that the SAS executable is correct.
+#. Configure the SAS executable for your system.
 
-   #. Find the sascfg.py file -- it is located relative to the Python3 installation.
-      The default location is C:\\ProgramData\\Anaconda3\\Lib\\site-packages\\saspy\\sascfg.py.
+   The connection of the Jupyter notebook to SAS is made by the SASPy Python package (which was installed as a dependency
+   for you).
 
-      You can also search the file system for the file.
 
-   #. Edit the file with the correct path the SAS executable and include
-      any options that you want to modify the SAS invocation. See the
-      examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
+   Use the `SASPy configuration documentation`_ to complete you set up.
+   If you are using Linux or Unix the STDIO_ or `STDIO over SSH`_ will be the fastest connections, but IOM is also available
+   All other systems will use *only* the IOM_ connection. If you want to connect to PC SAS on your local system, use `IOM Local`_
+
+   .. _STDIO: https://sassoftware.github.io/saspy/install.html#stdio
+   .. _STDIO over SSH: https://sassoftware.github.io/saspy/install.html#stdio-over-ssh
+   .. _IOM: https://sassoftware.github.io/saspy/install.html#iom
+   .. _IOM Local: https://sassoftware.github.io/saspy/install.html#local
+   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+
+   * Configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+   * GitHub version of the file: https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py
+   * More information about SASPy: https://github.com/sassoftware/saspy
+
+   .. NOTE:: For PC SAS (connecting to your local system), use the `IOM Local`_ connection instructions.
 
 
 *****************
@@ -243,24 +266,28 @@ OSX (Mac) install
           python3              /Users/sas/anaconda3/lib/python3.5/site-packages/ipykernel/resources
           sas                  /usr/local/share/jupyter/kernels/sas
 
-#. Verify that the SAS executable is correct.
 
-   #. Find the sascfg.py file -- it is located relative to the Python3 installation
-      location (see above, [install location]/site-packages/saspy/sascfg.py).
+#. Configure the SAS executable for your system.
 
-      The following command searches the filesystem for the sascfg.py file.
-      ::
+   The connection of the Jupyter notebook to SAS is made by the SASPy Python package (which was installed as a dependency
+   for you).
 
-         find / -name sascfg.py
 
-   #. Edit the file and configure an IOM connection. You can modify the iomwin or 
-      iomlinux settings that are in the file. 
+   Use the `SASPy configuration documentation`_ to complete you set up.
+   If you are using Linux or Unix the STDIO_ or `STDIO over SSH`_ will be the fastest connections, but IOM is also available
+   All other systems will use *only* the IOM_ connection. If you want to connect to PC SAS on your local system, use `IOM Local`_
 
-      See the examples in https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py.
-      See `IOM interface <http://support.sas.com/documentation/cdl/en/itechov/64881/HTML/
-      default/viewer.htm#titlepage.htm>`_ for information about the SAS integrated object model.
+   .. _STDIO: https://sassoftware.github.io/saspy/install.html#stdio
+   .. _STDIO over SSH: https://sassoftware.github.io/saspy/install.html#stdio-over-ssh
+   .. _IOM: https://sassoftware.github.io/saspy/install.html#iom
+   .. _IOM Local: https://sassoftware.github.io/saspy/install.html#local
+   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
 
-      .. NOTE:: For OSX, the only supported configuration is an IOM connection.
+   * Configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+   * GitHub version of the file: https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py
+   * More information about SASPy: https://github.com/sassoftware/saspy
+
+   .. NOTE:: For OSX, the only supported configuration is an IOM_ connection.
 
 
 ===========================
