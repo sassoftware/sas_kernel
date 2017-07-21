@@ -6,11 +6,14 @@ A SAS Kernel for [Jupyter Notebooks](http://www.jupyter.org)
 
 ## Dependencies
 * Python3.X
-* Jupyter
+* Jupyter version 4 or higher
 * SAS 9.4 or higher  -- This includes [SAS Viya](http://www.sas.com/en_us/software/viya.html)
-* Linux OS
 
-With the latest changes in [saspy](https://github.com/sassoftware/saspy) it is no longer a requirement that Jupyter and SAS be installed on the same machine. SAS and Jupyter can now communicate via passwordless ssh. This is in response to [issue 11](https://github.com/sassoftware/sas_kernel/issues/11). The configuration details are located in [sascfg.py](https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py)
+With the latest changes in [saspy](https://github.com/sassoftware/saspy) it is no longer a requirement that Jupyter and SAS be installed on the same machine. SAS and Jupyter can now communicate via passwordless ssh or IOM. This is in response to [issue 11](https://github.com/sassoftware/sas_kernel/issues/11). The configuration details are located in [sascfg.py](https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py) and documentation for configuration is [here](https://sassoftware.github.io/saspy/install.html#configuration)
+
+## Documentation
+Here is the link to the current documentation
+https://sassoftware.github.io/sas_kernel/
 
 ## Install
 To successfully use the SAS Kernel you must have each of the following:
