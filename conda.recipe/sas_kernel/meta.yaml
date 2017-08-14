@@ -1,0 +1,42 @@
+{%set name = "SAS_kernel" %}
+{%set version = "2.1.0" %}
+{%set hash_type = "sha256" %}
+{%set hash_val = "bad7247adc3d3316494b978f62fe36675356e05483bd7e17e4afb7bef14e88bc" %}
+
+package:
+  name: {{ name | lower }}
+  version: {{ version }}
+
+source:
+  # fn: {{ name }}-{{ version }}.tar.gz
+  # url: https://pypi.io/packages/source/{{ name[0] | lower }}/{{ name | lower }}/{{ name }}-{{ version }}.tar.gz
+  # {{ hash_type }}: {{ hash_val }}
+  path: ../../
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - ipython >=4
+    - jupyter
+  run:
+    - python
+    - ipython >=4
+    - saspy >=1.2.2
+    - pygments
+    - metakernel >=0.18.0
+    - jupyter
+    - jupyter_client >=4.4.0
+
+test:
+  imports:
+    - sas_kernel
+
+about:
+  home: https://github.com/sassoftware/sas_kernel
+  license: Apache 2.0
+  summary: A Jupyter kernel for SAS
