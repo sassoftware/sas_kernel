@@ -18,8 +18,34 @@ try:
     from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup, find_packages
+from distutils.command.install import install
+from distutils import log
+from shutil import copyfile
 
+import json
+import os
+import sys
 from sas_kernel import __version__
+from sas_kernel.data import _dataRoot
+
+
+svem_flag = '--single-version-externally-managed'
+if svem_flag in sys.argv:
+    sys.argv.remove(svem_flag)
+
+
+class InstallWithKernelspec(install):
+    def run(self):
+        # Regular installation
+        install.run(self)
+
+        # Kernel installation
+        if "NO_KERNEL_INSTALL" in os.environ:
+            # If the NO_KERNEL_INSTALL env variable is set then skip the kernel installation.
+            return
+        else:
+            from sas_kernel import install as kernel_install
+            kernel_install.main(argv=sys.argv)
 
 
 setup(name='SAS_kernel',
@@ -31,6 +57,7 @@ setup(name='SAS_kernel',
       author_email='jared.dean@sas.com',
       url='https://github.com/sassoftware/sas_kernel',
       packages=find_packages(),
+      cmdclass={'install': InstallWithKernelspec},
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json', 'data/*.png']},
       install_requires=['saspy>=1.2.2', 'pygments', "metakernel>=0.18.0", "jupyter_client >=4.4.0",
                         "ipython>=4.0.0"
