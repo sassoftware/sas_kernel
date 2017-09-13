@@ -28,13 +28,6 @@ import sys
 from sas_kernel import __version__
 from sas_kernel.data import _dataRoot
 
-kernel_json = {
-    "argv": [sys.executable,
-             "-m", "sas_kernel", "-f", "{connection_file}"],
-    "display_name": "SAS",
-    "codemirror_mode": "sas",
-    "language": "sas"
-}
 
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
@@ -43,36 +36,17 @@ if svem_flag in sys.argv:
 
 class InstallWithKernelspec(install):
     def run(self):
-        try:
-            from jupyter_client.kernelspec import install_kernel_spec
-        except ImportError:
-            try:
-                from IPython.kernel.kernelspec import install_kernel_spec
-            except ImportError:
-                print("Please install either Jupyter to IPython before continuing")
-
         # Regular installation
         install.run(self)
 
-        from IPython.utils.tempdir import TemporaryDirectory
+        # Kernel installation
+        if "NO_KERNEL_INSTALL" in os.environ:
+            # If the NO_KERNEL_INSTALL env variable is set then skip the kernel installation.
+            return
+        else:
+            from sas_kernel import install as kernel_install
+            kernel_install.main(argv=sys.argv)
 
-        # Now write the kernelspec
-        with TemporaryDirectory() as temppath:
-            os.chmod(temppath, 0o755)  # Starts off as 700, not user readable
-            log.info('Installing Jupyter kernel spec')
-            with open(os.path.join(temppath, 'kernel.json'), 'w') as f:
-                json.dump(kernel_json, f, sort_keys=True)
-            copyfile(os.path.join(_dataRoot, 'logo-64x64.png'), os.path.join(temppath, 'logo-64x64.png'))
-
-            log.info('files copied to kernel:')
-            for i in os.listdir(temppath):
-                log.info(i)
-            try:
-                install_kernel_spec(temppath, 'SAS', user=False, replace=True)
-                print("SAS Kernel installed as superuser")
-            except:
-                install_kernel_spec(temppath, 'SAS', user=True, replace=True)
-                print("SAS Kernel installed as user")
 
 setup(name='SAS_kernel',
       version=__version__,
