@@ -50,9 +50,7 @@ To successfully use the SAS Kernel you must have each of the following:
       sas        /home/sas/.local/share/jupyter/kernels/sas
     ```
 1. Verify SAS Executable is correct
-    1. find the sascfg.py file -- it is currently located in the install location (see above) `[install location]/site-packages/saspy/sascfg.py`
-    This command will search the OS for the file location:
-    ` find / -name sascfg.py`
+    1. find the sascfg.py file -- it is currently located in the install location (see above) `[install location]/site-packages/saspy/sascfg.py`. To query `pip` for the location of the file, type `pip show saspy` (or `pip3 show saspy` if `pip3` was used to install it). Failing that, this command will search the OS for the file location: `find / -name sascfg.py`
     1. edit the file with the correct path the SAS executable and include any options you wish it include in the SAS invocation. See examples in the [file](https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py)
 
 
@@ -90,8 +88,7 @@ These instructions assume you'll be installed system wide for all users using a 
 
  
 1. Verify SAS Executable is correct
-    1. find the sascfg.py file -- it is currently located in the site-packages area of python install
-    ` find / -name sascfg.py`
+    1. find the sascfg.py file -- it is currently located in the site-packages area of python install. To query `pip` for the location of the file, type `pip show saspy` (or `pip3 show saspy` if `pip3` was used to install it). Failing that, this command will search the OS for the file location: ` find / -name sascfg.py`
     1. edit the file with the correct path the SAS executable and include any options you wish it include in the SAS invocation. See examples in the file
 
 
