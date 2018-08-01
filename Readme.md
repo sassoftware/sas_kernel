@@ -98,7 +98,7 @@ These instructions assume you'll be installed system wide for all users using a 
 
 
 ## Improving Usability
-There are a few NBExtensions that have been created to make working with Jupyter notebooks more productive. These are largely the result of pain points from my use of SAS Kernel for programming tasks. The extensions can be found [here](nbextensions.md). The list includes:
+There are a few NBExtensions that have been created to make working with Jupyter notebooks more productive. These are largely the result of pain points from my use of SAS Kernel for programming tasks. The extensions can be found [here](./sas_kernel/nbextensions). The list includes:
 * SAS Log -- which show the SAS log for the last executed cell or the entire log since the last (re)start of the notebook
 * themes -- this allows you to change the color scheme for your code to match the traditional SAS color scheme
 
