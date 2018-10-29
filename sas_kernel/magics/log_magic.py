@@ -29,10 +29,10 @@ class logMagic(Magic):
         This magic is only available within the SAS Kernel
         """
         if self.kernel.mva is None:
-            self.kernel._allow_stdin = True
-            self.kernel._start_sas()
-        #print(self.kernel.cachedlog)
-        return print(self.kernel.cachedlog)
+            print("Can't show log because no session exists")
+        else:
+            return self.kernel.Display(HTML(self.kernel.cachedlog))
+
 
     def line_showFullLog(self):
         """
@@ -42,8 +42,9 @@ class logMagic(Magic):
         if self.kernel.mva is None:
             self.kernel._allow_stdin = True
             self.kernel._start_sas()
-        #print(self.kernel.mva.saslog())
-        return print(self.kernel.mva.saslog())
+            print("Session Started probably not the log you want")
+        full_log = highlight(self.kernel.mva.saslog(), SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
+        return self.kernel.Display(HTML(full_log))
 
 def register_magics(kernel):
     kernel.register_magics(logMagic)
