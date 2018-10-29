@@ -83,7 +83,7 @@ class SASKernel(MetaKernel):
         except:
             self.mva = None
 
-    def _which_display(self, log: str, output: str) -> str:
+    def _which_display(self, log: str, output: str) -> HTML:
         """
         Determines if the log or lst should be returned as the results for the cell based on parsing the log
         looking for errors and the presence of lst output.
@@ -128,7 +128,7 @@ class SASKernel(MetaKernel):
             logger.debug("DEBUG1: " + str(debug1) + " errors and LST")
             return HTML(color_log + output)
 
-    def do_execute_direct(self, code: str, silent: bool = False) -> str:
+    def do_execute_direct(self, code: str, silent: bool = False) -> [str, dict]:
         """
         This is the main method that takes code from the Jupyter cell and submits it to the SAS server
 
@@ -169,8 +169,7 @@ class SASKernel(MetaKernel):
 
             output = res['LST']
             log = res['LOG']
-            dis = self._which_display(log, output)
-            return dis
+            return self._which_display(log, output)
         elif code.startswith("CompleteshowSASLog_11092015") == True and code.startswith('showSASLog_11092015') == False:
             full_log = highlight(self.mva.saslog(), SASLogLexer(),
                                  HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>",

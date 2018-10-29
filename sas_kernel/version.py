@@ -12,7 +12,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+#
 
-
-"""SAS Kernel Juypter Implementation"""
-from sas_kernel.version import __version__
+__version__ = '2.2.0'

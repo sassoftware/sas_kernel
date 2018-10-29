@@ -14,9 +14,7 @@
 #  limitations under the License.
 #
 from collections import OrderedDict
-
 from metakernel import Magic
-
 
 class Prompt4VarMagic(Magic):
     def __init__(self, *args, **kwargs):
