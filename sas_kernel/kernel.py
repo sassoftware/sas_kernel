@@ -210,7 +210,7 @@ class SASKernel(MetaKernel):
                 if lastproc > lastsemi:
                     mykey = 'p'
                 procer = re.search('(?i)proc\s\w+', info['code'][lastproc:])
-                method = procer.group(0).split(' ')[-1].upper() + mykey.encode()
+                method = procer.group(0).split(' ')[-1].upper() + mykey
                 mylist = self.compglo[method][0]
                 potentials = re.findall('(?i)' + info['obj'] + '.+', '\n'.join(str(x) for x in mylist), re.MULTILINE)
                 return potentials
