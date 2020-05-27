@@ -8,7 +8,7 @@ or "calculator" for data analysis.
 
 The following SAS program is a basic example of programming with SAS
 and Jupyter Notebook. The HR_comma_sep.csv file that is referenced in 
-the sample code is available from https://www.kaggle.com/ludobenistant/hr-analytics.
+the sample code is available from https://www.kaggle.com/liujiaqi/hr-comma-sepcsv/data.
 
 
 ******************
