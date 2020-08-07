@@ -54,8 +54,8 @@ setup(name='SAS_kernel',
       packages=find_packages(),
       cmdclass={'install': InstallWithKernelspec},
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json', 'data/*.png']},
-      install_requires=['saspy>=2.2.7', 'pygments', "metakernel>=0.18.0", "jupyter_client >=4.4.0",
-                        "ipython>=4.0.0"
+      install_requires=['saspy>=3', 'pygments', "metakernel>=0.24.0", "jupyter_client >=4.4.0",
+                        "ipython>=5.0.0"
                         ],
       classifiers=['Framework :: IPython',
                    'License :: OSI Approved :: Apache Software License',
