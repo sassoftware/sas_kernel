@@ -20,17 +20,25 @@ import json
 # Create Logger
 import logging
 
+from typing import Tuple
+
 from metakernel import MetaKernel
-from sas_kernel import __version__
+from sas_kernel.version import __version__
 from IPython.display import HTML
 # color syntax for the SASLog
-from saspy.SASLogLexer import SASLogStyle, SASLogLexer
-from pygments.formatters import HtmlFormatter
-from pygments import highlight
+#from saspy.SASLogLexer import SASLogStyle, SASLogLexer
+#from pygments.formatters import HtmlFormatter
+#from pygments import highlight
 
-logger = logging.getLogger('')
+
+# create a logger to output messages to the Jupyter console
+logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARN)
+console = logging.StreamHandler()
+console.setFormatter(logging.Formatter('%(name)-12s: %(message)s'))
+logger.addHandler(console)
 
+logger.debug("sanity check")
 class SASKernel(MetaKernel):
     """
     SAS Kernel for Jupyter implementation. This module relies on SASPy
@@ -82,6 +90,48 @@ class SASKernel(MetaKernel):
             self.mva = saspy.SASsession(kernel=self)
         except:
             self.mva = None
+    
+    def _colorize_log(self, log: str) -> str:
+        """
+        takes a SAS log (str) and then looks for errors.
+        Returns a tuple of error count, list of error messages
+        """
+        regex_note = r"(?sm)(^NOTE.*?)(?=^\d+|^NOTE|^ERROR|^WARNING)"
+        regex_warn = r"(?sm)(^WARNING.*?)(?=^\d+|^NOTE|^ERROR|^WARNING)"
+        regex_error = r"(?sm)(^ERROR.*?)(?=^\d+|^NOTE|^ERROR|^WARNING)"
+
+        sub_note = "\x1b[34m\\1\x1b[0m"
+        sub_warn = "\x1b[32m\\1\x1b[0m"
+        sub_error = "\x1B[1m\x1b[31m\\1\x1b[0m\x1b[0m"
+        color_pattern = [
+            (regex_note, sub_note),
+            (regex_warn, sub_warn),
+            (regex_error, sub_error)
+        ]
+        colored_log = log
+        for pat, sub in color_pattern:
+            colored_log = re.sub(pat, sub, colored_log)
+
+        return colored_log
+
+
+    def _is_error_log(self, log: str) -> Tuple:
+        """
+        takes a SAS log (str) and then looks for errors.
+        Returns a tuple of error count, list of error messages
+        """
+        lines = re.split(r'[\n]\s*', log)
+        error_count = 0
+        error_log_msg_list = []
+        error_log_line_list = []
+        for index, line in enumerate(lines):
+            #logger.debug("line:{}".format(line))
+            if line.startswith('ERROR'):
+              error_count +=1
+              error_log_msg_list.append(line) 
+              error_log_line_list.append(index)
+        return (error_count, error_log_msg_list, error_log_line_list) 
+
 
     def _which_display(self, log: str, output: str) -> HTML:
         """
@@ -93,40 +143,27 @@ class SASKernel(MetaKernel):
         :return: The correct results based on log and lst
         :rtype: str
         """
-        lines = re.split(r'[\n]\s*', log)
-        i = 0
-        elog = []
-        for line in lines:
-            i += 1
-            e = []
-            if line.startswith('ERROR'):
-                logger.debug("In ERROR Condition")
-                e = lines[(max(i - 15, 0)):(min(i + 16, len(lines)))]
-            elog = elog + e
-        tlog = '\n'.join(elog)
-        logger.debug("elog count: " + str(len(elog)))
-        logger.debug("tlog: " + str(tlog))
+        error_count, msg_list, error_line_list =  self._is_error_log(log)
 
-        color_log = highlight(log, SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
         # store the log for display in the showSASLog nbextension
-        self.cachedlog = color_log
-        # Are there errors in the log? if show the lines on each side of the error
-        if len(elog) == 0 and len(output) > self.lst_len:  # no error and LST output
-            debug1 = 1
-            logger.debug("DEBUG1: " + str(debug1) + " no error and LST output ")
-            return HTML(output)
-        elif len(elog) == 0 and len(output) <= self.lst_len:  # no error and no LST
-            debug1 = 2
-            logger.debug("DEBUG1: " + str(debug1) + " no error and no LST")
-            return HTML(color_log)
-        elif len(elog) > 0 and len(output) <= self.lst_len:  # error and no LST
-            debug1 = 3
-            logger.debug("DEBUG1: " + str(debug1) + " error and no LST")
-            return HTML(color_log)
-        else:  # errors and LST
-            debug1 = 4
-            logger.debug("DEBUG1: " + str(debug1) + " errors and LST")
-            return HTML(color_log + output)
+        self.cachedlog = self._colorize_log(log)
+        
+        if error_count == 0 and len(output) > self.lst_len:  # no error and LST output
+            return self.Display(HTML(output))
+
+        elif error_count > 0 and len(output) > self.lst_len:  # errors and LST
+            #filter log to lines around first error
+            # by default get 5 lines on each side of the first Error message.
+            # to change that modify the values in {} below
+            regex_around_error = r"(.*)(.*\n){6}^ERROR(.*\n){6}"
+            
+            # Extract the first match +/- 5 lines
+            e_log = re.search(regex_around_error, log, re.MULTILINE).group()
+            assert error_count == len(error_line_list), "Error count and count of line number don't match"
+            return self.Error_display(msg_list[0], print(self._colorize_log(e_log)), HTML(output))
+        
+        # for everything else return the log
+        return self.Print(self._colorize_log(log))
 
     def do_execute_direct(self, code: str, silent: bool = False) -> [str, dict]:
         """
@@ -140,19 +177,16 @@ class SASKernel(MetaKernel):
             return {'status': 'ok', 'execution_count': self.execution_count,
                     'payload': [], 'user_expressions': {}}
 
+        # If no mva session start a session
         if self.mva is None:
             self._allow_stdin = True
             self._start_sas()
 
+        # This code is now handeled in saspy will remove in future version
         if self.lst_len < 0:
             self._get_lst_len()
 
-        if code.startswith('Obfuscated SAS Code'):
-            logger.debug("decoding string")
-            tmp1 = code.split()
-            decode = base64.b64decode(tmp1[-1])
-            code = decode.decode('utf-8')
-
+        # This block uses special strings submitted by the Jupyter notebook extensions
         if code.startswith('showSASLog_11092015') == False and code.startswith("CompleteshowSASLog_11092015") == False:
             logger.debug("code type: " + str(type(code)))
             logger.debug("code length: " + str(len(code)))
@@ -166,17 +200,20 @@ class SASKernel(MetaKernel):
                 print(res['LOG'], '\n' "Restarting SAS session on your behalf")
                 self.do_shutdown(True)
                 return res['LOG']
+            
+            # Parse the log to check for errors
+            error_count, error_log_msg, _ = self._is_error_log(res['LOG'])
 
-            output = res['LST']
-            log = res['LOG']
-            return self._which_display(log, output)
+            if error_count > 0 and len(res['LST']) < self.lst_len:
+                return(self.Error(error_log_msg[0], print(self._colorize_log(res['LOG']))))
+
+            return self._which_display(res['LOG'], res['LST'])
+
         elif code.startswith("CompleteshowSASLog_11092015") == True and code.startswith('showSASLog_11092015') == False:
-            full_log = highlight(self.mva.saslog(), SASLogLexer(),
-                                 HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>",
-                                               title="Full SAS Log"))
-            return full_log.replace('\n', ' ')
+            return (self.Print(self._colorize_log(self.mva.saslog())))
         else:
-            return self.cachedlog.replace('\n', ' ')
+            return (self.Print(self._colorize_log(self.cachedlog))) 
+    
 
     def get_completions(self, info):
         """
@@ -279,5 +316,4 @@ class SASKernel(MetaKernel):
 if __name__ == '__main__':
     from ipykernel.kernelapp import IPKernelApp
     from .kernel import SASKernel
-    from sas_kernel import __version__
     IPKernelApp.launch_instance(kernel_class=SASKernel)
