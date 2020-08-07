@@ -31,7 +31,7 @@ class logMagic(Magic):
         if self.kernel.mva is None:
             print("Can't show log because no session exists")
         else:
-            return self.kernel.Display(HTML(self.kernel.cachedlog))
+            return self.kernel.Display(print(self.kernel._colorize_log(self.kernel.cachedlog)))
 
 
     def line_showFullLog(self):
