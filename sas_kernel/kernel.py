@@ -128,7 +128,7 @@ class SASKernel(MetaKernel):
         return (error_count, error_log_msg_list, error_log_line_list) 
 
 
-    def _which_display(self, log: str, output: str) -> HTML:
+    def _which_display(self, log: str, output: str = '') -> str:
         """
         Determines if the log or lst should be returned as the results for the cell based on parsing the log
         looking for errors and the presence of lst output.

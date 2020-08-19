@@ -14,10 +14,6 @@
 #  limitations under the License.
 #
 from metakernel import Magic
-from IPython.display import HTML
-from pygments import highlight
-from saspy.SASLogLexer import SASLogStyle, SASLogLexer
-from pygments.formatters import HtmlFormatter
 
 class logMagic(Magic):
     def __init__(self, *args, **kwargs):
@@ -31,7 +27,7 @@ class logMagic(Magic):
         if self.kernel.mva is None:
             print("Can't show log because no session exists")
         else:
-            return self.kernel.Display(print(self.kernel._colorize_log(self.kernel.cachedlog)))
+            return self.kernel._which_display(self.kernel.cachedlog)
 
 
     def line_showFullLog(self):
@@ -43,8 +39,7 @@ class logMagic(Magic):
             self.kernel._allow_stdin = True
             self.kernel._start_sas()
             print("Session Started probably not the log you want")
-        full_log = highlight(self.kernel.mva.saslog(), SASLogLexer(), HtmlFormatter(full=True, style=SASLogStyle, lineseparator="<br>"))
-        return self.kernel.Display(HTML(full_log))
+        return self.kernel._which_display(self.kernel.mva.saslog())
 
 def register_magics(kernel):
     kernel.register_magics(logMagic)
