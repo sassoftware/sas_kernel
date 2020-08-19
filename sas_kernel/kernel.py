@@ -95,9 +95,9 @@ class SASKernel(MetaKernel):
         regex_warn = r"(?sm)(^WARNING.*?)(?=^\d+|^NOTE|^ERROR|^WARNING)"
         regex_error = r"(?sm)(^ERROR.*?)(?=^\d+|^NOTE|^ERROR|^WARNING)"
 
-        sub_note = "\x1b[34m\\1\x1b[0m"
-        sub_warn = "\x1b[32m\\1\x1b[0m"
-        sub_error = "\x1B[1m\x1b[31m\\1\x1b[0m\x1b[0m"
+        sub_note = "\x1b[38;5;21m\\1\x1b[0m"
+        sub_warn = "\x1b[38;5;2m\\1\x1b[0m"
+        sub_error = "\x1B[1m\x1b[38;5;9m\\1\x1b[0m\x1b[0m"
         color_pattern = [
             (regex_note, sub_note),
             (regex_warn, sub_warn),
