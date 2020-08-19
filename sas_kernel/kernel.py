@@ -25,11 +25,6 @@ from typing import Tuple
 from metakernel import MetaKernel
 from sas_kernel.version import __version__
 from IPython.display import HTML
-# color syntax for the SASLog
-#from saspy.SASLogLexer import SASLogStyle, SASLogLexer
-#from pygments.formatters import HtmlFormatter
-#from pygments import highlight
-
 
 # create a logger to output messages to the Jupyter console
 logger = logging.getLogger(__name__)
@@ -203,8 +198,8 @@ class SASKernel(MetaKernel):
             
             # Parse the log to check for errors
             error_count, error_log_msg, _ = self._is_error_log(res['LOG'])
-
-            if error_count > 0 and len(res['LST']) < self.lst_len:
+        
+            if error_count > 0 and len(res['LST']) <= self.lst_len:
                 return(self.Error(error_log_msg[0], print(self._colorize_log(res['LOG']))))
 
             return self._which_display(res['LOG'], res['LST'])
