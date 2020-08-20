@@ -91,17 +91,17 @@ class SASKernel(MetaKernel):
         takes a SAS log (str) and then looks for errors.
         Returns a tuple of error count, list of error messages
         """
-        regex_note = r"(?sm)(^NOTE.*?)(?=^\d+|^NOTE|^ERROR|^WARNING)"
-        regex_warn = r"(?sm)(^WARNING.*?)(?=^\d+|^NOTE|^ERROR|^WARNING)"
-        regex_error = r"(?sm)(^ERROR.*?)(?=^\d+|^NOTE|^ERROR|^WARNING)"
+        regex_note = r"(?m)(^NOTE.*((\n|\t|\n\t)[ ]([^WEN].*)(.*))*)"
+        regex_warn = r"(?m)(^WARNING.*((\n|\t|\n\t)[ ]([^WEN].*)(.*))*)"
+        regex_error = r"(?m)(^ERROR.*((\n|\t|\n\t)[ ]([^WEN].*)(.*))*)"
 
         sub_note = "\x1b[38;5;21m\\1\x1b[0m"
         sub_warn = "\x1b[38;5;2m\\1\x1b[0m"
         sub_error = "\x1B[1m\x1b[38;5;9m\\1\x1b[0m\x1b[0m"
         color_pattern = [
+            (regex_error, sub_error),
             (regex_note, sub_note),
-            (regex_warn, sub_warn),
-            (regex_error, sub_error)
+            (regex_warn, sub_warn)
         ]
         colored_log = log
         for pat, sub in color_pattern:
