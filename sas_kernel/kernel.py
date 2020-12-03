@@ -139,9 +139,6 @@ class SASKernel(MetaKernel):
         :rtype: str
         """
         error_count, msg_list, error_line_list =  self._is_error_log(log)
-
-        # store the log for display in the showSASLog nbextension
-        self.cachedlog = self._colorize_log(log)
         
         if error_count == 0 and len(output) > self.lst_len:  # no error and LST output
             return self.Display(HTML(output))
@@ -195,6 +192,9 @@ class SASKernel(MetaKernel):
                 print(res['LOG'], '\n' "Restarting SAS session on your behalf")
                 self.do_shutdown(True)
                 return res['LOG']
+            
+            # store the log for display in the showSASLog nbextension
+            self.cachedlog = self._colorize_log(res['LOG'])
             
             # Parse the log to check for errors
             error_count, error_log_msg, _ = self._is_error_log(res['LOG'])
