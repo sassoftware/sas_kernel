@@ -1,0 +1,8 @@
+# test against production repo
+jupyter-repo2docker --no-run --user-name=jovyan https://github.com/sassoftware/sas_kernel 
+# Create binder instance against production repo
+jupyter-repo2docker  --user-name=jovyan https://github.com/sassoftware/sas_kernel
+# test against local repo
+jupyter-repo2docker  --user-name=jovyan .
+# Create binder instance against local repo
+jupyter-repo2docker  --no-run --user-name=jovyan .

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#set -ex
+jupyter kernelspec list
+jupyter nbextension list
+
+
+jupyter nbextension install --py sas_kernel.showSASLog --user
+jupyter nbextension enable sas_kernel.showSASLog --py
+
+jupyter nbextension install --py sas_kernel.theme --user
+jupyter nbextension enable sas_kernel.theme --py
+
+jupyter nbextension list
+
