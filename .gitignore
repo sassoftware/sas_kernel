@@ -6,3 +6,5 @@ MANIFEST
 **/*checkpoint.ipynb
 **/*.ipynb
 **/*.sas7bcat
+sascfg_personal.py
+**/*.ipynb_checkpoints/*

@@ -22,7 +22,7 @@ from distutils.command.install import install
 
 import os
 import sys
-from sas_kernel.version import __version__
+from sas_kernel._version import __version__
 
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
@@ -54,7 +54,7 @@ setup(name='SAS_kernel',
       packages=find_packages(),
       cmdclass={'install': InstallWithKernelspec},
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'], 'sas_kernel': ['data/*.json', 'data/*.png']},
-      install_requires=['saspy>=3', "metakernel>=0.27.0", "jupyter_client >=4.4.0",
+      install_requires=['saspy>=3.6', "metakernel>=0.27.5", "jupyter_client >=6",
                         "ipython>=5.0.0"
                         ],
       classifiers=['Framework :: IPython',
