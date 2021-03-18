@@ -14,10 +14,14 @@
 #  limitations under the License.
 #
 import os
+import sys
 import re
 import json
+import types
+import importlib.machinery
 # Create LOGGER
 import logging
+import saspy as saspy
 
 from typing import Tuple
 from IPython.display import HTML
@@ -62,7 +66,6 @@ class SASKernel(MetaKernel):
         self.cachedlog = None
         self.lst_len = -99  # initialize the length to a negative number to trigger function
         self._allow_stdin = False
-        # print(dir(self))
 
     def do_apply(self, content, bufs, msg_id, reply_metadata):
         pass
@@ -72,6 +75,15 @@ class SASKernel(MetaKernel):
 
     def get_usage(self):
         return "This is the SAS kernel."
+    
+    def _get_config_names(self):
+        """
+        get the config file used by SASPy
+        """
+        loader = importlib.machinery.SourceFileLoader('foo', saspy.SAScfg)
+        cfg = types.ModuleType(loader.name)
+        loader.exec_module(cfg)
+        return cfg.SAS_config_names
 
     def _get_lst_len(self):
         code = "data _null_; run;"
@@ -83,10 +95,23 @@ class SASKernel(MetaKernel):
 
     def _start_sas(self):
         try:
-            import saspy as saspy
+            # import saspy as saspy
             self.mva = saspy.SASsession(kernel=self)
         except KeyError:
             self.mva = None
+        except OSError:#socket.gaierror
+            msg = """Failed to connect to SAS!
+    Please check your connection configuration here:{0}
+    Here are the valid configurations:{1}
+    You can load the configuration file into a Jupyter Lab cell using this command:
+        %load {0}
+    If the URL/Path are correct the issue is likely your username and/or password""".format(saspy.list_configs()[0], ', '.join(self._get_config_names()))
+            self.Error_display(msg)
+            self.mva = None
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            raise
+
 
     def _colorize_log(self, log: str) -> str:
         """
@@ -191,7 +216,9 @@ class SASKernel(MetaKernel):
             if code.startswith("/*SASKernelTest*/"):
                 res = self.mva.submit(code, "text")
             else:
+                print ("*****************JUST BEFORE SUBMIT")
                 res = self.mva.submit(code, prompt=self.promptDict)
+                print ("*****************RES:{}".format(type(res)))
                 self.promptDict = {}
             if res['LOG'].find("SAS process has terminated unexpectedly") > -1:
                 print(res['LOG'], '\n' "Restarting SAS session on your behalf")
