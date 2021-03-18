@@ -16,6 +16,9 @@
 #  limitations under the License.
 #
 
+# copy sascfg_personal.py to default location
+mkdir -p ~/.config/saspy/
+cp ./binder/sascfg_personal.py ~/.config/saspy/
 
 #set -ex
 jupyter kernelspec list
@@ -33,8 +36,8 @@ jupyter nbextension list
 cd /tmp || exit
 git clone https://github.com/jld23/sas_kernel_ext.git
 
-cd /tmp/sas_kernel_ext/sas_log_viewer_v2 || exit
-pip install .
+# cd /tmp/sas_kernel_ext/sas_log_viewer_v2 || exit
+# pip install .
 
 cd /tmp/sas_kernel_ext/jlab_create_sas_file || exit
 pip install .
