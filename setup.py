@@ -38,7 +38,7 @@ class InstallWithKernelspec(install):
             # If the NO_KERNEL_INSTALL env variable is set then skip the kernel installation.
             return
         else:
-            from sas_kernel import install as kernel_install
+            import sas_kernel.install as kernel_install
             kernel_install.main(argv=sys.argv)
 
 
@@ -54,9 +54,9 @@ setup(name='SAS_kernel',
       cmdclass={'install': InstallWithKernelspec},
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'],
                     'sas_kernel': ['data/*.json', 'data/*.png']},
-      install_requires=['saspy>=3.6', "metakernel>=0.27.5", "jupyter_client >=6",
-                        "IPython>=7.12.0"
-                        ],
+      install_requires=['saspy>=3.6', "metakernel>=0.27.5",
+                        "jupyter_client>=6", "IPython>=7.12.0"],
+      requires=['saspy', "metakernel", "jupyter_client", "IPython"],
       extras_require={'jlab_ext': ['jupyterlab >=3 ',
                                    'jlab_create_sas_file',
                                    'sas2nb',
