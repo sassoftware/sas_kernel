@@ -32,23 +32,3 @@ jupyter nbextension install --py sas_kernel.theme --user
 jupyter nbextension enable sas_kernel.theme --py
 
 jupyter nbextension list
-
-cd /tmp || exit
-git clone https://github.com/jld23/sas_kernel_ext.git
-
-# cd /tmp/sas_kernel_ext/sas_log_viewer_v2 || exit
-# pip install .
-
-cd /tmp/sas_kernel_ext/jlab_create_sas_file || exit
-pip install .
-
-# cd /tmp/sas_kernel_ext/sas2nb || exit
-# pip install .
-
-# jupyter server extension enable --py --sys-prefix sas2nb
-
-#jlpm
-#jlpm build
-
-#jupyter lab build
-#jupyter lab build --dev-build=False
