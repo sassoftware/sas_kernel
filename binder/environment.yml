@@ -7,5 +7,5 @@ dependencies:
   - jupyterlab=3
   - pip:
     - saspy
-    - sas_kernel
+    - sas_kernel['jlab_ext']
     - pandas

@@ -28,7 +28,6 @@ SVEM_FLAG = '--single-version-externally-managed'
 if SVEM_FLAG in sys.argv:
     sys.argv.remove(SVEM_FLAG)
 
-
 class InstallWithKernelspec(install):
     def run(self):
         # Regular installation
