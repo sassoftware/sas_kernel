@@ -2,6 +2,7 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jld23/sas_kernel/HEAD)
 
+[![Publish Python Package](https://github.com/sassoftware/sas_kernel/actions/workflows/python-publish.yml/badge.svg)](https://github.com/sassoftware/sas_kernel/actions/workflows/python-publish.yml)
 ## Overview
 
 The SAS Kernel for [Jupyter Notebooks](http://www.jupyter.org) is capable of running SAS programs from within the Jupyter interface.
