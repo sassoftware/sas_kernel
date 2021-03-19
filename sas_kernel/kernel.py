@@ -13,27 +13,32 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-import base64
 import os
+import sys
 import re
 import json
-# Create Logger
+import types
+import importlib.machinery
+# Create LOGGER
 import logging
+import saspy
 
 from typing import Tuple
-
-from metakernel import MetaKernel
-from sas_kernel.version import __version__
 from IPython.display import HTML
+from metakernel import MetaKernel
+from ._version import __version__
 
-# create a logger to output messages to the Jupyter console
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.WARN)
-console = logging.StreamHandler()
-console.setFormatter(logging.Formatter('%(name)-12s: %(message)s'))
-logger.addHandler(console)
 
-logger.debug("sanity check")
+# create a LOGGER to output messages to the Jupyter CONSOLE
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.WARN)
+CONSOLE = logging.StreamHandler()
+CONSOLE.setFormatter(logging.Formatter('%(name)-12s: %(message)s'))
+LOGGER.addHandler(CONSOLE)
+
+LOGGER.debug("sanity check")
+
+
 class SASKernel(MetaKernel):
     """
     SAS Kernel for Jupyter implementation. This module relies on SASPy
@@ -50,9 +55,11 @@ class SASKernel(MetaKernel):
                      }
 
     def __init__(self, **kwargs):
-        with open(os.path.dirname(os.path.realpath(__file__)) + '/data/' + 'sasproclist.json') as proclist:
+        with open(os.path.dirname(os.path.realpath(__file__)) + \
+            '/data/' + 'sasproclist.json') as proclist:
             self.proclist = json.load(proclist)
-        with open(os.path.dirname(os.path.realpath(__file__)) + '/data/' + 'sasgrammardictionary.json') as compglo:
+        with open(os.path.dirname(os.path.realpath(__file__)) + \
+            '/data/' + 'sasgrammardictionary.json') as compglo:
             self.compglo = json.load(compglo)
         self.strproclist = '\n'.join(str(x) for x in self.proclist)
         self.promptDict = {}
@@ -60,7 +67,7 @@ class SASKernel(MetaKernel):
         self.mva = None
         self.cachedlog = None
         self.lst_len = -99  # initialize the length to a negative number to trigger function
-        # print(dir(self))
+        self._allow_stdin = False
 
     def do_apply(self, content, bufs, msg_id, reply_metadata):
         pass
@@ -70,6 +77,15 @@ class SASKernel(MetaKernel):
 
     def get_usage(self):
         return "This is the SAS kernel."
+
+    def _get_config_names(self):
+        """
+        get the config file used by SASPy
+        """
+        loader = importlib.machinery.SourceFileLoader('foo', saspy.SAScfg)
+        cfg = types.ModuleType(loader.name)
+        loader.exec_module(cfg)
+        return cfg.SAS_config_names
 
     def _get_lst_len(self):
         code = "data _null_; run;"
@@ -81,11 +97,25 @@ class SASKernel(MetaKernel):
 
     def _start_sas(self):
         try:
-            import saspy as saspy
+            # import saspy as saspy
             self.mva = saspy.SASsession(kernel=self)
-        except:
+        except KeyError:
             self.mva = None
-    
+        except OSError:#socket.gaierror
+            msg = """Failed to connect to SAS!
+    Please check your connection configuration here:{0}
+    Here are the valid configurations:{1}
+    You can load the configuration file into a Jupyter Lab cell using this command:
+        %load {0}
+    If the URL/Path are correct the issue is likely your username and/or password
+    """.format(saspy.list_configs()[0], ', '.join(self._get_config_names()))
+            self.Error_display(msg)
+            self.mva = None
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            raise
+
+
     def _colorize_log(self, log: str) -> str:
         """
         takes a SAS log (str) and then looks for errors.
@@ -109,7 +139,6 @@ class SASKernel(MetaKernel):
 
         return colored_log
 
-
     def _is_error_log(self, log: str) -> Tuple:
         """
         takes a SAS log (str) and then looks for errors.
@@ -120,17 +149,17 @@ class SASKernel(MetaKernel):
         error_log_msg_list = []
         error_log_line_list = []
         for index, line in enumerate(lines):
-            #logger.debug("line:{}".format(line))
+            # LOGGER.debug("line:{}".format(line))
             if line.startswith('ERROR'):
-              error_count +=1
-              error_log_msg_list.append(line) 
-              error_log_line_list.append(index)
-        return (error_count, error_log_msg_list, error_log_line_list) 
-
+                error_count += 1
+                error_log_msg_list.append(line)
+                error_log_line_list.append(index)
+        return (error_count, error_log_msg_list, error_log_line_list)
 
     def _which_display(self, log: str, output: str = '') -> str:
         """
-        Determines if the log or lst should be returned as the results for the cell based on parsing the log
+        Determines if the log or lst should be returned as the
+        results for the cell based on parsing the log
         looking for errors and the presence of lst output.
 
         :param log: str log from code submission
@@ -138,31 +167,36 @@ class SASKernel(MetaKernel):
         :return: The correct results based on log and lst
         :rtype: str
         """
-        error_count, msg_list, error_line_list =  self._is_error_log(log)
+        error_count, msg_list, error_line_list = self._is_error_log(log)
 
         # store the log for display in the showSASLog nbextension
-        self.cachedlog = self._colorize_log(log)
-        
-        if error_count == 0 and len(output) > self.lst_len:  # no error and LST output
+        #self.cachedlog = self._colorize_log(log)
+
+        # no error and LST output
+        if error_count == 0 and len(output) > self.lst_len:
             return self.Display(HTML(output))
 
         elif error_count > 0 and len(output) > self.lst_len:  # errors and LST
-            #filter log to lines around first error
+            # filter log to lines around first error
             # by default get 5 lines on each side of the first Error message.
             # to change that modify the values in {} below
             regex_around_error = r"(.*)(.*\n){6}^ERROR(.*\n){6}"
-            
+
             # Extract the first match +/- 5 lines
             e_log = re.search(regex_around_error, log, re.MULTILINE).group()
-            assert error_count == len(error_line_list), "Error count and count of line number don't match"
-            return self.Error_display(msg_list[0], print(self._colorize_log(e_log)), HTML(output))
-        
+            assert error_count == len(
+                error_line_list), "Error count and count of line number don't match"
+            return self.Error_display(msg_list[0],
+                                      print(self._colorize_log(e_log)),
+                                      HTML(output))
+
         # for everything else return the log
         return self.Print(self._colorize_log(log))
 
     def do_execute_direct(self, code: str, silent: bool = False) -> [str, dict]:
         """
-        This is the main method that takes code from the Jupyter cell and submits it to the SAS server
+        This is the main method that takes code from the Jupyter cell
+        and submits it to the SAS server.
 
         :param code: code from the cell
         :param silent:
@@ -182,10 +216,8 @@ class SASKernel(MetaKernel):
             self._get_lst_len()
 
         # This block uses special strings submitted by the Jupyter notebook extensions
-        if code.startswith('showSASLog_11092015') == False and code.startswith("CompleteshowSASLog_11092015") == False:
-            logger.debug("code type: " + str(type(code)))
-            logger.debug("code length: " + str(len(code)))
-            logger.debug("code string: " + code)
+        if not code.startswith('showSASLog_11092015') and \
+           not code.startswith("CompleteshowSASLog_11092015"):
             if code.startswith("/*SASKernelTest*/"):
                 res = self.mva.submit(code, "text")
             else:
@@ -195,20 +227,23 @@ class SASKernel(MetaKernel):
                 print(res['LOG'], '\n' "Restarting SAS session on your behalf")
                 self.do_shutdown(True)
                 return res['LOG']
-            
+
+            # store the log for display in the showSASLog nbextension
+            self.cachedlog = self._colorize_log(res['LOG'])
+
             # Parse the log to check for errors
             error_count, error_log_msg, _ = self._is_error_log(res['LOG'])
-        
+
             if error_count > 0 and len(res['LST']) <= self.lst_len:
-                return(self.Error(error_log_msg[0], print(self._colorize_log(res['LOG']))))
+                return self.Error(error_log_msg[0], print(self._colorize_log(res['LOG'])))
 
             return self._which_display(res['LOG'], res['LST'])
 
-        elif code.startswith("CompleteshowSASLog_11092015") == True and code.startswith('showSASLog_11092015') == False:
-            return (self.Print(self._colorize_log(self.mva.saslog())))
+        elif code.startswith("CompleteshowSASLog_11092015") and \
+            not code.startswith('showSASLog_11092015'):
+            return self.Print(self._colorize_log(self.mva.saslog()))
         else:
-            return (self.Print(self._colorize_log(self.cachedlog))) 
-    
+            return self.Print(self._colorize_log(self.cachedlog))
 
     def get_completions(self, info):
         """
@@ -220,7 +255,8 @@ class SASKernel(MetaKernel):
             relstart = info['start']
         seg = info['line'][:relstart]
         if relstart > 0 and re.match('(?i)proc', seg.rsplit(None, 1)[-1]):
-            potentials = re.findall('(?i)^' + info['obj'] + '.*', self.strproclist, re.MULTILINE)
+            potentials = re.findall(
+                '(?i)^' + info['obj'] + '.*', self.strproclist, re.MULTILINE)
             return potentials
         else:
             lastproc = info['code'].lower()[:info['help_pos']].rfind('proc')
@@ -241,10 +277,11 @@ class SASKernel(MetaKernel):
                 mykey = 's'
                 if lastproc > lastsemi:
                     mykey = 'p'
-                procer = re.search('(?i)proc\s\w+', info['code'][lastproc:])
+                procer = re.search(r'(?i)proc\s\w+', info['code'][lastproc:])
                 method = procer.group(0).split(' ')[-1].upper() + mykey
                 mylist = self.compglo[method][0]
-                potentials = re.findall('(?i)' + info['obj'] + '.+', '\n'.join(str(x) for x in mylist), re.MULTILINE)
+                potentials = re.findall(
+                    '(?i)' + info['obj'] + '.+', '\n'.join(str(x) for x in mylist), re.MULTILINE)
                 return potentials
             elif data:
                 # we are in statements (probably if there is no data)
@@ -255,7 +292,8 @@ class SASKernel(MetaKernel):
                 if lastproc > lastsemi:
                     mykey = 'p'
                 mylist = self.compglo['DATA' + mykey][0]
-                potentials = re.findall('(?i)^' + info['obj'] + '.*', '\n'.join(str(x) for x in mylist), re.MULTILINE)
+                potentials = re.findall(
+                    '(?i)^' + info['obj'] + '.*', '\n'.join(str(x) for x in mylist), re.MULTILINE)
                 return potentials
             else:
                 potentials = ['']
@@ -263,22 +301,22 @@ class SASKernel(MetaKernel):
 
     @staticmethod
     def _get_right_list(s):
-        proc_opt = re.search(r"proc\s(\w+).*?[^;]\Z", s, re.IGNORECASE | re.MULTILINE)
-        proc_stmt = re.search(r"\s*proc\s*(\w+).*;.*\Z", s, re.IGNORECASE | re.MULTILINE)
-        data_opt = re.search(r"\s*data\s*[^=].*[^;]?.*$", s, re.IGNORECASE | re.MULTILINE)
-        data_stmt = re.search(r"\s*data\s*[^=].*[^;]?.*$", s, re.IGNORECASE | re.MULTILINE)
+        proc_opt = re.search(
+            r"proc\s(\w+).*?[^;]\Z", s, re.IGNORECASE | re.MULTILINE)
+        proc_stmt = re.search(r"\s*proc\s*(\w+).*;.*\Z",
+                              s, re.IGNORECASE | re.MULTILINE)
+        data_opt = re.search(
+            r"\s*data\s*[^=].*[^;]?.*$", s, re.IGNORECASE | re.MULTILINE)
+        data_stmt = re.search(
+            r"\s*data\s*[^=].*[^;]?.*$", s, re.IGNORECASE | re.MULTILINE)
         print(s)
         if proc_opt:
-            logger.debug(proc_opt.group(1).upper() + 'p')
             return proc_opt.group(1).upper() + 'p'
         elif proc_stmt:
-            logger.debug(proc_stmt.group(1).upper() + 's')
             return proc_stmt.group(1).upper() + 's'
         elif data_opt:
-            logger.debug("data step")
             return 'DATA' + 'p'
         elif data_stmt:
-            logger.debug("data step")
             return 'DATA' + 's'
         else:
             return None
@@ -306,9 +344,3 @@ class SASKernel(MetaKernel):
             self.restart_kernel()
             self.Print("Done!")
         return {'status': 'ok', 'restart': restart}
-
-
-if __name__ == '__main__':
-    from ipykernel.kernelapp import IPKernelApp
-    from .kernel import SASKernel
-    IPKernelApp.launch_instance(kernel_class=SASKernel)

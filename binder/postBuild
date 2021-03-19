@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #
 # Copyright SAS Institute
 #
@@ -12,8 +14,21 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+#
+
+# copy sascfg_personal.py to default location
+mkdir -p ~/.config/saspy/
+cp ./binder/sascfg_personal.py ~/.config/saspy/
+
+#set -ex
+jupyter kernelspec list
+jupyter nbextension list
 
 
-from ipykernel.kernelapp import IPKernelApp
-from .kernel import SASKernel
-IPKernelApp.launch_instance(kernel_class=SASKernel)
+jupyter nbextension install --py sas_kernel.showSASLog --user
+jupyter nbextension enable sas_kernel.showSASLog --py
+
+jupyter nbextension install --py sas_kernel.theme --user
+jupyter nbextension enable sas_kernel.theme --py
+
+jupyter nbextension list

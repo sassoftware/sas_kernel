@@ -1,0 +1,11 @@
+name: sas-compute-env
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - pip
+  - jupyterlab=3
+  - pip:
+    - saspy
+    - sas_kernel['jlab_ext']
+    - pandas
