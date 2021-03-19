@@ -21,7 +21,7 @@ import types
 import importlib.machinery
 # Create LOGGER
 import logging
-import saspy as saspy
+import saspy
 
 from typing import Tuple
 from IPython.display import HTML
@@ -55,9 +55,11 @@ class SASKernel(MetaKernel):
                      }
 
     def __init__(self, **kwargs):
-        with open(os.path.dirname(os.path.realpath(__file__)) + '/data/' + 'sasproclist.json') as proclist:
+        with open(os.path.dirname(os.path.realpath(__file__)) + \
+            '/data/' + 'sasproclist.json') as proclist:
             self.proclist = json.load(proclist)
-        with open(os.path.dirname(os.path.realpath(__file__)) + '/data/' + 'sasgrammardictionary.json') as compglo:
+        with open(os.path.dirname(os.path.realpath(__file__)) + \
+            '/data/' + 'sasgrammardictionary.json') as compglo:
             self.compglo = json.load(compglo)
         self.strproclist = '\n'.join(str(x) for x in self.proclist)
         self.promptDict = {}
@@ -75,7 +77,7 @@ class SASKernel(MetaKernel):
 
     def get_usage(self):
         return "This is the SAS kernel."
-    
+
     def _get_config_names(self):
         """
         get the config file used by SASPy
@@ -105,7 +107,8 @@ class SASKernel(MetaKernel):
     Here are the valid configurations:{1}
     You can load the configuration file into a Jupyter Lab cell using this command:
         %load {0}
-    If the URL/Path are correct the issue is likely your username and/or password""".format(saspy.list_configs()[0], ', '.join(self._get_config_names()))
+    If the URL/Path are correct the issue is likely your username and/or password
+    """.format(saspy.list_configs()[0], ', '.join(self._get_config_names()))
             self.Error_display(msg)
             self.mva = None
         except:
@@ -155,7 +158,8 @@ class SASKernel(MetaKernel):
 
     def _which_display(self, log: str, output: str = '') -> str:
         """
-        Determines if the log or lst should be returned as the results for the cell based on parsing the log
+        Determines if the log or lst should be returned as the
+        results for the cell based on parsing the log
         looking for errors and the presence of lst output.
 
         :param log: str log from code submission
@@ -182,14 +186,17 @@ class SASKernel(MetaKernel):
             e_log = re.search(regex_around_error, log, re.MULTILINE).group()
             assert error_count == len(
                 error_line_list), "Error count and count of line number don't match"
-            return self.Error_display(msg_list[0], print(self._colorize_log(e_log)), HTML(output))
+            return self.Error_display(msg_list[0],
+                                      print(self._colorize_log(e_log)),
+                                      HTML(output))
 
         # for everything else return the log
         return self.Print(self._colorize_log(log))
 
     def do_execute_direct(self, code: str, silent: bool = False) -> [str, dict]:
         """
-        This is the main method that takes code from the Jupyter cell and submits it to the SAS server
+        This is the main method that takes code from the Jupyter cell
+        and submits it to the SAS server.
 
         :param code: code from the cell
         :param silent:
@@ -209,16 +216,12 @@ class SASKernel(MetaKernel):
             self._get_lst_len()
 
         # This block uses special strings submitted by the Jupyter notebook extensions
-        if code.startswith('showSASLog_11092015') == False and code.startswith("CompleteshowSASLog_11092015") == False:
-            LOGGER.debug("code type: " + str(type(code)))
-            LOGGER.debug("code length: " + str(len(code)))
-            LOGGER.debug("code string: " + code)
+        if not code.startswith('showSASLog_11092015') and \
+           not code.startswith("CompleteshowSASLog_11092015"):
             if code.startswith("/*SASKernelTest*/"):
                 res = self.mva.submit(code, "text")
             else:
-                print ("*****************JUST BEFORE SUBMIT")
                 res = self.mva.submit(code, prompt=self.promptDict)
-                print ("*****************RES:{}".format(type(res)))
                 self.promptDict = {}
             if res['LOG'].find("SAS process has terminated unexpectedly") > -1:
                 print(res['LOG'], '\n' "Restarting SAS session on your behalf")
@@ -232,14 +235,15 @@ class SASKernel(MetaKernel):
             error_count, error_log_msg, _ = self._is_error_log(res['LOG'])
 
             if error_count > 0 and len(res['LST']) <= self.lst_len:
-                return(self.Error(error_log_msg[0], print(self._colorize_log(res['LOG']))))
+                return self.Error(error_log_msg[0], print(self._colorize_log(res['LOG'])))
 
             return self._which_display(res['LOG'], res['LST'])
 
-        elif code.startswith("CompleteshowSASLog_11092015") == True and code.startswith('showSASLog_11092015') == False:
-            return (self.Print(self._colorize_log(self.mva.saslog())))
+        elif code.startswith("CompleteshowSASLog_11092015") and \
+            not code.startswith('showSASLog_11092015'):
+            return self.Print(self._colorize_log(self.mva.saslog()))
         else:
-            return (self.Print(self._colorize_log(self.cachedlog)))
+            return self.Print(self._colorize_log(self.cachedlog))
 
     def get_completions(self, info):
         """
@@ -307,16 +311,12 @@ class SASKernel(MetaKernel):
             r"\s*data\s*[^=].*[^;]?.*$", s, re.IGNORECASE | re.MULTILINE)
         print(s)
         if proc_opt:
-            LOGGER.debug(proc_opt.group(1).upper() + 'p')
             return proc_opt.group(1).upper() + 'p'
         elif proc_stmt:
-            LOGGER.debug(proc_stmt.group(1).upper() + 's')
             return proc_stmt.group(1).upper() + 's'
         elif data_opt:
-            LOGGER.debug("data step")
             return 'DATA' + 'p'
         elif data_stmt:
-            LOGGER.debug("data step")
             return 'DATA' + 's'
         else:
             return None
