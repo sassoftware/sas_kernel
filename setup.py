@@ -55,7 +55,7 @@ setup(name='SAS_kernel',
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'],
                     'sas_kernel': ['data/*.json', 'data/*.png']},
       install_requires=['saspy>=3.6', "metakernel>=0.27.5", "jupyter_client >=6",
-                        "ipython>=5.0.0"
+                        "IPython>=7.12.0"
                         ],
       extras_require={'jlab_ext': ['jupyterlab >=3 ',
                                    'jlab_create_sas_file',
