@@ -15,7 +15,7 @@
 #
 """SAS Kernel Juypter Implementation"""
 
-from sas_kernel import __version__
+# from .sas_kernel import __version__
 
 def _jupyter_nbextension_paths():
     return [dict(section="notebook", src="", dest="theme", require="theme/theme_selector")]

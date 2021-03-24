@@ -14,15 +14,18 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
+
+exec(open('./sas_kernel/version.py').read())
+print("Installing sas_kernel version:{}".format(__version__))
 try:
     from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup, find_packages
 from distutils.command.install import install
 
-import os
-import sys
-from sas_kernel._version import __version__
+import os, sys
+
+# from sas_kernel._version import __version__
 
 SVEM_FLAG = '--single-version-externally-managed'
 if SVEM_FLAG in sys.argv:
@@ -58,9 +61,10 @@ setup(name='SAS_kernel',
                         "jupyter_client>=6", "IPython>=7.12.0"],
       setup_requires=["jupyter_client>=6", "IPython>=7.12.0"],
       extras_require={'jlab_ext': ['jupyterlab >=3 ',
-                                   'jlab_create_sas_file',
-                                   'sas2nb',
-                                   'sas_log_viewer_v2']},
+                                #    'sas2nb',
+                                #    'sas_log_viewer_v2',
+                                   'jlab_create_sas_file'
+                                   ]},
       classifiers=['Framework :: IPython',
                    'License :: OSI Approved :: Apache Software License',
                    'Programming Language :: Python :: 3',
