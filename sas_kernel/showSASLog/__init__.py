@@ -13,7 +13,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-# from .sas_kernel import __version__
+
 
 def _jupyter_nbextension_paths():
     return [dict(section="notebook",

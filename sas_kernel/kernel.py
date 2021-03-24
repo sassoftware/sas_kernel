@@ -26,7 +26,7 @@ import saspy
 from typing import Tuple
 from IPython.display import HTML
 from metakernel import MetaKernel
-from ._version import __version__
+from .version import __version__
 
 
 # create a LOGGER to output messages to the Jupyter CONSOLE
