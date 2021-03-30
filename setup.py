@@ -22,7 +22,7 @@ from distutils.command.install import install
 
 import os
 import sys
-from sas_kernel._version import __version__
+from sas_kernel.version import __version__
 
 SVEM_FLAG = '--single-version-externally-managed'
 if SVEM_FLAG in sys.argv:
@@ -55,12 +55,12 @@ setup(name='SAS_kernel',
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'],
                     'sas_kernel': ['data/*.json', 'data/*.png']},
       install_requires=['saspy>=3.6', "metakernel>=0.27.5", "jupyter_client >=6",
-                        "ipython>=5.0.0"
+                        "ipython>=7"
                         ],
       extras_require={'jlab_ext': ['jupyterlab >=3 ',
-                                   'jlab_create_sas_file',
-                                   'sas2nb',
-                                   'sas_log_viewer_v2']},
+                                #    'sas_log_viewer_v2',
+                                #    'sas2nb',
+                                   'jlab_create_sas_file']},
       classifiers=['Framework :: IPython',
                    'License :: OSI Approved :: Apache Software License',
                    'Programming Language :: Python :: 3',

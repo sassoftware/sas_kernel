@@ -15,3 +15,4 @@
 
 
 """SAS Kernel Juypter Implementation"""
+from sas_kernel.version import __version__
