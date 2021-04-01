@@ -56,7 +56,7 @@ def install_my_kernel_spec(user=True, prefix=None):
 
         try:
             install_kernel_spec(td, kernel_name, user=user, replace=True, prefix=prefix)
-        except:
+        except OSError:
             install_kernel_spec(td, kernel_name, user=not user, replace=True, prefix=prefix)
 
 

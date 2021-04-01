@@ -16,7 +16,7 @@
 #  limitations under the License.
 #
 
-pip install --force-reinstall -i https://test.pypi.org/pypi/ --extra-index-url https://pypi.org/simple SAS-kernel==2.4.4.dev5
+#pip install --force-reinstall -i https://test.pypi.org/pypi/ --extra-index-url https://pypi.org/simple SAS-kernel==2.4.4.dev5
 
 # copy sascfg_personal.py to default location
 mkdir -p ~/.config/saspy/
