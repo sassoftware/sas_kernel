@@ -1,4 +1,4 @@
-name: sas-compute-env
+name: sas-kernel
 channels:
   - conda-forge
 dependencies:
