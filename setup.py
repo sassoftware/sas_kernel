@@ -15,20 +15,19 @@
 #  limitations under the License.
 #
 
+from distutils.command.install import install
 import sys
 import os
-from distutils.command.install import install
+from setuptools import setup, find_packages
 exec(open('./sas_kernel/version.py').read())
 print("Installing sas_kernel version:{}".format(__version__))
-try:
-    from setuptools import setup, find_packages
-except ImportError:
-    from distutils.core import setup, find_packages
 
 
 SVEM_FLAG = '--single-version-externally-managed'
 if SVEM_FLAG in sys.argv:
     sys.argv.remove(SVEM_FLAG)
+
+
 class InstallWithKernelspec(install):
     def run(self):
         # Regular installation

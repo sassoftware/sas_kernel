@@ -9,3 +9,4 @@ MANIFEST
 sascfg_personal.py
 **/*.ipynb_checkpoints/*
 *.egg-info/**
+.eggs/**
