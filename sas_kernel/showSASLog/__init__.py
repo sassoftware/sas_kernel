@@ -14,7 +14,6 @@
 #  limitations under the License.
 #
 
-from sas_kernel import __version__
 
 def _jupyter_nbextension_paths():
     return [dict(section="notebook",

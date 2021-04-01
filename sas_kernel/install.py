@@ -20,6 +20,7 @@ import sys
 import json
 import getopt
 from shutil import copyfile
+from .data import _dataRoot
 
 try:
     from jupyter_client.kernelspec import install_kernel_spec
@@ -28,10 +29,7 @@ except ImportError:
         from IPython.kernel.kernelspec import install_kernel_spec
     except ImportError:
         print("Please install either Jupyter to IPython before continuing")
-from IPython.utils.tempdir import TemporaryDirectory
-
-from sas_kernel.data import _dataRoot
-
+from IPython.utils.tempdir import TemporaryWorkingDirectory
 
 kernel_json = {
     "argv": [sys.executable,
@@ -45,22 +43,23 @@ kernel_json = {
 
 def install_my_kernel_spec(user=True, prefix=None):
     user = '--user' in sys.argv or not _is_root()
-    with TemporaryDirectory() as td:
+    with TemporaryWorkingDirectory() as td:
         os.chmod(td, 0o755)  # Starts off as 700, not user readable
 
         with open(os.path.join(td, 'kernel.json'), 'w') as f:
             json.dump(kernel_json, f, sort_keys=True)
 
-        kernel_name = kernel_json['name']
-        copyfile(os.path.join(_dataRoot, 'logo-64x64.png'), os.path.join(td, 'logo-64x64.png'))
+        copyfile(os.path.join(_dataRoot, 'logo-64x64.png'),
+                 os.path.join(td, 'logo-64x64.png'))
 
         try:
-            install_kernel_spec(td, kernel_name, user=user, replace=True, prefix=prefix)
+            install_kernel_spec(td, kernel_json['name'], user=user,
+                                replace=True, prefix=prefix)
         except OSError:
-            install_kernel_spec(td, kernel_name, user=not user, replace=True, prefix=prefix)
+            install_kernel_spec(td, kernel_json['name'], user=not user,
+                                replace=True, prefix=prefix)
 
-
-def main(argv=[]):
+def main(argv=()):
     prefix = None
     user = not _is_root()
 
