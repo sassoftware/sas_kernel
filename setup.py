@@ -29,8 +29,6 @@ except ImportError:
 SVEM_FLAG = '--single-version-externally-managed'
 if SVEM_FLAG in sys.argv:
     sys.argv.remove(SVEM_FLAG)
-
-
 class InstallWithKernelspec(install):
     def run(self):
         # Regular installation
@@ -47,35 +45,8 @@ class InstallWithKernelspec(install):
 
 setup(name='SAS_kernel',
       version=__version__,
-      description='A SAS kernel for Jupyter',
-      long_description=open('README.rst', 'rb').read().decode('utf-8'),
-      author='Jared Dean',
-      license='Apache Software License',
-      author_email='jared.dean@sas.com',
-      url='https://github.com/sassoftware/sas_kernel',
       packages=find_packages(),
       cmdclass={'install': InstallWithKernelspec},
       package_data={'': ['*.js', '*.md', '*.yaml', '*.css'],
-                    'sas_kernel': ['data/*.json', 'data/*.png']},
-      install_requires=['saspy>=3.6', "metakernel>=0.27.5",
-                        "jupyter_client>=6", "IPython>=7.12.0"],
-      setup_requires=["jupyter_client>=6", "IPython>=7.12.0"],
-      extras_require={'jlab_ext': ['jupyterlab >=3 ',
-                                   #    'sas2nb',
-                                   #    'sas_log_viewer_v2',
-                                   'jlab_create_sas_file'
-                                   ]},
-      classifiers=['Framework :: IPython',
-                   'License :: OSI Approved :: Apache Software License',
-                   'Programming Language :: Python :: 3',
-                   "Programming Language :: Python :: 3.4",
-                   "Programming Language :: Python :: 3.5",
-                   "Programming Language :: Python :: 3.6",
-                   "Programming Language :: Python :: 3.7",
-                   "Programming Language :: Python :: 3.8",
-                   'Intended Audience :: Science/Research',
-                   'Intended Audience :: Developers',
-                   'Operating System :: OS Independent',
-                   'Topic :: Software Development',
-                   "Topic :: System :: Shells"]
+                    'sas_kernel': ['data/*.json', 'data/*.png']}
       )

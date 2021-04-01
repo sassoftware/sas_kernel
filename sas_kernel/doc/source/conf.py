@@ -15,6 +15,7 @@
 
 import sys
 import os
+import sas_kernel
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -71,7 +72,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'sas_kernel'
-copyright = '2017 SAS Institute Inc. All Rights Reserved.'
+# copyright = '2017 SAS Institute Inc. All Rights Reserved.'
 author = 'Jared Dean and Tom Weber'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -79,7 +80,7 @@ author = 'Jared Dean and Tom Weber'
 # built documents.
 #
 
-import sas_kernel
+
 
 # The short X.Y version.
 version = sas_kernel.__version__

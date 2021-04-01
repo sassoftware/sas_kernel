@@ -59,7 +59,6 @@ def install_my_kernel_spec(user=True, prefix=None):
             install_kernel_spec(td, kernel_json['name'], user=not user,
                                 replace=True, prefix=prefix)
 
-
 def main(argv=()):
     prefix = None
     user = not _is_root()

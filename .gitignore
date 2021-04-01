@@ -8,5 +8,4 @@ MANIFEST
 **/*.sas7bcat
 sascfg_personal.py
 **/*.ipynb_checkpoints/*
-.eggs/**/*
-SAS_kernel.egg-info/**/*
+*.egg-info/**
