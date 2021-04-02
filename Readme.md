@@ -1,6 +1,6 @@
 # SAS Kernel for Jupyter
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jld23/sas_kernel/HEAD)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/sassoftware/sas_kernel/HEAD)
 
 [![Publish Python Package](https://github.com/sassoftware/sas_kernel/actions/workflows/python-publish.yml/badge.svg)](https://github.com/sassoftware/sas_kernel/actions/workflows/python-publish.yml)
 ## Overview
