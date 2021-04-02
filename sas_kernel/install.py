@@ -29,7 +29,7 @@ except ImportError:
         from IPython.kernel.kernelspec import install_kernel_spec
     except ImportError:
         print("Please install either Jupyter to IPython before continuing")
-from IPython.utils.tempdir import TemporaryWorkingDirectory
+from IPython.utils.tempdir import TemporaryDirectory
 
 kernel_json = {
     "argv": [sys.executable,
@@ -43,7 +43,7 @@ kernel_json = {
 
 def install_my_kernel_spec(user=True, prefix=None):
     user = '--user' in sys.argv or not _is_root()
-    with TemporaryWorkingDirectory() as td:
+    with TemporaryDirectory() as td:
         os.chmod(td, 0o755)  # Starts off as 700, not user readable
 
         with open(os.path.join(td, 'kernel.json'), 'w') as f:
