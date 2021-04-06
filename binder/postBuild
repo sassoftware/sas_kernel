@@ -34,3 +34,15 @@ jupyter nbextension install --py sas_kernel.theme --user
 jupyter nbextension enable sas_kernel.theme --py
 
 jupyter nbextension list
+
+## build sas2nb from source
+# git clone https://github.com/jld23/sas_kernel_ext.git
+# cd sas_kernel_ext/sas2nb
+
+# pip install -e .
+# # Link your development version of the extension with JupyterLab
+# jupyter labextension develop . --overwrite
+# # Rebuild extension Typescript source after making changes
+# jlpm run build
+
+
