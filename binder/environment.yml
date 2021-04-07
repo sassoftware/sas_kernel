@@ -8,6 +8,7 @@ dependencies:
   - pip:
     - saspy
     - pandas
-    # - sas_kernel
+    - sas_kernel
     - jlab-create-sas-file
+    - sas2nb
     
