@@ -16,7 +16,9 @@
 #  limitations under the License.
 #
 
-pip install --force-reinstall -i https://test.pypi.org/pypi/ --extra-index-url https://pypi.org/simple SAS-kernel==2.4.4.dev8
+# pip install --force-reinstall -i https://test.pypi.org/pypi/ --extra-index-url https://pypi.org/simple SAS-kernel==2.4.4.dev8
+
+pip install --force-reinstall --no-deps .  --no-binary :all:
 
 # copy sascfg_personal.py to default location
 mkdir -p ~/.config/saspy/
@@ -33,7 +35,7 @@ jupyter nbextension enable sas_kernel.showSASLog --py
 jupyter nbextension install --py sas_kernel.theme --user
 jupyter nbextension enable sas_kernel.theme --py
 
-jupyter nbextension list
+# jupyter nbextension list
 
 ## build sas2nb from source
 # git clone https://github.com/jld23/sas_kernel_ext.git
