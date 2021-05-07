@@ -14,18 +14,19 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from distutils.core import setup, find_packages
 from distutils.command.install import install
-import sys
+
 import os
-from setuptools import setup, find_packages
-exec(open('./sas_kernel/version.py').read())
-print("Installing sas_kernel version:{}".format(__version__))
+import sys
+from sas_kernel.version import __version__
 
-
-SVEM_FLAG = '--single-version-externally-managed'
-if SVEM_FLAG in sys.argv:
-    sys.argv.remove(SVEM_FLAG)
+svem_flag = '--single-version-externally-managed'
+if svem_flag in sys.argv:
+    sys.argv.remove(svem_flag)
 
 
 class InstallWithKernelspec(install):
@@ -38,9 +39,8 @@ class InstallWithKernelspec(install):
             # If the NO_KERNEL_INSTALL env variable is set then skip the kernel installation.
             return
         else:
-            import sas_kernel.install as kernel_install
+            from sas_kernel import install as kernel_install
             kernel_install.main(argv=sys.argv)
-
 
 setup(name='SAS_kernel',
       version=__version__,
