@@ -66,7 +66,6 @@ class SASKernel(MetaKernel):
         MetaKernel.__init__(self, **kwargs)
         self.mva = None
         self.cachedlog = None
-        self.lst_len = -99  # initialize the length to a negative number to trigger function
         self._allow_stdin = False
 
     def do_apply(self, content, bufs, msg_id, reply_metadata):
@@ -87,18 +86,13 @@ class SASKernel(MetaKernel):
         loader.exec_module(cfg)
         return cfg.SAS_config_names
 
-    def _get_lst_len(self):
-        code = "data _null_; run;"
-        res = self.mva.submit(code)
-        assert isinstance(res, dict)
-        self.lst_len = len(res['LST'])
-        assert isinstance(self.lst_len, int)
-        return
-
-    def _start_sas(self):
+    def _start_sas(self, **kwargs):
+        session_params = kwargs
+        if session_params is not None:
+            for _, v in session_params.items():
+                assert isinstance(v, str)
         try:
-            # import saspy as saspy
-            self.mva = saspy.SASsession(kernel=self)
+            self.mva = saspy.SASsession(kernel=self, **kwargs)
         except KeyError:
             self.mva = None
         except OSError:#socket.gaierror
@@ -111,9 +105,10 @@ class SASKernel(MetaKernel):
     """.format(saspy.list_configs()[0], ', '.join(self._get_config_names()))
             self.Error_display(msg)
             self.mva = None
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
-            raise
+        except Exception:
+            # self.Error_display('\n'.join(list(sys.exc_info())))
+            self.Error_display(str([l for l in sys.exc_info()]))
+        # return
 
 
     def _colorize_log(self, log: str) -> str:
@@ -210,10 +205,6 @@ class SASKernel(MetaKernel):
         if self.mva is None:
             self._allow_stdin = True
             self._start_sas()
-
-        # This code is now handeled in saspy will remove in future version
-        if self.lst_len < 0:
-            self._get_lst_len()
 
         # This block uses special strings submitted by the Jupyter notebook extensions
         if not code.startswith('showSASLog_11092015') and \
