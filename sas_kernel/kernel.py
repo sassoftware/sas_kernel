@@ -64,6 +64,7 @@ class SASKernel(MetaKernel):
         self.strproclist = '\n'.join(str(x) for x in self.proclist)
         self.promptDict = {}
         MetaKernel.__init__(self, **kwargs)
+        self.lst_len = 0
         self.mva = None
         self.cachedlog = None
         self._allow_stdin = False
@@ -168,6 +169,7 @@ class SASKernel(MetaKernel):
         #self.cachedlog = self._colorize_log(log)
 
         # no error and LST output
+        print(error_count, len(output))
         if error_count == 0 and len(output) > self.lst_len:
             return self.Display(HTML(output))
 
