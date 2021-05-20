@@ -23,7 +23,7 @@ import importlib.machinery
 import logging
 import saspy
 
-from typing import Tuple
+from typing import Tuple, Union
 from IPython.display import HTML
 from metakernel import MetaKernel
 from .version import __version__
@@ -165,9 +165,6 @@ class SASKernel(MetaKernel):
         """
         error_count, msg_list, error_line_list = self._is_error_log(log)
 
-        # store the log for display in the showSASLog nbextension
-        #self.cachedlog = self._colorize_log(log)
-
         # no error and LST output
         print(error_count, len(output))
         if error_count == 0 and len(output) > self.lst_len:
@@ -190,7 +187,7 @@ class SASKernel(MetaKernel):
         # for everything else return the log
         return self.Print(self._colorize_log(log))
 
-    def do_execute_direct(self, code: str, silent: bool = False) -> [str, dict]:
+    def do_execute_direct(self, code: str, silent: bool = False) -> Union[str, dict]:
         """
         This is the main method that takes code from the Jupyter cell
         and submits it to the SAS server.
