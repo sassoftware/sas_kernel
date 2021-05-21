@@ -38,7 +38,7 @@ class logMagic(Magic):
         if self.kernel.mva is None:
             self.kernel._allow_stdin = True
             self.kernel._start_sas()
-            print("Session Started probably not the log you want")
+            print("Session Started. Probably not the log you want.")
         return self.kernel._which_display(self.kernel.mva.saslog())
 
 def register_magics(kernel):
