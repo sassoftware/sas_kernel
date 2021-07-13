@@ -166,7 +166,6 @@ class SASKernel(MetaKernel):
         error_count, msg_list, error_line_list = self._is_error_log(log)
 
         # no error and LST output
-        print(error_count, len(output))
         if error_count == 0 and len(output) > self.lst_len:
             return self.Display(HTML(output))
 
