@@ -26,7 +26,7 @@ Here is the link to the current documentation <https://sassoftware.github.io/sas
 This will install the SAS Kernel for jupyter as well as the Jupyter lab extensions (jupyterlab v3+ is required) to make you a more productive programmer within Jupyter. [Here are details](https://github.com/jld23/sas_kernel_ext) about the extensions.
 
 ```bash
-pip install sas_kernel['jlab_ext']
+pip install SAS-kernel['jlab_ext']
 ```
 
 ### The common methods to install are
