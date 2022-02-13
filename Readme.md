@@ -18,8 +18,8 @@ Here is the link to the current documentation <https://sassoftware.github.io/sas
 
 - Python3 (this is now the default since Python2 went end of life in January 2020)
 - Jupyter version 4 or higher
-- SAS 9.4 or higher -- This includes [SAS Viya](http://www.sas.com/en_us/software/viya.html). The SAS kernel is compatable with any version of SAS released since July 2013.
-- SASPy -- The SAS kernel has as dependency on [SASPy](https://github.com/sassoftware/saspy). The package will be installed automatically but it must be configured to access your availble SAS server. **SASPy must be [configured](https://sassoftware.github.io/saspy/install.html#configuration) before the SAS kernel can work successfully**.
+- SAS 9.4 or higher -- This includes [SAS Viya](http://www.sas.com/en_us/software/viya.html). The SAS kernel is compatible with any version of SAS released since July 2013.
+- SASPy -- The SAS kernel has a dependency on [SASPy](https://github.com/sassoftware/saspy). The package will be installed automatically but it must be configured to access your available SAS server. **SASPy must be [configured](https://sassoftware.github.io/saspy/install.html#configuration) before the SAS kernel can work successfully**.
 
 ## Installation
 
