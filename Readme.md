@@ -65,7 +65,7 @@ Available kernels:
     sas        /home/sas/.local/share/jupyter/kernels/sas
 ```
 
-**NOTE:** You will not be able to execute SAS code through Juypter until you have [configured SASPy](https://sassoftware.github.io/saspy/install.html#configuration).
+**NOTE:** You will not be able to execute SAS code through Jupyter until you have [configured SASPy](https://sassoftware.github.io/saspy/install.html#configuration).
 
 ## Getting Started
 
@@ -75,7 +75,7 @@ Here is a basic example of programming with SAS and Jupyter Notebook: [Getting S
 
 #### For the Jupyter Lab extensions
 
-There is a seperate reposity where the extensions are developed and maintained. See [that repo](https://github.com/jld23/sas_kernel_ext) for details
+There is a seperate repository where the extensions are developed and maintained. See [that repo](https://github.com/jld23/sas_kernel_ext) for details
 
 #### For the Legacy Jupyter Notebook
 
@@ -88,11 +88,11 @@ There are a few NBExtensions that have been created to make working with Jupyter
 
 #### Installing the SAS Extensions
 
-Details for installing the extensions for SAS can be found [here](./sas_kernel/nbextensions/README.md)
+Details for installing the extensions for SAS can be found [here](./sas_kernel/nbextensions/README.md).
 
 #### Jupyter Magics for the sas_kernel
 
-There are magics that have been written specifically for the sas_kernel to get more details see the [README](./sas_kernel/magics/README.md)
+There are magics that have been written specifically for the sas_kernel to get more details see the [README](./sas_kernel/magics/README.md).
 
 ### NBGrader
 
@@ -108,7 +108,7 @@ There are magics that have been written specifically for the sas_kernel to get m
 
 - Do I need to buy SAS to use this kernel?
 
-  The SAS Kernel is simply a gateway for Jupyter notebooks to talk to SAS, as such, if SAS is not installed this kernel won't be helpful. For information on purchasing SAS [click here](http://www.sas.com/en_us/software/how-to-buy.html)
+  The SAS Kernel is simply a gateway for Jupyter notebooks to talk to SAS, as such, if SAS is not installed this kernel won't be helpful. For information on purchasing SAS [click here](http://www.sas.com/en_us/software/how-to-buy.html).
 
 - How does Jupyter communicate with SAS?
 
@@ -116,7 +116,7 @@ There are magics that have been written specifically for the sas_kernel to get m
 
 - How can I see my SAS log, I only see the listing output?
 
-  SAS is different from many other programming languages in that it has two useful information streams, the log (which details the technical details of what happened and how long it took) and the lst (which includes the tables and graphics from the analysis). The SAS Kernel attempts to show you I _think_ you want. Here are the rules:
+  SAS is different from many other programming languages in that it has two useful information streams, the log (which details the technical details of what happened and how long it took) and the lst (which includes the tables and graphics from the analysis). The SAS Kernel attempts to show you what I _think_ you want. Here are the rules:
 
   | LOG                         | LST | DISPLAYED                                                         | NOTES                                                                   |
   | --------------------------- | --- | ----------------------------------------------------------------- | ----------------------------------------------------------------------- |
@@ -125,11 +125,11 @@ There are magics that have been written specifically for the sas_kernel to get m
   | Yes (with ERROR message(s)) | Yes | ERROR messages with context from the log, then the listing output | ---                                                                     |
   | Yes (with ERROR message(s)) | No  | LOG                                                               | ---                                                                     |
 
-  If you want to see the log but it was not displayed you can use [SASLog NBExtension](./sas_kernel/nbextensions/README.md) which will show the log for the last executed cell or the entire log since the last (re)start of the notebook
+  If you want to see the log but it was not displayed you can use [SASLog NBExtension](./sas_kernel/nbextensions/README.md) which will show the log for the last executed cell or the entire log since the last (re)start of the notebook.
 
 - Will this leave a bunch of SAS sessions hanging around?
 
-  A SAS session is started for each notebook you have open i.e. 5 notebooks open = 5 SAS sessions. Those sessions will remain active for the life of the notebook. If you shutdown your notebook, the SAS session will also terminate. In Jupyterhub, there are configuration options to shutdown inactive sessions and the SAS kernel complies with those directives.
+  A SAS session is started for each notebook you have open i.e. 5 notebooks open = 5 SAS sessions. Those sessions will remain active for the life of the notebook. If you shutdown your notebook, the SAS session will also terminate. In JupyterHub, there are configuration options to shutdown inactive sessions and the SAS kernel complies with those directives.
 
 - I restarted my SAS Kernel and now my WORK library is now empty. What happened?
 
