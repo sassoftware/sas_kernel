@@ -8,7 +8,7 @@ Installing the SAS kernel
 
 The SAS kernel package installs just like any other Python package.
 It is a pure Python package and works with Python 3.X
-installations.  To install using ``pip``, you execute one of the 
+installations.  To install using ``pip``, you execute one of the
 following commands.
 
 ::
@@ -32,7 +32,7 @@ Linux install for Anaconda Python (assuming SAS already installed)
      then use a common location such as ``/opt``.
 
    * One installation prompt is to add the path to your environment. SAS
-     recommends that you answer 'yes' to the prompt so that you get the 
+     recommends that you answer 'yes' to the prompt so that you get the
      executables in your path automatically. If you are performing a system-wide
      installation (using root or sudo), then all the other users must add
      the path to their environmental variables.
@@ -41,7 +41,7 @@ Linux install for Anaconda Python (assuming SAS already installed)
    package. The SASPy package is available from https://github.com/sassoftware/saspy.
    If the ``pip`` command in your path does not map to Python3, then use ``pip3``
    instead.
-   :: 
+   ::
 
        pip install sas_kernel
 
@@ -72,17 +72,10 @@ Linux install for Anaconda Python (assuming SAS already installed)
 
 
    Use the `SASPy configuration documentation`_ to complete you set up.
-   If you are using Linux or Unix the STDIO_ or `STDIO over SSH`_ will be the fastest connections, but IOM is also available
-   All other systems will use *only* the IOM_ connection. If you want to connect to PC SAS on your local system, use `IOM Local`_
 
-   .. _STDIO: https://sassoftware.github.io/saspy/install.html#stdio
-   .. _STDIO over SSH: https://sassoftware.github.io/saspy/install.html#stdio-over-ssh
-   .. _IOM: https://sassoftware.github.io/saspy/install.html#iom
-   .. _IOM Local: https://sassoftware.github.io/saspy/install.html#local
-   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/configuration.html
 
-   * Configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
-   * GitHub version of the file: https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py
+   * SASPy documentation: https://sassoftware.github.io/saspy/index.html
    * More information about SASPy: https://github.com/sassoftware/saspy
 
 
@@ -101,9 +94,9 @@ You must have Superuser privileges (root or sudo).
 
 #. You can use the ``pip`` command.
    ::
-   
-     wget https://bootstrap.pypa.io/get-pip.py 
-     python3.5 get-pip.py 
+
+     wget https://bootstrap.pypa.io/get-pip.py
+     python3.5 get-pip.py
      pip3 --version``
 
 #. Install Jupyter and the SAS kernel package. The package has a dependency on the SASPy
@@ -115,7 +108,7 @@ You must have Superuser privileges (root or sudo).
 
 #. Verify that the SAS kernel package is installed.
    ::
-  
+
      jupyter kernelspec list
 
    Your output should look similar to the following:
@@ -132,17 +125,10 @@ You must have Superuser privileges (root or sudo).
 
 
    Use the `SASPy configuration documentation`_ to complete you set up.
-   If you are using Linux or Unix the STDIO_ or `STDIO over SSH`_ will be the fastest connections, but IOM is also available
-   All other systems will use *only* the IOM_ connection. If you want to connect to PC SAS on your local system, use `IOM Local`_
 
-   .. _STDIO: https://sassoftware.github.io/saspy/install.html#stdio
-   .. _STDIO over SSH: https://sassoftware.github.io/saspy/install.html#stdio-over-ssh
-   .. _IOM: https://sassoftware.github.io/saspy/install.html#iom
-   .. _IOM Local: https://sassoftware.github.io/saspy/install.html#local
-   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/configuration.html
 
-   * Configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
-   * GitHub version of the file: https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py
+   * SASPy documentation: https://sassoftware.github.io/saspy/index.html
    * More information about SASPy: https://github.com/sassoftware/saspy
 
 
@@ -157,7 +143,7 @@ Windows install (assuming SAS already installed)
    following:
 
    * Install in the default location unless you have a good reason to change it.
-     Using the default location simplifies administration. 
+     Using the default location simplifies administration.
 
      .. image:: ./images/ap3.PNG
         :scale: 50%
@@ -169,7 +155,7 @@ Windows install (assuming SAS already installed)
         :scale: 50%
 
    * Another installation prompt is to add the path to your environment. SAS
-     recommends that you answer 'yes' to the prompt so that you get the 
+     recommends that you answer 'yes' to the prompt so that you get the
      executables in your path automatically. Adding the path your environment
      simplifies starting Python and Jupyter.
 
@@ -186,7 +172,7 @@ Windows install (assuming SAS already installed)
    package. The SASPy package is available from https://github.com/sassoftware/saspy.
    If the ``pip`` command in your path does not map to Python3, then use ``pip3``
    instead.
-   :: 
+   ::
 
        pip install sas_kernel
 
@@ -209,20 +195,12 @@ Windows install (assuming SAS already installed)
 
 
    Use the `SASPy configuration documentation`_ to complete you set up.
-   If you are using Linux or Unix the STDIO_ or `STDIO over SSH`_ will be the fastest connections, but IOM is also available
-   All other systems will use *only* the IOM_ connection. If you want to connect to PC SAS on your local system, use `IOM Local`_
 
-   .. _STDIO: https://sassoftware.github.io/saspy/install.html#stdio
-   .. _STDIO over SSH: https://sassoftware.github.io/saspy/install.html#stdio-over-ssh
-   .. _IOM: https://sassoftware.github.io/saspy/install.html#iom
-   .. _IOM Local: https://sassoftware.github.io/saspy/install.html#local
-   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/configuration.html
 
-   * Configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
-   * GitHub version of the file: https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py
+   * SASPy documentation: https://sassoftware.github.io/saspy/index.html
    * More information about SASPy: https://github.com/sassoftware/saspy
 
-   .. NOTE:: For PC SAS (connecting to your local system), use the `IOM Local`_ connection instructions.
 
 
 *****************
@@ -236,13 +214,13 @@ OSX (Mac) install
    following:
 
    * Install in the default location unless you have a good reason to change it.
-     Using the default location simplifies administration. 
+     Using the default location simplifies administration.
 
    * One installation prompt is to make Python accessible for just your account
      or for all users.  Select the best response for your situation.
 
    * Another installation prompt is to add the path to your environment. SAS
-     recommends that you answer 'yes' to the prompt so that you get the 
+     recommends that you answer 'yes' to the prompt so that you get the
      executables in your path automatically. Adding the path your environment
      simplifies starting Python and Jupyter.
 
@@ -250,7 +228,7 @@ OSX (Mac) install
    package. The SASPy package is available from https://github.com/sassoftware/saspy.
    If the ``pip`` command in your path does not map to Python3, then use ``pip3``
    instead.
-   :: 
+   ::
 
        pip install sas_kernel
 
@@ -274,20 +252,11 @@ OSX (Mac) install
 
 
    Use the `SASPy configuration documentation`_ to complete you set up.
-   If you are using Linux or Unix the STDIO_ or `STDIO over SSH`_ will be the fastest connections, but IOM is also available
-   All other systems will use *only* the IOM_ connection. If you want to connect to PC SAS on your local system, use `IOM Local`_
 
-   .. _STDIO: https://sassoftware.github.io/saspy/install.html#stdio
-   .. _STDIO over SSH: https://sassoftware.github.io/saspy/install.html#stdio-over-ssh
-   .. _IOM: https://sassoftware.github.io/saspy/install.html#iom
-   .. _IOM Local: https://sassoftware.github.io/saspy/install.html#local
-   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
+   .. _SASPy configuration documentation: https://sassoftware.github.io/saspy/configuration.html
 
-   * Configuration documentation: https://sassoftware.github.io/saspy/install.html#configuration
-   * GitHub version of the file: https://github.com/sassoftware/saspy/blob/master/saspy/sascfg.py
+   * SASPy documentation: https://sassoftware.github.io/saspy/index.html
    * More information about SASPy: https://github.com/sassoftware/saspy
-
-   .. NOTE:: For OSX, the only supported configuration is an IOM_ connection.
 
 
 ===========================
@@ -348,14 +317,14 @@ file structure as shown below:
     +-- theme
 
 You can install the extensions from the command line. To install an extension
-system-wide, use the following command with Superuser privileges (root or 
+system-wide, use the following command with Superuser privileges (root or
 sudo). The following command assumes that you are in the nbextensions
-directory. Adjust the path if you are not. 
+directory. Adjust the path if you are not.
 
 ::
 
     jupyter nbextension install ./showSASLog
-   
+
 Your output should look similar to the following (installed with Superuser
 privileges):
 
