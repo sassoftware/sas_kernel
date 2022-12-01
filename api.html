@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API Reference &mdash; sas_kernel 2.1.0 documentation</title>
+  <title>API Reference &mdash; sas_kernel 2.4.13 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="sas_kernel 2.1.0 documentation" href="index.html"/>
+    <link rel="top" title="sas_kernel 2.4.13 documentation" href="index.html"/>
         <link rel="next" title="License" href="license.html"/>
         <link rel="prev" title="Getting started" href="getting-started.html"/> 
 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.4.13
               </div>
             
           
@@ -174,23 +174,39 @@
 <p>SAS Kernel for Jupyter implementation. This module relies on SASPy</p>
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.Display">
-<code class="descname">Display</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Display" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">Display</code><span class="sig-paren">(</span><em>*objects</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display one or more objects using rich display.</p>
+<p>Supports a <cite>clear_output</cite> keyword argument that clears the output before displaying.</p>
+<p>See <a class="reference external" href="https://ipython.readthedocs.io/en/stable/config/integrating.html?highlight=display#rich-display">https://ipython.readthedocs.io/en/stable/config/integrating.html?highlight=display#rich-display</a></p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.Error">
-<code class="descname">Error</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">Error</code><span class="sig-paren">(</span><em>*objects</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print <cite>objects</cite> to stdout, separated by <cite>sep</cite> and followed by <cite>end</cite>.</p>
+<p>Objects are cast to strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sas_kernel.kernel.SASKernel.Error_display">
+<code class="descname">Error_display</code><span class="sig-paren">(</span><em>*objects</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Error_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print <cite>objects</cite> to stdout is they area strings, separated by <cite>sep</cite> and followed by <cite>end</cite>.
+All other objects are rendered using the Display method
+Objects are cast to strings.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.Print">
-<code class="descname">Print</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Print" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">Print</code><span class="sig-paren">(</span><em>*objects</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print <cite>objects</cite> to the iopub stream, separated by <cite>sep</cite> and followed by <cite>end</cite>.</p>
+<p>Items can be strings or <cite>Widget</cite> instances.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.Write">
 <code class="descname">Write</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.Write" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Write message directly to the iopub stdout with no added end character.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.abort_request">
@@ -209,6 +225,11 @@
 <code class="descname">add_traits</code><span class="sig-paren">(</span><em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.add_traits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dynamically add trait attributes to the HasTraits instance.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.app_name">
+<code class="descname">app_name</code><em class="property"> = 'metakernel'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.app_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.apply_request">
@@ -309,7 +330,8 @@ to the function.</p>
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.clear_output">
 <code class="descname">clear_output</code><span class="sig-paren">(</span><em>wait=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.clear_output" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Clear the output of the kernel.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.clear_request">
@@ -387,17 +409,22 @@ prior to entering the block.</p>
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.do_complete">
 <code class="descname">do_complete</code><span class="sig-paren">(</span><em>code</em>, <em>cursor_pos</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_complete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Handle code completion for the kernel.</p>
+<p><a class="reference external" href="https://jupyter-client.readthedocs.io/en/stable/messaging.html#completion">https://jupyter-client.readthedocs.io/en/stable/messaging.html#completion</a></p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.do_execute">
 <code class="descname">do_execute</code><span class="sig-paren">(</span><em>code</em>, <em>silent=False</em>, <em>store_history=True</em>, <em>user_expressions=None</em>, <em>allow_stdin=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Handle code execution.</p>
+<p><a class="reference external" href="https://jupyter-client.readthedocs.io/en/stable/messaging.html#execute">https://jupyter-client.readthedocs.io/en/stable/messaging.html#execute</a></p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.do_execute_direct">
-<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &rarr; str<a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_execute_direct" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the main method that takes code from the Jupyter cell and submits it to the SAS server</p>
+<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &#x2192; typing.Union[str, dict]<a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_execute_direct" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the main method that takes code from the Jupyter cell
+and submits it to the SAS server.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -444,12 +471,15 @@ commands can answer with a string in the format:</p>
 <dt id="sas_kernel.kernel.SASKernel.do_history">
 <code class="descname">do_history</code><span class="sig-paren">(</span><em>hist_access_type</em>, <em>output</em>, <em>raw</em>, <em>session=None</em>, <em>start=None</em>, <em>stop=None</em>, <em>n=None</em>, <em>pattern=None</em>, <em>unique=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_history" title="Permalink to this definition">¶</a></dt>
 <dd><p>Access history at startup.</p>
+<p><a class="reference external" href="https://jupyter-client.readthedocs.io/en/stable/messaging.html#history">https://jupyter-client.readthedocs.io/en/stable/messaging.html#history</a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.do_inspect">
 <code class="descname">do_inspect</code><span class="sig-paren">(</span><em>code</em>, <em>cursor_pos</em>, <em>detail_level=0</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.do_inspect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Object introspection.</p>
+<p><a class="reference external" href="https://jupyter-client.readthedocs.io/en/stable/messaging.html#introspection">https://jupyter-client.readthedocs.io/en/stable/messaging.html#introspection</a></p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.do_is_complete">
@@ -466,10 +496,11 @@ an indentation string.</p>
 <p>Example:</p>
 <blockquote>
 <div><dl class="docutils">
-<dt>return {&#8216;status&#8217;</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;incomplete&#8217;,</span><dd>&#8216;indent&#8217;: &#8216; &#8216; * 4}</dd>
+<dt>return {&#8216;status&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;incomplete&#8217;,</span></dt>
+<dd>&#8216;indent&#8217;: &#8216; &#8216; * 4}</dd>
 </dl>
 </div></blockquote>
+<p><a class="reference external" href="https://jupyter-client.readthedocs.io/en/stable/messaging.html#code-completeness">https://jupyter-client.readthedocs.io/en/stable/messaging.html#code-completeness</a></p>
 </dd></dl>
 
 <dl class="method">
@@ -528,12 +559,14 @@ an indentation string.</p>
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.get_help_on">
 <code class="descname">get_help_on</code><span class="sig-paren">(</span><em>expr</em>, <em>level=0</em>, <em>none_on_fail=False</em>, <em>cursor_pos=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_help_on" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get help for an expression using the help magic.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.get_kernel_help_on">
 <code class="descname">get_kernel_help_on</code><span class="sig-paren">(</span><em>info</em>, <em>level=0</em>, <em>none_on_fail=False</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.get_kernel_help_on" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get help on an object.  Called by the help magic.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.get_local_magics_dir">
@@ -590,7 +623,7 @@ an indentation string.</p>
 
 <dl class="attribute">
 <dt id="sas_kernel.kernel.SASKernel.help_links">
-<code class="descname">help_links</code><em class="property"> = [{'text': 'MetaKernel Magics', 'url': 'https://github.com/calysto/metakernel/blob/master/metakernel/magics/README.md'}]</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.help_links" title="Permalink to this definition">¶</a></dt>
+<code class="descname">help_links</code><em class="property"> = [{'url': 'https://metakernel.readthedocs.io/en/latest/source/README.html', 'text': 'MetaKernel Magics'}]</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.help_links" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -631,7 +664,7 @@ All trait notifications will fire after all values have been assigned.</p>
 
 <dl class="attribute">
 <dt id="sas_kernel.kernel.SASKernel.implementation_version">
-<code class="descname">implementation_version</code><em class="property"> = '2.1.0'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.implementation_version" title="Permalink to this definition">¶</a></dt>
+<code class="descname">implementation_version</code><em class="property"> = '2.4.13'</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.implementation_version" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -725,7 +758,7 @@ on to the <code class="xref py py-meth docutils literal"><span class="pre">__ini
 
 <dl class="attribute">
 <dt id="sas_kernel.kernel.SASKernel.language_info">
-<code class="descname">language_info</code><em class="property"> = {'name': 'sas', 'mimetype': 'text/x-sas', 'codemirror_mode': 'sas', 'file_extension': '.sas'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.language_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">language_info</code><em class="property"> = {'codemirror_mode': 'sas', 'name': 'sas', 'file_extension': '.sas', 'mimetype': 'text/x-sas'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.language_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -743,7 +776,7 @@ on to the <code class="xref py py-meth docutils literal"><span class="pre">__ini
 
 <dl class="attribute">
 <dt id="sas_kernel.kernel.SASKernel.magic_prefixes">
-<code class="descname">magic_prefixes</code><em class="property"> = {'magic': '%', 'shell': '!', 'help': '?'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.magic_prefixes" title="Permalink to this definition">¶</a></dt>
+<code class="descname">magic_prefixes</code><em class="property"> = {'magic': '%', 'help': '?', 'shell': '!'}</em><a class="headerlink" href="#sas_kernel.kernel.SASKernel.magic_prefixes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -857,12 +890,21 @@ then unintall it.</p>
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.parse_code">
 <code class="descname">parse_code</code><span class="sig-paren">(</span><em>code</em>, <em>cursor_start=0</em>, <em>cursor_end=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.parse_code" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Parse code using our parser.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sas_kernel.kernel.SASKernel.plot_settings">
+<code class="descname">plot_settings</code><a class="headerlink" href="#sas_kernel.kernel.SASKernel.plot_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.post_execute">
 <code class="descname">post_execute</code><span class="sig-paren">(</span><em>retval</em>, <em>code</em>, <em>silent</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.post_execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Post-execution actions</p>
+<p>Handle special kernel variables and display response if not silent.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.post_handler_hook">
@@ -909,17 +951,20 @@ want the <a class="reference internal" href="#sas_kernel.kernel.SASKernel.connec
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.register_magics">
 <code class="descname">register_magics</code><span class="sig-paren">(</span><em>magic_klass</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.register_magics" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Register magics for a given magic_klass.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.reload_magics">
 <code class="descname">reload_magics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.reload_magics" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Reload all of the line and cell magics.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.repr">
 <code class="descname">repr</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.repr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The repr of the kernel.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.restart_kernel">
@@ -929,7 +974,7 @@ want the <a class="reference internal" href="#sas_kernel.kernel.SASKernel.connec
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.run_as_main">
-<code class="descname">run_as_main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.run_as_main" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run_as_main</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.run_as_main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Launch or install a metakernel.</p>
 <p>Modules implementing a metakernel subclass can use the following lines:</p>
 <blockquote>
@@ -948,13 +993,8 @@ want the <a class="reference internal" href="#sas_kernel.kernel.SASKernel.connec
 
 <dl class="method">
 <dt id="sas_kernel.kernel.SASKernel.send_response">
-<code class="descname">send_response</code><span class="sig-paren">(</span><em>stream</em>, <em>msg_or_type</em>, <em>content=None</em>, <em>ident=None</em>, <em>buffers=None</em>, <em>track=False</em>, <em>header=None</em>, <em>metadata=None</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.send_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Send a response to the message we&#8217;re currently processing.</p>
-<p>This accepts all the parameters of <code class="xref py py-meth docutils literal"><span class="pre">jupyter_client.session.Session.send()</span></code>
-except <code class="docutils literal"><span class="pre">parent</span></code>.</p>
-<p>This relies on <a class="reference internal" href="#sas_kernel.kernel.SASKernel.set_parent" title="sas_kernel.kernel.SASKernel.set_parent"><code class="xref py py-meth docutils literal"><span class="pre">set_parent()</span></code></a> having been called for the current
-message.</p>
-</dd></dl>
+<code class="descname">send_response</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#sas_kernel.kernel.SASKernel.send_response" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="sas_kernel.kernel.SASKernel.session">
@@ -1124,8 +1164,9 @@ If name is not specified, removes all trait notifiers.</p>
 <p>SAS Kernel for Jupyter implementation. This module relies on SASPy</p>
 <dl class="method">
 <dt>
-<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &rarr; str</dt>
-<dd><p>This is the main method that takes code from the Jupyter cell and submits it to the SAS server</p>
+<code class="descname">do_execute_direct</code><span class="sig-paren">(</span><em>code: str</em>, <em>silent: bool = False</em><span class="sig-paren">)</span> &#x2192; typing.Union[str, dict]</dt>
+<dd><p>This is the main method that takes code from the Jupyter cell
+and submits it to the SAS server.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1188,7 +1229,7 @@ If name is not specified, removes all trait notifiers.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 SAS Institute Inc. All Rights Reserved..
+        &copy; Copyright .
 
     </p>
   </div>
@@ -1210,7 +1251,7 @@ If name is not specified, removes all trait notifiers.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.1.0',
+            VERSION:'2.4.13',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -1220,7 +1261,7 @@ If name is not specified, removes all trait notifiers.</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
