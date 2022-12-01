@@ -243,50 +243,53 @@ class SASKernel(MetaKernel):
         else:
             relstart = info['start']
         seg = info['line'][:relstart]
-        if relstart > 0 and re.match('(?i)proc', seg.rsplit(None, 1)[-1]):
+        try:
+           if relstart > 0 and re.match('(?i)proc', seg.rsplit(None, 1)[-1]):
+               potentials = re.findall(
+                   '(?i)^' + info['obj'] + '.*', self.strproclist, re.MULTILINE)
+               return potentials
+        except:
+            pass
+
+        lastproc = info['code'].lower()[:info['help_pos']].rfind('proc')
+        lastdata = info['code'].lower()[:info['help_pos']].rfind('data ')
+        proc = False
+        data = False
+        if lastproc + lastdata == -2:
+            pass
+        else:
+            if lastproc > lastdata:
+                proc = True
+            else:
+                data = True
+
+        if proc:
+            # we are not in data section should see if proc option or statement
+            lastsemi = info['code'].rfind(';')
+            mykey = 's'
+            if lastproc > lastsemi:
+                mykey = 'p'
+            procer = re.search(r'(?i)proc\s\w+', info['code'][lastproc:])
+            method = procer.group(0).split(' ')[-1].upper() + mykey
+            mylist = self.compglo[method][0]
             potentials = re.findall(
-                '(?i)^' + info['obj'] + '.*', self.strproclist, re.MULTILINE)
+                '(?i)' + info['obj'] + '.+', '\n'.join(str(x) for x in mylist), re.MULTILINE)
+            return potentials
+        elif data:
+            # we are in statements (probably if there is no data)
+            # assuming we are in the middle of the code
+
+            lastsemi = info['code'].rfind(';')
+            mykey = 's'
+            if lastproc > lastsemi:
+                mykey = 'p'
+            mylist = self.compglo['DATA' + mykey][0]
+            potentials = re.findall(
+                '(?i)^' + info['obj'] + '.*', '\n'.join(str(x) for x in mylist), re.MULTILINE)
             return potentials
         else:
-            lastproc = info['code'].lower()[:info['help_pos']].rfind('proc')
-            lastdata = info['code'].lower()[:info['help_pos']].rfind('data ')
-            proc = False
-            data = False
-            if lastproc + lastdata == -2:
-                pass
-            else:
-                if lastproc > lastdata:
-                    proc = True
-                else:
-                    data = True
-
-            if proc:
-                # we are not in data section should see if proc option or statement
-                lastsemi = info['code'].rfind(';')
-                mykey = 's'
-                if lastproc > lastsemi:
-                    mykey = 'p'
-                procer = re.search(r'(?i)proc\s\w+', info['code'][lastproc:])
-                method = procer.group(0).split(' ')[-1].upper() + mykey
-                mylist = self.compglo[method][0]
-                potentials = re.findall(
-                    '(?i)' + info['obj'] + '.+', '\n'.join(str(x) for x in mylist), re.MULTILINE)
-                return potentials
-            elif data:
-                # we are in statements (probably if there is no data)
-                # assuming we are in the middle of the code
-
-                lastsemi = info['code'].rfind(';')
-                mykey = 's'
-                if lastproc > lastsemi:
-                    mykey = 'p'
-                mylist = self.compglo['DATA' + mykey][0]
-                potentials = re.findall(
-                    '(?i)^' + info['obj'] + '.*', '\n'.join(str(x) for x in mylist), re.MULTILINE)
-                return potentials
-            else:
-                potentials = ['']
-                return potentials
+            potentials = ['']
+            return potentials
 
     @staticmethod
     def _get_right_list(s):
