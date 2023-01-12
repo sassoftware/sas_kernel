@@ -22,7 +22,7 @@ class Prompt4VarMagic(Magic):
 
     def line_prompt4var(self, *args):
         """
-        %%prompt4var - Prompt for macro variables that will
+        %prompt4var - Prompt for macro variables that will
         be assigned to the SAS session. The variables will be
         prompted each time the line magic is executed.
         Example:
