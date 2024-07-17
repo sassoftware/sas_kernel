@@ -22,7 +22,8 @@ from distutils.command.install import install
 
 import os
 import sys
-from sas_kernel.version import __version__
+#from sas_kernel.version import __version__
+exec(open('./sas_kernel/version.py').read())
 
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
