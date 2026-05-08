@@ -136,8 +136,8 @@ There are magics that have been written specifically for the sas_kernel to get m
   When you restart the kernel in a notebook you are terminating the current SAS session and starting a new one. All of the temporary artifacts, data sets in the WORK library, assigned libnames, filename, WORK macros, and so on are destroyed.
 
 ## Contributing
-
-The [Contributor Agreement](https://github.com/sassoftware/sas_kernel/blob/master/ContributorAgreement.txt) details how contributions can be made.
+Maintainers are accepting patches and contributions to this project.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details about submitting contributions to this project.
 
 ## Licensing
 
